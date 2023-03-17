@@ -31,7 +31,9 @@ class test extends Command
     public function handle(): void
     {
         $test = new TestApi();
-        $response = $test->send("Hola dime quien eres");
+        $prompt = 'Como profesor, vas a generar un exámen de inglés, solo la primera pregunta. Máximo 100 palabras';
+
+        $response = $test->send($prompt);
         var_dump($response);
     }
 }

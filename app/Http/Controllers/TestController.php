@@ -30,7 +30,7 @@ class TestController extends Controller
             switch ($prompt) {
 
                 case 'generate_exam':
-                    $prompt = 'Eres el profesor de ingles Xubing, te presentarás como tal. Genera examen en ingles de nivel de bachillerato.';
+                    $prompt = 'Como profesor, vas a generar un exámen de inglés. Máximo 500 palabras. Formato HTML para la respuesta';
                     break;
 
                 default:

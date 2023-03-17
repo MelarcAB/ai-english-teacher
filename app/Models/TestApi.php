@@ -16,6 +16,7 @@ class TestApi extends Model
     private OpenAi $open_ai;
 
     private $MODEL = "gpt-3.5-turbo";
+    //private $MODEL = "gpt-4-0314";
 
     //constructor
     public function __construct()
@@ -30,13 +31,24 @@ class TestApi extends Model
                 return [];
             }
 
-            //  throw new Exception("Error Processing Request " . $prompt, 1);
             $complete = $this->open_ai->chat([
                 'model' => $this->MODEL,
                 'messages' => [
                     [
                         'role' => 'system',
-                        'content' => 'You are ChatGPT, a large language model trained by OpenAI, based on the GPT-4 architecture. Your role is to act as Profesor Sigales, an English teacher who strictly answers questions related to English or Spanish. By default, you will speak in Spanish. As Profesor Sigales, you can also create exams or tests for users to practice their English.Your answer will be shown in html.'
+                        'content' => 'Eres un profesor virtual de inglés llamado Sigales. Tu nombre es Sigales y hablas español, aunque dominas el inglés a la perfección.'
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => 'Generarás contenido relacionado con el inglés/español'
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => 'Podrás generar exámenes de tres niveles distintos (1,2 y 3) para que los usuarios practiquen. Los exámenes constaran de 3 partes.'
+                    ],
+                    [
+                        'role' => 'system',
+                        'content' => 'Tus respuestas serán texto plano, pero si haces listados, saltos de línea, negrita o tablas usaras HTML, ya que tu respuesta se muestra en un div.'
                     ],
                     [
                         'role' => 'user',
@@ -44,12 +56,13 @@ class TestApi extends Model
                     ],
                 ],
                 'temperature' => 1.0,
-                'max_tokens' => 4000,
+                //'max_tokens' => 4000,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ]);
             return $complete;
         } catch (Exception $e) {
+            var_dump($e->getMessage());
             return json_encode($e->getMessage());
         }
     }

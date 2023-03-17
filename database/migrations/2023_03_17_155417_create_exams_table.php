@@ -19,7 +19,18 @@ return new class extends Migration
          * Grammar
          * Vocabulary
          * 
+         * 
+         * 
+         * 
          */
+        /*
+        A1 (Principiante)
+        A2 (Elemental)
+        B1 (Intermedio)
+        B2 (Intermedio Alto)
+        C1 (Avanzado)
+        C2 (Maestría)
+        */
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('level')->nullable()->default("-");
@@ -34,6 +45,27 @@ return new class extends Migration
             $table->text('writing_answer_1')->nullable()->default("-");
             $table->text('writing_answer_2')->nullable()->default("-");
             $table->text('writing_answer_3')->nullable()->default("-");
+
+
+            //gramatica
+            $table->text('grammar_question_1')->nullable()->default("-");
+            $table->text('grammar_question_2')->nullable()->default("-");
+            $table->text('grammar_question_3')->nullable()->default("-");
+            $table->text('grammar_question_4')->nullable()->default("-");
+            $table->text('grammar_question_5')->nullable()->default("-");
+
+            //respuesta gramatica
+            $table->text('grammar_answer_1')->nullable()->default("-");
+            $table->text('grammar_answer_2')->nullable()->default("-");
+            $table->text('grammar_answer_3')->nullable()->default("-");
+            $table->text('grammar_answer_4')->nullable()->default("-");
+            $table->text('grammar_answer_5')->nullable()->default("-");
+            //vocabulary
+            $table->text('vocabulary_question_1')->nullable()->default("-");
+            $table->text('vocabulary_question_2')->nullable()->default("-");
+            $table->text('vocabulary_question_3')->nullable()->default("-");
+            $table->text('vocabulary_question_4')->nullable()->default("-");
+            $table->text('vocabulary_question_5')->nullable()->default("-");
 
 
 
