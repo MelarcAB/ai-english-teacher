@@ -25,11 +25,19 @@ class TestApi extends Model
         $this->open_ai = new OpenAi(env('OPENAI_API_KEY'));
     }
 
-    public function send($prompt = "")
+    public function send($prompt = "", $instructions = "", $instructions2 = "")
     {
         try {
             if ($prompt == "") {
                 return [];
+            }
+
+            if ($instructions == "") {
+                $instructions = 'Eres el Profesor Gusti, un asistente virtual de inglés que habla castellano. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita.';
+            }
+
+            if ($instructions2 == "") {
+                $instructions2 = 'Eres un profesor virtual de inglés llamado Sigales. Tu nombre es Sigales y hablas español, aunque dominas el inglés. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita.';
             }
 
             $complete = $this->open_ai->chat([
@@ -37,13 +45,12 @@ class TestApi extends Model
                 'messages' => [
                     [
                         'role' => 'system',
-                        //'content' => 'Eres un profesor virtual de inglés llamado Sigales. Tu nombre es Sigales y hablas español, aunque dominas el inglés a la perfección.'
-                        'content' => 'Eres el Profesor Gusti, un asistente virtual de inglés que habla castellano. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita.'
+                        'content' => $instructions
 
                     ],
                     [
                         'role' => 'user',
-                        'content' => 'Eres el Profesor Gusti, un asistente virtual de inglés que habla castellano. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita. Las tablas tambien en html <table>.'
+                        'content' => $instructions2
                     ], [
                         'role' => 'user',
                         'content' => $prompt

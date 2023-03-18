@@ -35,16 +35,10 @@ return new class extends Migration
             $table->id();
             $table->string('level')->nullable()->default("-");
             //texto writing + 3 preguntas
-            $table->text('writing')->nullable()->default("-");
-            $table->text('writing_question_1')->nullable()->default("-");
-            $table->text('writing_question_2')->nullable()->default("-");
-            $table->text('writing_question_3')->nullable()->default("-");
-
-            //respuesta writing
-            $table->text('writing_answer_1')->nullable()->default("-");
-            $table->text('writing_answer_2')->nullable()->default("-");
-            $table->text('writing_answer_3')->nullable()->default("-");
-
+            $table->text('reading')->nullable()->default("-");
+            $table->text('reading_question_1')->nullable()->default("-");
+            $table->text('reading_question_2')->nullable()->default("-");
+            $table->text('reading_question_3')->nullable()->default("-");
 
             //gramatica
             $table->text('grammar_question_1')->nullable()->default("-");
@@ -53,12 +47,7 @@ return new class extends Migration
             $table->text('grammar_question_4')->nullable()->default("-");
             $table->text('grammar_question_5')->nullable()->default("-");
 
-            //respuesta gramatica
-            $table->text('grammar_answer_1')->nullable()->default("-");
-            $table->text('grammar_answer_2')->nullable()->default("-");
-            $table->text('grammar_answer_3')->nullable()->default("-");
-            $table->text('grammar_answer_4')->nullable()->default("-");
-            $table->text('grammar_answer_5')->nullable()->default("-");
+
             //vocabulary
             $table->text('vocabulary_question_1')->nullable()->default("-");
             $table->text('vocabulary_question_2')->nullable()->default("-");

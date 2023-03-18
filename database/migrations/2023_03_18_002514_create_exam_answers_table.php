@@ -13,6 +13,36 @@ return new class extends Migration
     {
         Schema::create('exam_answers', function (Blueprint $table) {
             $table->id();
+
+            //user
+            //$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('reading_answer_1')->nullable()->default("-");
+            $table->text('reading_answer_2')->nullable()->default("-");
+            $table->text('reading_answer_3')->nullable()->default("-");
+
+            //respuesta gramatica
+            $table->text('grammar_answer_1')->nullable()->default("-");
+            $table->text('grammar_answer_2')->nullable()->default("-");
+            $table->text('grammar_answer_3')->nullable()->default("-");
+            $table->text('grammar_answer_4')->nullable()->default("-");
+            $table->text('grammar_answer_5')->nullable()->default("-");
+
+            //respuesta vocabulary
+            $table->text('vocabulary_answer_1')->nullable()->default("-");
+            $table->text('vocabulary_answer_2')->nullable()->default("-");
+            $table->text('vocabulary_answer_3')->nullable()->default("-");
+            $table->text('vocabulary_answer_4')->nullable()->default("-");
+            $table->text('vocabulary_answer_5')->nullable()->default("-");
+
+            //respuesta writing
+            $table->text('writing_answer')->nullable()->default("-");
+
+
+            //is_correction
+            $table->boolean('is_correction')->nullable()->default(false);
+
+            //exam
+            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
             $table->timestamps();
         });
     }
