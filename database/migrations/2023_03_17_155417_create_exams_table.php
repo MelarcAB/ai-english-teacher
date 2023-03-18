@@ -34,7 +34,6 @@ return new class extends Migration
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('level')->nullable()->default("-");
-            $table->string('title')->nullable()->default("-");
             //texto writing + 3 preguntas
             $table->text('writing')->nullable()->default("-");
             $table->text('writing_question_1')->nullable()->default("-");

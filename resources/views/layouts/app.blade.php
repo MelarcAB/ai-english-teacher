@@ -11,7 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
 </head>
@@ -31,6 +31,8 @@
         @yield('content')
     </main>
 
+
+    <!--
     <footer class="mt-10 text-center p-5 text-gray-500 font-bold">
         <i class="fa fa-copyright" aria-hidden="true"></i>
         IA Examinador Inglés - MelarcAB
@@ -39,7 +41,7 @@
         @endphp
         {{ now()->year }}
     </footer>
-
+-->
 
 </body>
 
