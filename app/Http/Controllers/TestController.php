@@ -53,4 +53,9 @@ class TestController extends Controller
             return $e->getMessage();
         }
     }
+
+    function landing()
+    {
+        return view('layouts.landing');
+    }
 }
