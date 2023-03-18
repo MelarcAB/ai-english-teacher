@@ -44,6 +44,21 @@
                     </div>
                 </div>
 
+                @if (auth()->user()->isAdmin())
+                    <div class="bg-teal-100 p-6 rounded-md">
+                        <div class="flex items-center justify-center mb-4">
+                            <i class="fa-solid fa-gear text-4xl text-teal-800"></i>
+                            <h2 class="text-xl font-bold ml-4 text-teal-800">Logs</h2>
+                        </div>
+                        <p class="mb-4 text-teal-700">Logs de las peticiones con sus consumos de tokens de las generaciones.
+                        </p>
+                        <div class="flex justify-center">
+                            <a href="{{ route('test') }}"
+                                class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Ver logs</a>
+                        </div>
+                    </div>
+                @endif
+
             </div>
 
 

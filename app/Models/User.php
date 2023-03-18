@@ -25,7 +25,9 @@ class User extends Authenticatable
         'email',
         'password',
         'username',
-        'provider_id'
+        'provider_id',
+        //1 usuario web, 2 admin
+        'user_type',
     ];
 
     /**
@@ -47,6 +49,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function isAdmin()
+    {
+        return $this->user_type == 2;
+    }
 
 
     //examenes del usuario

@@ -55,4 +55,11 @@ class Log extends Model
 
         // var_dump(($response->object));
     }
+
+
+    function index()
+    {
+        $logs = Log::all();
+        return view('logs.index', compact('logs'));
+    }
 }

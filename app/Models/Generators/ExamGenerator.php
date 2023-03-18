@@ -91,7 +91,7 @@ class ExamGenerator extends Model
         //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
         ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
         $grammar_questions = $test_api->send(
-            "GENERA EN INGLES 5 EJERCICIOS DE GRAMATICA. Solo una solución correcta. En este formato: Pregunta + opciones + '|' . Deben quedar separas las 5 generaciones por '|'",
+            "GENERA EN INGLES 5 EJERCICIOS DE GRAMATICA. Solo una solución correcta. En este formato: Pregunta + opciones + '|' . Deben quedar separas las 5 generaciones por '|', Tu respuesta se guardará BD, en 5 campos distintos. Tu respuesta directamente es lo que te pido",
             '',
             "EJEMPLO EJERCICIOS DE GRAMATICA(SOLO SON EJEMPLOS):" . $example_exam['GAMMAR_QUESTIONS']
         );

@@ -23,6 +23,9 @@ return new class extends Migration
             $table->timestamps();
             //provider_id
             $table->string('provider_id')->nullable();
+            //user type -> num
+            //1-web,2-admin
+            $table->integer('user_type')->default(1);
         });
     }
 

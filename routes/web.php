@@ -36,3 +36,9 @@ Route::controller(App\Http\Controllers\TestController::class)->middleware('auth'
     //exam show
     Route::get('/exam/{exam:id}', 'show')->name('exam.show');
 });
+
+
+//logs controller (only for auth)
+Route::controller(App\Http\Controllers\LogController::class)->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/logs', 'index')->name('logs');
+});
