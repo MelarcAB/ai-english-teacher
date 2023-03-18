@@ -20,4 +20,16 @@ class Exam extends Model
         'level',
         'user_id',
     ];
+
+
+    //serialize Exam to string
+    public function obj_to_string()
+    {
+        $obj = $this;
+        $str = "";
+        foreach ($obj as $key => $value) {
+            $str .= "<b>" . $key . "</b>" . " : " . $value . " | ";
+        }
+        return $str;
+    }
 }

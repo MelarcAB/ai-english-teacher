@@ -21,7 +21,7 @@ class ExamGenerator extends Model
     public function generateExam($level = "A1")
     {
 
-        print "Generando examen de nivel " . $level . "..." . PHP_EOL;
+        //     print "Generando examen de nivel " . $level . "..." . PHP_EOL;
 
         //obtener ejemplo de examen
         $example_exam = (new ExamExamples())->getExampleExam($level);
@@ -34,9 +34,9 @@ class ExamGenerator extends Model
         //generar texto a leer + 3 preguntas
 
 
-        print "Generando reading..." . PHP_EOL;
+        //  print "Generando reading..." . PHP_EOL;
         $reading = $test_api->send(
-            "Genera otro texto de examen como el del ejemplo anterior, de otra temática. Directamente el texto.",
+            "Genera un texto totalmente distinto al anterior, con la misma estructura y número de palabras. Recuerda escribir siempre en inglés, ya que es parte de un examen.",
             '',
             $example_exam['EXAMPLE_READING']
         );
@@ -46,7 +46,7 @@ class ExamGenerator extends Model
         $response_text = $reading->choices[0]->message->content;
 
         $exam->reading = $response_text;
-        print "Generando preguntas..." . PHP_EOL;
+        // print "Generando preguntas..." . PHP_EOL;
         $reading_questions = $test_api->send(
             "Genera tres preguntas relacionadas al texto anterior. Preguntas obligatoriamente separadas por |.  Deben parecerse de ejemplo anteriores.",
             '',
@@ -64,8 +64,10 @@ class ExamGenerator extends Model
         $exam->reading_question_3 = $questions[2];
 
 
-        print "Guardando examen..." . PHP_EOL;
+        // print "Guardando examen..." . PHP_EOL;
         $exam->save();
-        var_dump($reading);
+
+        // print "Examen generado con éxito!" . PHP_EOL;
+        return $exam;
     }
 }

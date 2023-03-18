@@ -68,8 +68,8 @@ $(document).ready(function () {
     }
 
     function manageResponse(response) {
-        response = response.choices[0].message;
-        let msg_response = (response.content);
+        response = response.message;
+        let msg_response = (response);
         //  console.log(msg_response);
         addResponseToContainer(msg_response);
     }

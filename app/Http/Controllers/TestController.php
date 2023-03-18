@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 //testapi
 use App\Models\TestApi;
 
+//exam generator
+use App\Models\Generators\ExamGenerator;
+
 //exception
 use Exception;
 
@@ -26,20 +29,25 @@ class TestController extends Controller
         try {
             $prompt = $request->input('prompt');
 
+            $response = [];
             //switch del prompt
             switch ($prompt) {
 
                 case 'generate_exam':
-                    $prompt = 'Como profesor, vas a generar un exámen de inglés. Máximo 500 palabras. Formato HTML para la respuesta';
+                    $ex = (new ExamGenerator())->generateExam();
+                    $response['message'] = implode(', ', $ex->toArray());
                     break;
-
                 default:
+                    $test = new TestApi();
+                    $message = $test->send($prompt);
+                    $message = json_decode($message);
+                    $message = $message->choices[0]->message->content;
+                    $response['message'] = $message;
                     break;
             }
 
 
-            $test = new TestApi();
-            $response = $test->send($prompt);
+
             return $response;
         } catch (Exception $e) {
             return $e->getMessage();
