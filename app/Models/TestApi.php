@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use Orhanerday\OpenAi\OpenAi;
 
-
+//log
+use App\Models\Log;
 //exception
 use Exception;
 
@@ -53,6 +54,9 @@ class TestApi extends Model
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ]);
+
+            //log
+            Log::logOpenAi($complete, $prompt);
             return $complete;
         } catch (Exception $e) {
             var_dump($e->getMessage());

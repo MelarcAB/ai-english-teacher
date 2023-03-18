@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             //message
-            $table->text('message')->nullable()->default("-");
-            //extra
-            $table->text('extra')->nullable()->default("-");
+            $table->text('prompt')->nullable()->default("-");
+            $table->text('text')->nullable()->default("-");
+            //model
+            $table->string('model')->nullable()->default("-");
+            //usage
+            $table->string('prompt_tokens')->nullable()->default("0");
+            $table->string('completion_tokens')->nullable()->default("0");
+            $table->string('total_tokens')->nullable()->default("0");
 
             $table->timestamps();
         });
