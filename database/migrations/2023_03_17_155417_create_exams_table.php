@@ -57,7 +57,7 @@ return new class extends Migration
 
 
             //user_id
-            $table->unsignedBigInteger('user_id')->nullable()->default(0);
+            $table->unsignedBigInteger('user_id')->constraint()->onDelete('cascade');
 
             $table->timestamps();
         });

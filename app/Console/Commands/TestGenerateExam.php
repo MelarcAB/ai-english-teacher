@@ -31,6 +31,6 @@ class TestGenerateExam extends Command
     {
 
         $exam_generator = new ExamGenerator();
-        $exam_generator->generateExam();
+        $exam_generator->generateExam('A1', true);
     }
 }

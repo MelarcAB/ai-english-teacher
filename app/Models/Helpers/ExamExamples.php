@@ -51,7 +51,9 @@ class ExamExamples extends Model
             b) mods never
             c) only skinheads
             d) I don’t know",
-        ]
+            "GAMMAR_QUESTIONS" => " Hello, Susan. How are you?a) I’m Mary’s brother.b) I’m going home.c) I’m not very well.d) I don’t know.  | When can we meet again?a) It was two days ago.b) When are you free?c) Can you help me?d) I don’t know. |  Joe ___  at school last week. a) didn't be b) isn’t c) wasn’t d) I don’t know. | . They ___ the TV and watched the program.a) turned onb) looked afterc) turned offd) I don’t know"
+        ],
+
     ];
 
 

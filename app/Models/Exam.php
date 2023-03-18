@@ -14,6 +14,12 @@ class Exam extends Model
         'reading_question_1',
         'reading_question_2',
         'reading_question_3',
+        'reading_question_4',
+        'grammar_question_1',
+        'grammar_question_2',
+        'grammar_question_3',
+        'grammar_question_4',
+        'grammar_question_5',
         'listening',
         'writing',
         'speaking',
@@ -53,6 +59,19 @@ class Exam extends Model
         $html .= '<h3 class="text-lg font-semibold mb-2">Listening</h3>';
         $html .= '<p>' . $this->listening . '</p>';
         $html .= '</div>';
+
+        //grammar
+        $html .= '<div class="border-l-4 border-red-500 pl-4">';
+        $html .= '<h3 class="text-lg font-semibold mb-2">Grammar</h3>';
+        $html .= '<ol class="list-decimal pl-4 space-y-1">';
+        $html .= '<li>' . $this->grammar_question_1 . '</li>';
+        $html .= '<li>' . $this->grammar_question_2 . '</li>';
+        $html .= '<li>' . $this->grammar_question_3 . '</li>';
+        $html .= '<li>' . $this->grammar_question_4 . '</li>';
+        $html .= '<li>' . $this->grammar_question_5 . '</li>';
+        $html .= '</ol>';
+        $html .= '</div>';
+
 
         $html .= '<div class="border-l-4 border-yellow-500 pl-4">';
         $html .= '<h3 class="text-lg font-semibold mb-2">Writing</h3>';
