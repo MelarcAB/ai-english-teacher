@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //controller TestController
-Route::controller(TestController::class)
+Route::controller(TestController::class)->middleware('auth:sanctum')
     ->group(function () {
         Route::get('/prompt', 'generateResponse')->name('api-prompt');
     });

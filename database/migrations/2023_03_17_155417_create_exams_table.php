@@ -56,6 +56,8 @@ return new class extends Migration
             $table->text('vocabulary_question_5')->nullable()->default("-");
 
 
+            //user_id
+            $table->unsignedBigInteger('user_id')->nullable()->default(0);
 
             $table->timestamps();
         });

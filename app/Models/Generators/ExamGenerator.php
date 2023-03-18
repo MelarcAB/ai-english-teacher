@@ -12,7 +12,8 @@ use App\Models\Helpers\ExamExamples;
 
 //testapi
 use App\Models\TestApi;
-
+//auth
+use Auth;
 
 class ExamGenerator extends Model
 {
@@ -27,6 +28,9 @@ class ExamGenerator extends Model
         $example_exam = (new ExamExamples())->getExampleExam($level);
         //inicio de examen
         $exam = new Exam();
+        //usuario
+        $user_id = Auth::user()->id;
+        $exam->user_id = Auth::user()->id;
 
         $test_api = new TestApi();
 

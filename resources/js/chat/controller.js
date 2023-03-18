@@ -44,7 +44,9 @@ $(document).ready(function () {
         //using axios
         //csrf token
         const URL_API = "/api/prompt"
-        const token = $('meta[name="csrf-token"]').attr('content');
+        const csrf = $('meta[name="csrf-token"]').attr('content');
+        const token = localStorage.getItem('token');
+
         loading_spinner.show();
         addQuestionToContainer(action);
         axios.get(URL_API, {
@@ -52,7 +54,10 @@ $(document).ready(function () {
                 prompt: action,
             },
             headers: {
-                'X-CSRF-TOKEN': token
+                'X-CSRF-TOKEN': csrf,
+                //bearer token
+                'Authorization': 'Bearer ' + token
+
             }
         })
             .then(function (response) {

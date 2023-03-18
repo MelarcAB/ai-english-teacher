@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+//exam
+use App\Models\Exam;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'provider_id'
     ];
 
     /**
@@ -41,4 +45,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    //examenes del usuario
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
 }

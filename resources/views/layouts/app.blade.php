@@ -16,15 +16,33 @@
     @stack('styles')
 </head>
 
-<body class="bg-teal-100">
-    <header class="p-5  bg-teal-300 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl  font-black text-teal-800 font-extralight">
+<body class="bg-teal-50">
+    <header class="bg-teal-300 shadow-sm">
+        <div class="container mx-auto px-4 py-5 flex items-center justify-between">
+            <a href="/" class="text-3xl font-black text-teal-800 font-extralight flex-shrink-0">
                 <i class="fa-solid fa-robot"></i> IA Examinador Inglés
-            </h1>
-
+            </a>
+            <div class="hidden md:flex md:items-center md:space-x-4">
+                <a href="/configuracion" class="text-teal-800 hover:text-teal-600">Configuración</a>
+                <form method="POST" action="{{ route('auth.logout') }}">
+                    @csrf
+                    <button type="submit" class="text-teal-800 hover:text-teal-600">Cerrar sesión</button>
+                </form>
+            </div>
+            <button id="menu-toggle" class="md:hidden text-teal-800 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden w-full bg-teal-200 shadow-md p-4 transition-all duration-200">
+            <a href="/configuracion" class="block mb-4 text-teal-800 hover:text-teal-600">Configuración</a>
+            <form method="POST" action="{{ route('auth.logout') }}">
+                @csrf
+                <button type="submit" class="block text-teal-800 hover:text-teal-600">Cerrar sesión</button>
+            </form>
         </div>
     </header>
+
+
 
     <main class="container mx-auto mt-3">
         <h2 class="font-black text-center text-3xl mb-3">@yield('title')</h2>
@@ -44,5 +62,21 @@
 -->
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!menuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>
 
 </html>

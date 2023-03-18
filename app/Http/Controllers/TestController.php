@@ -8,7 +8,8 @@ use App\Models\TestApi;
 
 //exam generator
 use App\Models\Generators\ExamGenerator;
-
+//exam
+use App\Models\Exam;
 //exception
 use Exception;
 
@@ -35,7 +36,8 @@ class TestController extends Controller
 
                 case 'generate_exam':
                     $ex = (new ExamGenerator())->generateExam();
-                    $response['message'] = implode(', ', $ex->toArray());
+                    //  $response['message'] = implode(', ', $ex->toArray());
+                    $response['message'] = $ex->generateExamHtml();
                     break;
                 default:
                     $test = new TestApi();
@@ -56,6 +58,25 @@ class TestController extends Controller
 
     function landing()
     {
+
+        //si el usuario esta logueado redirigir a home
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
+
         return view('layouts.landing');
+    }
+
+
+    function list()
+    {
+        //obtenemos todos los examenes del usuario logueado
+        $exams = Exam::where('user_id', auth()->user()->id)->get();
+        return view('exams.list', compact('exams'));
+    }
+
+    function show(Exam $exam)
+    {
+        return view('exams.show', compact('exam'));
     }
 }
