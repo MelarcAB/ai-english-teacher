@@ -67,7 +67,9 @@ class AuthController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            //por ahora dejar como admin para habilitar todos los modulos
+            'user_type' => 2
         ]);
 
         //login
