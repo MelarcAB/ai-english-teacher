@@ -9,7 +9,7 @@
                     Crear cuenta
                 </h2>
             </div>
-            <form class="mt-8 space-y-6" action="/register" method="POST">
+            <form class="mt-8 space-y-6" action="{{ route('auth.register.store') }}" method="POST">
                 @csrf
                 <div class="rounded-md shadow-sm -space-y-px gap-2">
                     <div class="">
@@ -17,31 +17,47 @@
                         <input id="name" name="name" type="text" required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Nombre">
+                        @error('name')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="username" class="sr-only">Nombre de usuario</label>
                         <input id="username" name="username" type="text" required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Nombre de usuario">
+                        @error('username')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="email" class="sr-only">Correo electrónico</label>
                         <input id="email" name="email" type="email" autocomplete="email" required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Correo electrónico">
+                        @error('email')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
                         <label for="password" class="sr-only">Contraseña</label>
-                        <input id="password" name="password" type "password" autocomplete="new-password" required
+                        <input id="password" name="password" type="password" autocomplete="new-password" required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Contraseña">
+                        @error('password')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div>
                         <label for="password_confirmation" class="sr-only">Repite la contraseña</label>
-                        <input id="password" name="password" type "password" autocomplete="new-password" required
+                        <input id="password_confirmation" name="password_confirmation" type="password"
+                            autocomplete="new-password" required
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Repite la contraseña">
+                        @error('password_confirmation')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
 
                 </div>

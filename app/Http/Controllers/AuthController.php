@@ -24,6 +24,21 @@ class AuthController extends Controller
 
     function singin(Request $request)
     {
+        //validacion
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        //login
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('auth.login.show');
+        }
     }
 
     function create()
@@ -33,6 +48,33 @@ class AuthController extends Controller
             return redirect()->route('home');
         }
         return view('auth.register');
+    }
+
+    //store
+    function store(Request $request)
+    {
+        //validacion user
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        //crear usuario
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        //login
+        Auth::login($user);
+
+        //redirigir a home
+        return redirect()->route('home');
     }
 
 
