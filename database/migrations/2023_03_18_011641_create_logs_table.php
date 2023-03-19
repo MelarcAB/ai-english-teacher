@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('prompt_tokens')->nullable()->default("0");
             $table->string('completion_tokens')->nullable()->default("0");
             $table->string('total_tokens')->nullable()->default("0");
+            //user
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
 
             $table->timestamps();
         });

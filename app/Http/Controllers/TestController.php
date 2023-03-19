@@ -79,4 +79,10 @@ class TestController extends Controller
     {
         return view('exams.show', compact('exam'));
     }
+
+    //create exam
+    function create()
+    {
+        return view('exams.create');
+    }
 }

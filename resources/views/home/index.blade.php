@@ -26,7 +26,7 @@
                     <p class="mb-4 text-teal-700">Crea un nuevo examen de inglés personalizado de acuerdo con tus
                         necesidades y nivel.</p>
                     <div class="flex justify-center">
-                        <a href="/crear-examen"
+                        <a href="{{ route('exam.create') }}"
                             class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Crear
                             Examen</a>
                     </div>
@@ -53,7 +53,7 @@
                         <p class="mb-4 text-teal-700">Logs de las peticiones con sus consumos de tokens de las generaciones.
                         </p>
                         <div class="flex justify-center">
-                            <a href="{{ route('test') }}"
+                            <a href="{{ route('logs') }}"
                                 class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Ver logs</a>
                         </div>
                     </div>

@@ -15,6 +15,7 @@
                         <th class="px-6 py-3 text-left font-semibold">Listening</th>
                         <th class="px-6 py-3 text-left font-semibold">Writing</th>
                         <th class="px-6 py-3 text-left font-semibold">Speaking</th>
+                        <th class="px-6 py-3 text-left font-semibold">Fecha</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700 divide-y divide-gray-200">
@@ -27,6 +28,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->listening }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->writing }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->speaking }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $exam->created_at->diffForHumans() }}</td>
                         </tr>
                     @endforeach
                 </tbody>

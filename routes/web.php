@@ -36,6 +36,8 @@ Route::controller(App\Http\Controllers\TestController::class)->middleware('auth'
     Route::get('/exam/list', 'list')->name('exam.list');
     //exam show
     Route::get('/exam/{exam:id}', 'show')->name('exam.show');
+    //exam create
+    Route::get('/new-exam', 'create')->name('exam.create');
 });
 
 

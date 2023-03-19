@@ -19,17 +19,22 @@
                             la completación</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tokens
                             totales</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuario
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($logs as $log)
                         <tr class="hover:bg-gray-100">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->text }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->prompt }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ substr($log->text, 0, 55) }}...
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ substr($log->prompt, 0, 60) }}...</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->model }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->prompt_tokens }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->completion_tokens }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->total_tokens }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->user->name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

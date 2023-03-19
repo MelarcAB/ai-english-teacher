@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Jobs\GenerateExam;
 
 use Orhanerday\OpenAi\OpenAi;
 
@@ -30,10 +31,13 @@ class test extends Command
      */
     public function handle(): void
     {
-        $test = new TestApi();
+        /*  $test = new TestApi();
         $prompt = 'que tal';
 
         $response = $test->send($prompt);
-        var_dump($response);
+        var_dump($response);*/
+
+        //test poner examen en cola
+        GenerateExam::dispatch("A1");
     }
 }

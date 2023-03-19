@@ -14,6 +14,7 @@ class Log extends Model
         'text',
         'prompt',
         'model',
+        'user_id',
         'prompt_tokens',
         'completion_tokens',
         'total_tokens',
@@ -51,6 +52,11 @@ class Log extends Model
         $log->completion_tokens = $completion_tokens;
         $log->total_tokens = $total_tokens;
 
+        //if isset user
+        if (auth()->user()) {
+            $log->user_id = auth()->user()->id;
+        }
+
         $log->save();
 
         // var_dump(($response->object));
@@ -61,5 +67,11 @@ class Log extends Model
     {
         $logs = Log::all();
         return view('logs.index', compact('logs'));
+    }
+
+    //user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
