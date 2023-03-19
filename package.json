@@ -5,7 +5,7 @@
         "build": "vite build",
         "serve": "npm run build && php artisan serve",
         "deploy": "git reset --hard && git pull && php artisan migrate && npm run build && php artisan serve",
-        "deploy force": "git reset --hard && git pull && php artisan migrate:refresh --seed && npm run build && php artisan serve",
+        "force": "git reset --hard && git pull && composer install && composer update && npm install && php artisan migrate:refresh --seed && npm run build && php artisan serve",
         "test": "php artisan test"
     },
     "devDependencies": {
