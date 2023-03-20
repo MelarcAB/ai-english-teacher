@@ -14,6 +14,7 @@ use App\Models\Exam;
 use App\Models\ExamAnswers;
 //exception
 use Exception;
+use App\Jobs\GenerateExam;
 
 class TestController extends Controller
 {
@@ -131,5 +132,24 @@ class TestController extends Controller
         $exam_answers->save();
 
         return redirect()->route('exam.show', $exam_id);
+    }
+
+
+    //generate exam
+    function generate(Request $request)
+    {
+
+        //validari si el tipo de examen es valido (A1, A2, B1, B2, C1, C2)
+        $exam_type = $request->input('level');
+        $exam_types = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+        if (!in_array($exam_type, $exam_types)) {
+            //devolver a la pagina anterior con mensaje de error 'level'
+            return redirect()->back()->with('error', 'El nivel de examen no es valido');
+        }
+
+        //generar examen
+        GenerateExam::dispatch($exam_type, auth()->user()->id);
+
+        return  $this->list();
     }
 }

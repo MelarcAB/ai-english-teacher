@@ -16,9 +16,11 @@ class GenerateExam implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $tipo_exam;
-    public function __construct($tipo_exam = "A1")
+    private $user_id;
+    public function __construct($tipo_exam = "A1", $user_id)
     {
         $this->tipo_exam = $tipo_exam;
+        $this->user_id = $user_id;
     }
 
 
@@ -26,7 +28,7 @@ class GenerateExam implements ShouldQueue
     {
         print "Start queue Generating exam";
         $generator = new ExamGenerator();
-        $generator->generateExam($this->tipo_exam, true);
+        $generator->generateExam($this->tipo_exam, true, $this->user_id);
 
         print "End queue Generating exam";
     }

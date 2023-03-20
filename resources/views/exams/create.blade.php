@@ -2,10 +2,23 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-5">
+
+        @if (session('status'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-5" role="alert">
+                <strong class="font-bold">¡Éxito!</strong>
+                <span class="block sm:inline">{{ session('status') }}</span>
+            </div>
+        @endif
+        @if (session('error'))
+            <strong class="font-bold">ERROR!</strong>
+            <span class="block sm:inline">{{ session('error') }}</span>
+        @endif
+
+
         <div class="bg-white p-5 rounded shadow-lg w-full lg:w-3/4 mx-auto">
             <h1 class="text-2xl font-bold mb-5">Generar Examen</h1>
 
-            <form action="" method="POST">
+            <form action="{{ route('exam.generate') }}" method="POST">
                 @csrf
                 <div class="mb-5">
                     <label class="block text-gray-700 font-semibold mb-2" for="level">Nivel de Examen</label>

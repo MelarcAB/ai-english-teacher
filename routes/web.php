@@ -40,6 +40,8 @@ Route::controller(App\Http\Controllers\TestController::class)->middleware('auth'
     Route::get('/new-exam', 'create')->name('exam.create');
     //save exam
     Route::post('/new-exam', 'store')->name('exam.store');
+    //generate exam
+    Route::post('/generate-exam', 'generate')->name('exam.generate');
 });
 
 

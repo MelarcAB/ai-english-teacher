@@ -19,7 +19,7 @@ class ExamGenerator extends Model
 {
 
 
-    public function generateExam($level = "A1", $log = false)
+    public function generateExam($level = "A1", $log = false, $user_id = 0)
     {
 
         //     print "Generando examen de nivel " . $level . "..." . PHP_EOL;
@@ -40,12 +40,9 @@ class ExamGenerator extends Model
 
 
         //check if user is logged in, if not, set user_id to 0
-        if (Auth::check()) {
-            $exam->user_id = Auth::user()->id;
-        } else {
-            $exam->user_id = 0;
+        if ($user_id != 0) {
+            $exam->user_id = $user_id;
         }
-
 
 
         $test_api = new TestApi();
