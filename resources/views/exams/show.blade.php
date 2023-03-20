@@ -17,35 +17,73 @@
         <div class="bg-white p-5 rounded shadow-lg w-full lg:w-3/4 mx-auto">
             <h1 class="text-2xl font-bold mb-5">Examen - Nivel {{ $exam->level }}</h1>
 
-            <form action="" method="POST">
+            <form action="{{ route('exam.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="exam_id" value="{{ $exam->id }}">
 
                 <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Lectura</h2>
+                    <h2 class="text-xl font-semibold mb-3">Reading</h2>
                     <p class="mb-3">{{ $exam->reading }}</p>
-                    @for ($i = 1; $i <= 3; $i++)
-                        <div class="mb-3">
-                            <label class="block text-gray-700 font-semibold"
-                                for="reading_question_{{ $i }}">{{ $exam['reading_question_' . $i] }}</label>
-                            <input type="text" name="reading_question_{{ $i }}"
-                                id="reading_question_{{ $i }}"
-                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
-                        </div>
-                    @endfor
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_answer_1">{{ $exam['reading_question_1'] }}</label>
+                        <input type="text" name="reading_answer_1" id="reading_answer_1"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                            value="{{ $exam_answers->reading_answer_1 }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_answer_2">{{ $exam['reading_question_2'] }}</label>
+                        <input type="text" name="reading_answer_2" id="reading_answer_2"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                            value="{{ $exam_answers->reading_answer_2 }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_answer_3">{{ $exam['reading_question_3'] }}</label>
+                        <input type="text" name="reading_answer_3" id="reading_answer_3"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                            value="{{ $exam_answers->reading_answer_3 }}">
+                    </div>
                 </div>
 
                 <div class="mb-5">
                     <h2 class="text-xl font-semibold mb-3">Gramática</h2>
-                    @for ($i = 1; $i <= 5; $i++)
-                        <div class="mb-3">
-                            <label class="block text-gray-700 font-semibold"
-                                for="grammar_question_{{ $i }}">{{ $exam['grammar_question_' . $i] }}</label>
-                            <input type="text" name="grammar_question_{{ $i }}"
-                                id="grammar_question_{{ $i }}"
-                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
-                        </div>
-                    @endfor
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="grammar_answer_1">{{ $exam['grammar_question_1'] }}</label>
+                        <input type="text" name="grammar_answer_1" id="grammar_answer_1"
+                            value="{{ $exam_answers->grammar_answer_1 }}"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="grammar_answer_2">{{ $exam['grammar_question_2'] }}</label>
+                        <input type="text" name="grammar_answer_2" id="grammar_answer_2"
+                            value="{{ $exam_answers->grammar_answer_2 }}"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="grammar_answer_3">{{ $exam['grammar_question_3'] }}</label>
+                        <input type="text" name="grammar_answer_3" id="grammar_answer_3"
+                            value="{{ $exam_answers->grammar_answer_3 }}"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="grammar_answer_4">{{ $exam['grammar_question_4'] }}</label>
+                        <input type="text" name="grammar_answer_4" id="grammar_answer_4"
+                            value="{{ $exam_answers->grammar_answer_4 }}"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="grammar_answer_5">{{ $exam['grammar_question_5'] }}</label>
+                        <input type="text" name="grammar_answer_5" id="grammar_answer_5"
+                            value="{{ $exam_answers->grammar_answer_5 }}"
+                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
+                    </div>
                 </div>
 
                 <div class="mb-5">
@@ -63,11 +101,16 @@
                     <p>{{ $exam->speaking }}</p>
                 </div>
 
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-3">
                     <button type="submit"
-                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Enviar
+                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Guardar
                         respuestas</button>
-                </div </form>
+                    <button type="button"
+                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corrección</button>
+                </div>
+            </form>
         </div>
+        </form>
+    </div>
     </div>
 @endsection

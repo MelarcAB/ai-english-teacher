@@ -43,6 +43,8 @@ return new class extends Migration
 
             //exam
             $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
+            //user
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

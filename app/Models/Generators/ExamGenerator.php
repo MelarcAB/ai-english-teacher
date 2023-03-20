@@ -22,13 +22,20 @@ class ExamGenerator extends Model
     public function generateExam($level = "A1", $log = false)
     {
 
-        ($log == true) ? print "Generando examen de nivel " . $level . "..." . PHP_EOL : null;
         //     print "Generando examen de nivel " . $level . "..." . PHP_EOL;
+
+        //si el examen es de nivel A1, B1, C1, etc, se genera un examen de A1
+        if ($level == "A1" || $level == "B1" || $level == "C1" || $level == "A2" || $level == "B2" || $level == "C2") {
+            $level = "A1";
+        }
+        ($log == true) ? print "Generando examen de nivel " . $level . "..." . PHP_EOL : null;
+
 
         //obtener ejemplo de examen
         $example_exam = (new ExamExamples())->getExampleExam($level);
         //inicio de examen
         $exam = new Exam();
+        $exam->level = $level;
         //usuario
 
 
@@ -91,9 +98,9 @@ class ExamGenerator extends Model
         //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
         ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
         $grammar_questions = $test_api->send(
-            "GENERA EN INGLES 5 EJERCICIOS DE GRAMATICA. Solo una solución correcta. En este formato: Pregunta + opciones + '|' . Deben quedar separas las 5 generaciones por '|', Tu respuesta se guardará BD, en 5 campos distintos. Tu respuesta directamente es lo que te pido",
+            "GENERARAS EN INGLES 5 EJERCICIOS DE GRAMATICA. Solo una solución correcta. En este formato: Pregunta + opciones + '|' . Deben quedar separas las 5 generaciones por '|'. Tu respuesta se dividirá por este carácter |. ",
             '',
-            "EJEMPLO EJERCICIOS DE GRAMATICA(SOLO SON EJEMPLOS):" . $example_exam['GAMMAR_QUESTIONS']
+            "EJEMPLO EJERCICIOS DE GRAMATICA(SOLO SON EJEMPLOS) IMITA SU ESTILO:" . $example_exam['GAMMAR_QUESTIONS']
         );
 
         $response = json_decode($grammar_questions);

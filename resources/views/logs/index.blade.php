@@ -34,7 +34,9 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->prompt_tokens }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->completion_tokens }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->total_tokens }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->user->name }}</td>
+                            @if ($log->user)
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $log->user->name }}</td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
