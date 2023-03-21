@@ -16,8 +16,8 @@ class TestApi extends Model
 {
     private OpenAi $open_ai;
 
-    //  private $MODEL = "gpt-3.5-turbo";
-    private $MODEL = "gpt-4-0314";
+    private $MODEL = "gpt-3.5-turbo";
+    //private $MODEL = "gpt-4-0314";
 
     //constructor
     public function __construct()

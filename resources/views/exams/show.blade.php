@@ -99,6 +99,10 @@
                         breve.</h3>
                     <div class="mb-3">
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">3.2. A partir de la siguiente información, redacta un texto
+                        más extenso.</h3>
+                    <div class="mb-3">
+                    </div>
                 </div>
 
                 <div class="flex justify-end gap-3">
