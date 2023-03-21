@@ -33,27 +33,27 @@ return new class extends Migration
         */
         Schema::create('exams', function (Blueprint $table) {
             $table->id();
-            $table->string('level')->nullable()->default("-");
+            $table->string('level')->nullable()->default("");
             //texto writing + 3 preguntas
-            $table->text('reading')->nullable()->default("-");
-            $table->text('reading_question_1')->nullable()->default("-");
-            $table->text('reading_question_2')->nullable()->default("-");
-            $table->text('reading_question_3')->nullable()->default("-");
+            $table->text('reading')->nullable()->default("");
+            $table->text('reading_question_1')->nullable()->default("");
+            $table->text('reading_question_2')->nullable()->default("");
+            $table->text('reading_question_3')->nullable()->default("");
 
             //gramatica
-            $table->text('grammar_question_1')->nullable()->default("-");
-            $table->text('grammar_question_2')->nullable()->default("-");
-            $table->text('grammar_question_3')->nullable()->default("-");
-            $table->text('grammar_question_4')->nullable()->default("-");
-            $table->text('grammar_question_5')->nullable()->default("-");
+            $table->text('grammar_question_1')->nullable()->default("");
+            $table->text('grammar_question_2')->nullable()->default("");
+            $table->text('grammar_question_3')->nullable()->default("");
+            $table->text('grammar_question_4')->nullable()->default("");
+            $table->text('grammar_question_5')->nullable()->default("");
 
 
             //vocabulary
-            $table->text('vocabulary_question_1')->nullable()->default("-");
-            $table->text('vocabulary_question_2')->nullable()->default("-");
-            $table->text('vocabulary_question_3')->nullable()->default("-");
-            $table->text('vocabulary_question_4')->nullable()->default("-");
-            $table->text('vocabulary_question_5')->nullable()->default("-");
+            $table->text('vocabulary_question_1')->nullable()->default("");
+            $table->text('vocabulary_question_2')->nullable()->default("");
+            $table->text('vocabulary_question_3')->nullable()->default("");
+            $table->text('vocabulary_question_4')->nullable()->default("");
+            $table->text('vocabulary_question_5')->nullable()->default("");
 
 
             //user_id

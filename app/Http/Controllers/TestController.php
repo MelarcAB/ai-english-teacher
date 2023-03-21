@@ -74,7 +74,9 @@ class TestController extends Controller
     function list()
     {
         //obtenemos todos los examenes del usuario logueado
-        $exams = Exam::where('user_id', auth()->user()->id)->get();
+        //ordenados por fecha de creacion
+        //paginar 20 por pagina
+        $exams = Exam::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
         return view('exams.list', compact('exams'));
     }
 
@@ -150,6 +152,6 @@ class TestController extends Controller
         //generar examen
         GenerateExam::dispatch($exam_type, auth()->user()->id);
 
-        return  $this->list();
+        return  redirect()->route('exam.list');
     }
 }

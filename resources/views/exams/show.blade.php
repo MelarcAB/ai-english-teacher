@@ -15,14 +15,15 @@
 
     <div class="container mx-auto px-4 py-5">
         <div class="bg-white p-5 rounded shadow-lg w-full lg:w-3/4 mx-auto">
-            <h1 class="text-2xl font-bold mb-5">Examen - Nivel {{ $exam->level }}</h1>
+            <h1 class="text-3xl font-bold mb-5">Examen - Nivel {{ $exam->level }}</h1>
 
             <form action="{{ route('exam.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="exam_id" value="{{ $exam->id }}">
 
                 <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Reading</h2>
+                    <h2 class="text-2xl font-semibold mb-3">1. Reading</h2>
+                    <h3 class="text-xl font-semibold mb-3">1.1. Lee el texto y responde las preguntas.</h3>
                     <p class="mb-3">{{ $exam->reading }}</p>
                     <div class="mb-3">
                         <label class="block text-gray-700 font-semibold"
@@ -45,10 +46,14 @@
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
                             value="{{ $exam_answers->reading_answer_3 }}">
                     </div>
+                    <h3 class="text-xl font-semibold mb-5 mt-5">1.2. Lee el texto y responde si las frases son verdaderas o
+                        falsas.</h3>
+
                 </div>
 
-                <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Gramática</h2>
+                <div class="mb-5 mt-10">
+                    <h2 class="text-2xl font-semibold mb-3">2. Gramática</h2>
+                    <h3 class="text-xl font-semibold mb-3">2.1. Selecciona la opción correcta.</h3>
                     <div class="mb-3">
                         <label class="block text-gray-700 font-semibold"
                             for="grammar_answer_1">{{ $exam['grammar_question_1'] }}</label>
@@ -84,21 +89,16 @@
                             value="{{ $exam_answers->grammar_answer_5 }}"
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">2.2. Completa las siguientes oraciones.</h3>
+
                 </div>
 
-                <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Escucha</h2>
-                    <p>{{ $exam->listening }}</p>
-                </div>
-
-                <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Escritura</h2>
-                    <p>{{ $exam->writing }}</p>
-                </div>
-
-                <div class="mb-5">
-                    <h2 class="text-xl font-semibold mb-3">Habla</h2>
-                    <p>{{ $exam->speaking }}</p>
+                <div class="mb-5 mt-10">
+                    <h2 class="text-2xl font-semibold mb-3">3. Writing</h2>
+                    <h3 class="text-xl font-semibold mb-3">3.1. A partir de la siguiente información, redacta un texto
+                        breve.</h3>
+                    <div class="mb-3">
+                    </div>
                 </div>
 
                 <div class="flex justify-end gap-3">

@@ -10,21 +10,23 @@ class ExamExamples extends Model
 
     private $exam_examples = [
         "A1" => [
-            "EXAMPLE_READING" => "DR MARTENS AT 50
-            Dr Martens boots were introduced into Britain 50 years ago, a half‐century that has seen the country
-            transformed, as musical movements have emerged and declined, and fashions come and gone.
-            However, DMs have been the footwear of choice for everyone, from punks to policemen. Klaus
-            Märtens, the German army doctor who created the original design after a skiing injury, thought of an
-            air‐cushioned sole. It provided comfort and absorbed impact from walking and running.
-            For the first few years in Britain, Dr Martens were the working men's boots, worn in factories and by
-            postmen. When Pete Townshend, from the Who, wore them in 1966, they became fashionable.
-            Townshend bought DMs because he was tired of the 1960s clothes. \"I was sick of dressing up as a
-            Christmas tree in clothes that disturbed my guitar playing,\" he says. The boots helped him jump
-            around on stage, and reminded him of his working‐class origins.
-            By the 70s DMs had been adopted and made part of their uniform by several subcultures, such as
-            mods, rockers, goths, and the most frightening of all, skinheads. Gavin Watson was a teenage
-            skinhead. \"I was 12 when I bought my first DMs,\" Watson says. \"And the rule was to baptize them by
-            kicking someone, it didn't matter who.",
+            "EXAMPLE_READING" => "A trip to Alaska
+            Alaska is an extraordinary place. It’s the biggest state in the USA – it has North America’s highest mountain
+            and the world’s most dramatic glaciers. In fact nothing in Alaska is small. Even the people are big!
+            The population of Alaska is just 610,000. Some people, like the Inuits, live in Arctic villages hundreds of
+            kilometres from the nearest town. Other Alaskans live in small cities like Anchorage and Juneau. In places
+            like Anchorage everybody has a car, but they also have a plane. There aren’t any roads outside the cities, so
+            flying is the only way you can travel. Many people have boat planes, and lakes near towns and cities often
+            look like plane car parks.
+            One of the most famous places in Alaska is the Denali National Park. The park is one of the most beautiful
+            nature reserves in the world, and you can only get there by private plane. Pilots usually land on a riverbank
+            and leave you there. Then they pick you up at the same time, in the same place a few days later!
+            Alaska is also famous for being cold. The lowest temperature ever recorded was
+            -80 ̊ C! It’s also dark. There isn’t much sunlight during winter, although you can see red, green, and blue
+            ‘Northern Lights’ in the sky.
+            Many tourists visit Alaska in the spring and summer. Few tourists go in winter. From November to
+            February, Alaska is so cold that planes often get ‘weathered in’ and can’t fly. Winter holidays in Alaska can
+            be longer than you planned!",
 
             "EXAMPLE_READING_QUESTIONS" => "Since their arrival in Britain, DMs have…
             a) become old‐fashioned.
