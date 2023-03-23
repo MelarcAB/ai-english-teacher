@@ -43,7 +43,7 @@ class ExamGenerator extends Model
         //generar texto a leer + 3 preguntas
         ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;
         $reading = $test_api->send(
-            "Generate a text for an english exam. Only the text. Original.Example text: " . $example_exam['EXAMPLE_READING']
+            "Generate a text for an english exam. Only the text, with an original plot. Example text: " . $example_exam['EXAMPLE_READING']
         );
 
         $reading = json_decode($reading);
@@ -73,7 +73,7 @@ class ExamGenerator extends Model
         $exam->reading_question_3 = $questions[2];
 
 
-        //descansar 1 segundo
+        //descansar 10 segundo
         sleep(10);
 
         //reading TRUE OR FALSE sobre el texto
@@ -122,9 +122,28 @@ class ExamGenerator extends Model
         $exam->grammar_question_4 = $questions[3];
 
 
+
+        //descansar 1 segundo
+        sleep(1);
+
+        //writing
+        ($log == true) ? print "Generando texto de writing..." . PHP_EOL : null;
+        $writing = $test_api->send(
+            "Generate a writing exercise for an A1 English exam. I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this: " . $example_exam['WRITING'] . ". ANSWER ONLY WITH THE EXERCICE"
+        );
+
+        $response = json_decode($writing);
+        $response_text = $response->choices[0]->message->content;
+
+        ($log == true) ? print "Texto de writing generado: " . $response_text . PHP_EOL : null;
+        $exam->writing = $response_text;
+
         // print "Guardando examen..." . PHP_EOL;
         ($log == true) ? print "Guardando examen..." . PHP_EOL : null;
         $exam->save();
+
+        //
+
 
         // print "Examen generado con éxito!" . PHP_EOL;
         ($log == true) ? print "Examen generado con éxito!" . PHP_EOL : null;

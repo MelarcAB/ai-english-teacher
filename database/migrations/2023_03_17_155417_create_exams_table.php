@@ -62,6 +62,9 @@ return new class extends Migration
             $table->text('vocabulary_question_4')->nullable()->default("");
             $table->text('vocabulary_question_5')->nullable()->default("");
 
+            //writing
+            $table->text('writing')->nullable()->default("");
+
 
             //user_id
             $table->unsignedBigInteger('user_id')->constraint()->onDelete('cascade');
