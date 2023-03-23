@@ -43,21 +43,18 @@ class ExamGenerator extends Model
         //generar texto a leer + 3 preguntas
         ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;
         $reading = $test_api->send(
-            "Genera un texto totalmente distinto al anterior, con la misma estructura y número de palabras. Recuerda escribir siempre en inglés, ya que es parte de un examen.",
-            '',
-            $example_exam['EXAMPLE_READING']
+            "Generate a text for an english exam. Only the text. Original.Example text: " . $example_exam['EXAMPLE_READING']
         );
 
         $reading = json_decode($reading);
         $response_text = $reading->choices[0]->message->content;
         $exam->reading = $response_text;
-
+        //descansar 1 segundo
+        sleep(5);
         //generar preguntas de reading
         ($log == true) ? print "Generando preguntas de reading..." . PHP_EOL : null;
         $reading_questions = $test_api->send(
-            "Genera, en INGLES, tres (3) preguntas de exámen para el texto anterior. LAS PREGUNTAS SEPARADAS POR  |.",
-            '',
-            "Texto del reading del examen: " . $exam->reading . "     EJEMPLO ESTRUCTURA PREGUNTAS(SOLO SON EJEMPLOS):" . $example_exam['EXAMPLE_READING_QUESTIONS']
+            "Generate 5 questions (exam reading), IMPORTANT separated by |, for students to develop the question further. About this text: " . $exam->reading . "   SEPARATED BY |"
         );
 
         $response = json_decode($reading_questions);
@@ -66,17 +63,43 @@ class ExamGenerator extends Model
         ($log == true) ? print "Preguntas de reading generadas: " . $response_text . PHP_EOL : null;
         //separar por || y guardar en array
         $questions = explode("|", $response_text);
+        //split por salto de linea
+        //$questions = explode("\r\n", $response_text);
 
+        //      print("Se han generado " . count($questions) . " preguntas de reading");
+        //
         $exam->reading_question_1 = $questions[0];
         $exam->reading_question_2 = $questions[1];
         $exam->reading_question_3 = $questions[2];
 
+
+        //descansar 1 segundo
+        sleep(10);
+
+        //reading TRUE OR FALSE sobre el texto
+        ($log == true) ? print "Generando preguntas de reading TRUE OR FALSE..." . PHP_EOL : null;
+        $reading_questions = $test_api->send(
+            "Generate 5 sentences true or false (exam reading A1), split by |. Without answers.  " . $exam->reading . "     EXAMPLE STRUCTURE OF QUESTIONS:" . $example_exam['EXAMPLE_READING_QUESTIONS']
+        );
+
+        $response = json_decode($reading_questions);
+        $response_text = $response->choices[0]->message->content;
+        ($log == true) ? print "Preguntas de reading TRUE OR FALSE generadas: " . $response_text . PHP_EOL : null;
+        //separar por | y guardar en array
+        $questions = explode("|", $response_text);
+
+        $exam->reading_true_false_1 = $questions[0];
+        $exam->reading_true_false_2 = $questions[1];
+        $exam->reading_true_false_3 = $questions[2];
+        $exam->reading_true_false_4 = $questions[3];
+        $exam->reading_true_false_5 = $questions[4];
+        //descansar 1 segundo
+        sleep(10);
+
         //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
         ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
         $grammar_questions = $test_api->send(
-            "Genera 5 ejercicios de gramatica en ingles separados por |. Varias opciones (a,b,c,d) pero solo una solución correcta. Separados por el simbolo |",
-            'ERES UN GENERADOR DE EJERCICIOS DE GRAMATICA. Generás preguntas + opciones + | . Ejemplo: Pregunta 1 + opciones + | + Pregunta 2 + opciones + | + Pregunta 3 + opciones + | + Pregunta 4 + opciones + | + Pregunta 5 + opciones + |',
-            "EJEMPLO DE EJERCICIOS DE GRAMATICA Y FORMATO : " . $example_exam['GAMMAR_QUESTIONS']
+            "Generates 4 grammar questions (grammar test level A1). Separated by |. With options, only one correct. Similar level to these: " . $example_exam['GAMMAR_QUESTIONS']
         );
 
         $response = json_decode($grammar_questions);
@@ -86,7 +109,7 @@ class ExamGenerator extends Model
         //verificar que las preguntas esten separadas por | y tienen 5 preguntas
         //count de preguntas, split por | y guardar en array
         $split = explode("|", $response_text);
-        if (count($split) < 5) {
+        if (count($split) < 2) {
             // print "Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5" . PHP_EOL;
             ($log == true) ? print "Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5" . PHP_EOL : null;
             throw new \Exception("Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5");
@@ -97,7 +120,6 @@ class ExamGenerator extends Model
         $exam->grammar_question_2 = $questions[1];
         $exam->grammar_question_3 = $questions[2];
         $exam->grammar_question_4 = $questions[3];
-        $exam->grammar_question_5 = $questions[4];
 
 
         // print "Guardando examen..." . PHP_EOL;

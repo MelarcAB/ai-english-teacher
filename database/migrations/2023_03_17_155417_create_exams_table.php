@@ -40,6 +40,13 @@ return new class extends Migration
             $table->text('reading_question_2')->nullable()->default("");
             $table->text('reading_question_3')->nullable()->default("");
 
+            //reading true false
+            $table->text('reading_true_false_1')->nullable()->default("");
+            $table->text('reading_true_false_2')->nullable()->default("");
+            $table->text('reading_true_false_3')->nullable()->default("");
+            $table->text('reading_true_false_4')->nullable()->default("");
+            $table->text('reading_true_false_5')->nullable()->default("");
+
             //gramatica
             $table->text('grammar_question_1')->nullable()->default("");
             $table->text('grammar_question_2')->nullable()->default("");

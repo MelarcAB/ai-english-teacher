@@ -48,7 +48,96 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-5 mt-5">1.2. Lee el texto y responde si las frases son verdaderas o
                         falsas.</h3>
-
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_true_false_answer_1">{{ $exam['reading_true_false_1'] }}</label>
+                        <div class="ml-3">
+                            <div class="flex items-center mb-3 mt-3">
+                                <input type="radio" name="reading_true_false_answer_1" value="1"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_1 == 1 ? 'checked' : '' }}>
+                                <label for="true-checkbox" class="ml-2 text-gray-700 font-semibold">True</label>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <input type="radio" name="reading_true_false_answer_1" value="2"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_1 == 2 ? 'checked' : '' }}>
+                                <label for="false-checkbox" class="ml-2 text-gray-700 font-semibold">False</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_true_false_answer_2">{{ $exam['reading_true_false_2'] }}</label>
+                        <div class="ml-3">
+                            <div class="flex items-center mb-3 mt-3">
+                                <input type="radio" name="reading_true_false_answer_2" value="1"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_2 == 1 ? 'checked' : '' }}>
+                                <label for="true-checkbox" class="ml-2 text-gray-700 font-semibold">True</label>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <input type="radio" name="reading_true_false_answer_2" value="2"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_2 == 2 ? 'checked' : '' }}>
+                                <label for="false-checkbox" class="ml-2 text-gray-700 font-semibold">False</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_true_false_answer_3">{{ $exam['reading_true_false_3'] }}</label>
+                        <div class="ml-3">
+                            <div class="flex items-center mb-3 mt-3">
+                                <input type="radio" name="reading_true_false_answer_3" value="1"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_3 == 1 ? 'checked' : '' }}>
+                                <label for="true-checkbox" class="ml-2 text-gray-700 font-semibold">True</label>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <input type="radio" name="reading_true_false_answer_3" value="2"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_3 == 2 ? 'checked' : '' }}>
+                                <label for="false-checkbox" class="ml-2 text-gray-700 font-semibold">False</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_true_false_answer_4">{{ $exam['reading_true_false_4'] }}</label>
+                        <div class="ml-3">
+                            <div class="flex items-center mb-3 mt-3">
+                                <input type="radio" name="reading_true_false_answer_4" value="1"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_4 == 1 ? 'checked' : '' }}>
+                                <label for="true-checkbox" class="ml-2 text-gray-700 font-semibold">True</label>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <input type="radio" name="reading_true_false_answer_4" value="2"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_4 == 2 ? 'checked' : '' }}>
+                                <label for="false-checkbox" class="ml-2 text-gray-700 font-semibold">False</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label class="block text-gray-700 font-semibold"
+                            for="reading_true_false_answer_5">{{ $exam['reading_true_false_5'] }}</label>
+                        <div class="ml-3">
+                            <div class="flex items-center mb-3 mt-3">
+                                <input type="radio" name="reading_true_false_answer_5" value="1"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_5 == 1 ? 'checked' : '' }}>
+                                <label for="true-checkbox" class="ml-2 text-gray-700 font-semibold">True</label>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <input type="radio" name="reading_true_false_answer_5" value="2"
+                                    class="h-4 w-4 text-indigo-500 border-2 border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+                                    {{ $exam_answers->reading_true_false_answer_5 == 2 ? 'checked' : '' }}>
+                                <label for="false-checkbox" class="ml-2 text-gray-700 font-semibold">False</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mb-5 mt-10">
@@ -82,13 +171,7 @@
                             value="{{ $exam_answers->grammar_answer_4 }}"
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
                     </div>
-                    <div class="mb-3">
-                        <label class="block text-gray-700 font-semibold"
-                            for="grammar_answer_5">{{ $exam['grammar_question_5'] }}</label>
-                        <input type="text" name="grammar_answer_5" id="grammar_answer_5"
-                            value="{{ $exam_answers->grammar_answer_5 }}"
-                            class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500">
-                    </div>
+
                     <h3 class="text-xl font-semibold mb-3">2.2. Completa las siguientes oraciones.</h3>
 
                 </div>

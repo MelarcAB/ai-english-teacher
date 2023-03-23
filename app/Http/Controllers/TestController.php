@@ -121,6 +121,13 @@ class TestController extends Controller
         $exam_answers->reading_answer_1 = $request->input('reading_answer_1');
         $exam_answers->reading_answer_2 = $request->input('reading_answer_2');
         $exam_answers->reading_answer_3 = $request->input('reading_answer_3');
+
+        $exam_answers->reading_true_false_answer_1 = $request->input('reading_true_false_answer_1');
+        $exam_answers->reading_true_false_answer_2 = $request->input('reading_true_false_answer_2');
+        $exam_answers->reading_true_false_answer_3 = $request->input('reading_true_false_answer_3');
+        $exam_answers->reading_true_false_answer_4 = $request->input('reading_true_false_answer_4');
+        $exam_answers->reading_true_false_answer_5 = $request->input('reading_true_false_answer_5');
+
         $exam_answers->grammar_answer_1 = $request->input('grammar_answer_1');
         $exam_answers->grammar_answer_2 = $request->input('grammar_answer_2');
         $exam_answers->grammar_answer_3 = $request->input('grammar_answer_3');
