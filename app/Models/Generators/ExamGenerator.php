@@ -54,7 +54,7 @@ class ExamGenerator extends Model
         //generar preguntas de reading
         ($log == true) ? print "Generando preguntas de reading..." . PHP_EOL : null;
         $reading_questions = $test_api->send(
-            "Generate 5 questions (exam reading), IMPORTANT separated by |, for students to develop the question further. About this text: " . $exam->reading . "   SEPARATED BY |"
+            "Generate 5 questions (exam reading), IMPORTANT separated by |, for students to develop the question further. About this text: " . $exam->reading . ". ANSWER ALWAYS SEPARATED BY |"
         );
 
         $response = json_decode($reading_questions);
@@ -71,6 +71,7 @@ class ExamGenerator extends Model
         $exam->reading_question_1 = $questions[0];
         $exam->reading_question_2 = $questions[1];
         $exam->reading_question_3 = $questions[2];
+        $exam->save();
 
 
         //descansar 10 segundo
@@ -94,6 +95,8 @@ class ExamGenerator extends Model
         $exam->reading_true_false_4 = $questions[3];
         $exam->reading_true_false_5 = $questions[4];
         //descansar 1 segundo
+        $exam->save();
+
         sleep(10);
 
         //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
@@ -121,6 +124,7 @@ class ExamGenerator extends Model
         $exam->grammar_question_3 = $questions[2];
         $exam->grammar_question_4 = $questions[3];
 
+        $exam->save();
 
 
         //descansar 1 segundo
@@ -137,6 +141,28 @@ class ExamGenerator extends Model
 
         ($log == true) ? print "Texto de writing generado: " . $response_text . PHP_EOL : null;
         $exam->writing = $response_text;
+
+
+
+
+        //generar 5 frases de vocabulario
+        ($log == true) ? print "Generando frases de vocabulario..." . PHP_EOL : null;
+        //Generate 5 vocabulary sentences for an A1 English exam separated by | . Based on this examples: I ___ my bike at the weekend. | This is a bad film. Turn ___ the TV! | Can you ___ that noise? | I can’t ___ my keys. SEPARATED BY |
+
+        $vocabulary = $test_api->send(
+            "You have to put a | at the end of every sentence you write. Generate 5 vocabulary sentences for an A1 English exam. Structure examples: " . $example_exam['VOCABULARY'] . ". THE SENTENCES ALWAYS SEPARATED BY THE CHAR |"
+        );
+
+        $response = json_decode($vocabulary);
+        $response_text = $response->choices[0]->message->content;
+        ($log == true) ? print "Frases de vocabulario generadas: " . $response_text . PHP_EOL : null;
+        //separar por | 
+        $questions = explode("|", $response_text);
+        $exam->vocabulary_question_1 = $questions[0];
+        $exam->vocabulary_question_2 = $questions[1];
+        $exam->vocabulary_question_3 = $questions[2];
+        $exam->vocabulary_question_4 = $questions[3];
+        $exam->vocabulary_question_5 = $questions[4];
 
         // print "Guardando examen..." . PHP_EOL;
         ($log == true) ? print "Guardando examen..." . PHP_EOL : null;

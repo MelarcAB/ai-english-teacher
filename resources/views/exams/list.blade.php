@@ -24,9 +24,9 @@
                             <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('exam.show', $exam) }}"><i
                                         class="fa-solid fa-eye"></i></a></td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->level }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->reading, 0, 50) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->reading, 0, 30) }}...</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->listening }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $exam->writing }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->writing, 0, 25) }}... </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->speaking }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->created_at->diffForHumans() }}</td>
                         </tr>
