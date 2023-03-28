@@ -1,0 +1,1 @@
+Last year you studied at university in a foreign country. Write a letter of about 110 words to a British friend telling him/her about: the town you lived in, describe your best friend there, the places you visited

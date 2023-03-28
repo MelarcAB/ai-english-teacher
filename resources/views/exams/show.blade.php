@@ -202,34 +202,78 @@
                         </div>
 
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">2.2. Completa las siguientes oraciones.</h3>
+                    <h3 class="text-xl font-semibold mb-3">2.2. Completa las siguientes oraciones (vocabulary)</h3>
+                    <div class="ml-5 mb-5">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 font-semibold"
+                                for="vocabulary_question_1">{{ $exam['vocabulary_question_1'] }}</label>
+                            <input type="text" name="vocabulary_question_1" id="vocabulary_question_1"
+                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                                value="{{ $exam_answers->vocabulary_question_1 }}">
+                        </div>
+                    </div>
+                    <div class="ml-5 mb-5">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 font-semibold"
+                                for="vocabulary_question_2">{{ $exam['vocabulary_question_2'] }}</label>
+                            <input type="text" name="vocabulary_question_2" id="vocabulary_question_2"
+                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                                value="{{ $exam_answers->vocabulary_question_2 }}">
+                        </div>
+                    </div>
+                    <div class="ml-5 mb-5">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 font-semibold"
+                                for="vocabulary_question_3">{{ $exam['vocabulary_question_3'] }}</label>
+                            <input type="text" name="vocabulary_question_3" id="vocabulary_question_3"
+                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                                value="{{ $exam_answers->vocabulary_question_3 }}">
+                        </div>
+                    </div>
+                    <div class="ml-5 mb-5">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 font-semibold"
+                                for="vocabulary_question_4">{{ $exam['vocabulary_question_4'] }}</label>
+                            <input type="text" name="vocabulary_question_4" id="vocabulary_question_4"
+                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                                value="{{ $exam_answers->vocabulary_question_4 }}">
+                        </div>
+                    </div>
+                    <div class="ml-5 mb-5">
+                        <div class="mb-3">
+                            <label class="block text-gray-700 font-semibold"
+                                for="vocabulary_question_5">{{ $exam['vocabulary_question_5'] }}</label>
+                            <input type="text" name="vocabulary_question_5" id="vocabulary_question_5"
+                                class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
+                                value="{{ $exam_answers->vocabulary_question_5 }}">
+                        </div>
+                    </div>
 
+                    <div class="mb-5 mt-10">
+                        <h2 class="text-2xl font-semibold mb-3">3. Writing</h2>
+
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3.1. A partir de la siguiente información, redacta un texto
+                        de unas 150 palabras.</h3>
+                    <div class="mb-3">
+                        <label class="block text-gray-700 font-semibold"
+                            for="writing_answer">{{ $exam['writing'] }}</label>
+                        <textarea name="writing_answer" cols="30" rows="10"
+                            class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:border-indigo-500"
+                            placeholder="Escribe aquí tu respuesta">{{ $exam_answers->writing_answer }}</textarea>
+                    </div>
                 </div>
 
-                <div class="mb-5 mt-10">
-                    <h2 class="text-2xl font-semibold mb-3">3. Writing</h2>
-
+                <div class="flex justify-end gap-3">
+                    <button type="submit"
+                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Guardar
+                        respuestas</button>
+                    <button type="button"
+                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corrección</button>
                 </div>
-                <h3 class="text-xl font-semibold mb-3">3.1. A partir de la siguiente información, redacta un texto
-                    de unas 150 palabras.</h3>
-                <div class="mb-3">
-                    <label class="block text-gray-700 font-semibold" for="writing_answer">{{ $exam['writing'] }}</label>
-                    <textarea name="writing_answer" cols="30" rows="10"
-                        class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:border-indigo-500"
-                        placeholder="Escribe aquí tu respuesta">{{ $exam_answers->writing_answer }}</textarea>
-                </div>
-        </div>
-
-        <div class="flex justify-end gap-3">
-            <button type="submit"
-                class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Guardar
-                respuestas</button>
-            <button type="button"
-                class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corrección</button>
+            </form>
         </div>
         </form>
-    </div>
-    </form>
     </div>
     </div>
 @endsection
