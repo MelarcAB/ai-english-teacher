@@ -29,6 +29,10 @@ class ExamGenerator extends Model
 
         //obtener ejemplo de examen
         $example_exam = (new ExamExamples())->getExampleExam($level);
+
+        //si el count de los ejemplos es 0, buscar el A1 hardcoded
+
+
         //inicio de examen
         $exam = new Exam();
         $exam->level = $level;
@@ -43,7 +47,7 @@ class ExamGenerator extends Model
         //generar texto a leer + 3 preguntas
         ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;
         $reading = $test_api->send(
-            "Generate a text for an english exam. Only the text, with an original plot, example food, holidays, hobbies, email, new on newspaper... Example text: " . $example_exam['EXAMPLE_READING']
+            "Generate a text for an english exam. Only the text, with an original plot, example food, technology, streamers, clothes, holidays, hobbies, email, new on newspaper... Example text: " . $example_exam['EXAMPLE_READING']
         );
 
         $reading = json_decode($reading);
@@ -150,7 +154,7 @@ class ExamGenerator extends Model
         //Generate 5 vocabulary sentences for an A1 English exam separated by | . Based on this examples: I ___ my bike at the weekend. | This is a bad film. Turn ___ the TV! | Can you ___ that noise? | I can’t ___ my keys. SEPARATED BY |
 
         $vocabulary = $test_api->send(
-            "Create 5 vocabulary exercises for an English exam. Sentences with two options, only one option  correct. Structure like this: ' Mike ride a _[option1/option2] | ' EXAMPLES : " . $example_exam['VOCABULARY'] . ". YOU HAVE TO PUT | IN THE END OF EACH SENTENCE. "
+            "Create 5 vocabulary exercises for an English examl IMPORTANT separated by | . Sentences with two options, only one option  correct. Structure like this: ' Mike ride a _[option1/option2] | ' EXAMPLES : " . $example_exam['VOCABULARY'] . ". YOU HAVE TO PUT | IN THE END OF EACH SENTENCE. "
         );
 
         $response = json_decode($vocabulary);

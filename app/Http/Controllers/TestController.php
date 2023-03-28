@@ -136,6 +136,8 @@ class TestController extends Controller
         $exam_answers->vocabulary_answer_1 = $request->input('vocabulary_answer_1');
         $exam_answers->vocabulary_answer_2 = $request->input('vocabulary_answer_2');
         $exam_answers->vocabulary_answer_3 = $request->input('vocabulary_answer_3');
+        $exam_answers->vocabulary_answer_4 = $request->input('vocabulary_answer_4');
+        $exam_answers->vocabulary_answer_5 = $request->input('vocabulary_answer_5');
 
         $exam_answers->writing_answer = $request->input('writing_answer');
 
