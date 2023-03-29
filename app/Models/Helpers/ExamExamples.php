@@ -73,7 +73,7 @@ class ExamExamples extends Model
             net! And, with COMEWITHUS.COM, going on the Internet will cost you very little. For £25 a month,
             you can have your own Internet connection, and your own e-mail address. So call us now, on
             0800-600-600, and start exploring the wonderful world of the Internet!",
-            "EXAMPLE_READING_QUESTIONS" => " COMEWITHUS.COM sell
+            "EXAMPLE_READING_QUESTIONS" => "COMEWITHUS.COM sell
             a) TVs b) telephones c) Internet connections |
             2. According to the advertisement, with “COMEWITHUS.COM” you can
             a) make new friends b) travel abroad c) appear on TV |
@@ -96,17 +96,96 @@ class ExamExamples extends Model
             - Ask George where to buy cheap clothes
             - Ask George how to get there
             - Ask what time the stores stay open",
-            "VOCABULARY" => "People used to cook by using wood a hundred yuears ___ a) before  b) past c) ago | It ___ one hour and half to get to the museum but the journey was quite funny. a)passed b)spent c)took| I'm the same ___ as my oldest brother's son. a)age b)birthday c)year"
+            "VOCABULARY" => "People used to cook by using wood a hundred yuears ___ [before / past/ago] | It ___ one hour and half to get to the museum but the journey was quite funny. [passed/spent/took]| I'm the same ___ as my oldest brother's son. [age/birthday/year]"
         ],
 
-
-
         "B1" => [
-            "EXAMPLE_READING" => "",
-            "EXAMPLE_READING_QUESTIONS" => "",
-            "GAMMAR_QUESTIONS" => "",
-            "WRITING" => "",
-            "VOCABULARY" => ""
+            "EXAMPLE_READING" => "Elvis Aaron Presley (January 8, 1935 – August 16, 1977) was an American
+            singer and actor. A cultural icon, he is commonly known by the single name
+            Elvis. One of the most popular musicians of the 20th century, he is often
+            referred to as the 'King of Rock and Roll' or 'the King'.
+            Born in Tupelo, Mississippi, Presley moved to Memphis, Tennessee, with his
+            family at the age of 13. He began his career there in 1954, working with Sun
+            Records owner Sam Phillips, who wanted to bring the sound of AfricanAmerican music to a wider audience. Accompanied by guitarist Scotty Moore
+            and bassist Bill Black, Presley was the most important popularizer of rockabilly.
+            RCA Victor acquired his contract in a deal arranged by Colonel Tom Parker,
+            who went on to manage the singer for over two decades. Presley's first RCA
+            single, 'Heartbreak Hotel”, released in January 1956, was a number-one hit. He
+            became the leading figure of the newly popular sound of rock and roll with a
+            series of network television appearances and chart-topping records. His
+            energized interpretations of songs, many from African-American sources, and
+            his uninhibited performance style made him enormously popular—and
+            controversial. In November 1956, he made his film debut in Love Me Tender.
+            Drafted into military service in 1958, Presley relaunched his recording career
+            two years later with some of his most commercially successful work. He staged
+            few concerts however, and, guided by Parker, proceeded to devote much of the
+            1960s to making Hollywood movies and soundtrack albums, most of them
+            critically derided.
+            Presley's only child, Lisa Marie, was born on February 1, 1968, during a period
+            when he had grown deeply unhappy with his career. In 1968, after seven years
+            away from the stage, he returned to live performance in a celebrated comeback
+            television.
+            Recorded in late June in Burbank, California, the special, called simply Elvis,
+            aired on December 3, 1968. Later known as the '68 Comeback Special, the
+            show featured studio productions as well as songs performed with a band in
+            front of a small audience—Presley's first live performances since 1961. The live
+            segments saw Presley clad in tight black leather, singing and playing guitar in a
+            style reminiscent of his early rock-and-roll days. In 1973 Presley staged the first
+            concert broadcast globally via satellite, Aloha from Hawaii.
+            Presley's divorce took effect on October 9, 1973. He was now becoming
+            increasingly unwell. Twice during the year he overdosed on barbiturates,
+            spending three days in a coma in his hotel suite after the first incident. Toward
+            the end of 1973, he was hospitalized, because of the effects of Demerol
+            addiction. Prescription drug abuse severely deteriorated his health, and he died
+            suddenly in 1977 at the age of 42.
+            Presley's funeral was held at Graceland, on Thursday, August 18.
+            Approximately 80,000 people lined the processional route to Forest Hill
+            Cemetery, where Presley was buried next to his mother. Within a few days,
+            'Way Down' topped the country and UK pop charts.
+            Presley is regarded as one of the most important figures of 20th-century popular
+            culture. He had a versatile voice and unusually wide success encompassing
+            many genres, including country, pop ballads, gospel, and blues. He is the bestselling solo artist in the history of popular music. Nominated for 14 competitive
+            Grammys, he won three, and received the Grammy Lifetime Achievement
+            Award at age 36. He has been inducted into multiple music halls of fame.",
+            "EXAMPLE_READING_QUESTIONS" => "Elvis Aaron Presley
+            a) was an American singer born in Memphis, Tennessee.
+            b) was an American singer and actor known as the ‘King of Rock
+            and Roll’.
+            c) began his career in Tupelo, Mississippi.|
+            2. Elvis’ manager was
+            a) Sun Records owner Sam Phillips.
+            b) Colonel Tom Parker.
+            c) guitarist Scotty Moore.|
+            3. When Lisa Marie Presley was born
+            a) Elvis Presley was extremely happy with his career.
+            b) Elvis Presley staged a lot of concerts.
+            c) was the year when Elvis Presley recorded ‘The Comeback Special’.|
+            4. Elvis Presley
+            a) only played ‘Rock and Roll’ along his career.
+            b) encompassed many genres including gospel and blues.
+            c) won 14 Grammys.",
+            "GAMMAR_QUESTIONS" => "
+            The relationship _______________ the two boys has changed significantly over the past few years a) between b) among c) among |
+            We’ve been waiting for over half an hour. She’s never _______________ time. a) on b) in c) at |
+            The maths test was a great challenge. It took me _______________ an hour to finish it. a) over b) less than c) a lot 
+            ",
+            "WRITING" => "Your friend Robin from Ireland has sent you this email after her visit to Salamanca.
+            • Write a reply to this email.Answer the questions your friend asks you. Email: Hello ,
+            I'm writing to let you know that I arrived safe and sound last night, with
+            only a short delay in the flight. First I wanted to thank you for letting
+            me stay with you – I had a wonderful time.
+            I'm anxious to know what happened after I left. Did Ana move out of
+            the apartment? Did she explain why she was angry? Tell me everything.
+            I'm looking forward to your visit to Dublin this summer. Although
+            you're coming for only a week, we can do a lot. What are your plans for
+            the rest of your trip after you leave here?
+            Thanks again for being such a good host and unofficial tour guide!
+            Robin ",
+            "VOCABULARY" => " Many people get _________________ from watching sport instead of actively exercising. a) pleasure b) please c) busy |
+            The Queen gave him an award for his _________________. a) work b) bravery c) brave |
+            They tried hard but couldn’t find a _________________ to the problem. a) solution b) solution's c) solutions |
+            This chair is rather _________________. Would you like to sit in that one over there?  a) comfortable b) comfort c) comfort's |
+            "
         ],
         "B2" => [
             "EXAMPLE_READING" => "",
