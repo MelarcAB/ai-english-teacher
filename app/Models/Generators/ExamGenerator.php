@@ -19,10 +19,11 @@ class ExamGenerator extends Model
 {
 
 
-    public function generateExam($level = "A1", $log = false, $user_id = 0)
+    public function generateExam($level, $log = false, $user_id = 0)
     {
         //si el examen es de nivel A1, B1, C1, etc, se genera un examen de A1
         if ($level == "A1" || $level == "B1" || $level == "C1" || $level == "A2" || $level == "B2" || $level == "C2") {
+        } else {
             $level = "A1";
         }
         ($log == true) ? print "Generando examen de nivel " . $level . "..." . PHP_EOL : null;
@@ -84,7 +85,7 @@ class ExamGenerator extends Model
         //reading TRUE OR FALSE sobre el texto
         ($log == true) ? print "Generando preguntas de reading TRUE OR FALSE..." . PHP_EOL : null;
         $reading_questions = $test_api->send(
-            "Generate 5 sentences true or false (exam reading A1), split by |. Without answers.  " . $exam->reading . "     EXAMPLE STRUCTURE OF QUESTIONS:" . $example_exam['EXAMPLE_READING_QUESTIONS']
+            "Generate 5 sentences true or false (exam reading $level), split by |. Without answers.  " . $exam->reading . "     EXAMPLE STRUCTURE OF QUESTIONS:" . $example_exam['EXAMPLE_READING_QUESTIONS']
         );
 
         $response = json_decode($reading_questions);
@@ -106,7 +107,7 @@ class ExamGenerator extends Model
         //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
         ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
         $grammar_questions = $test_api->send(
-            "Generates 4 grammar questions (grammar test level A1). Separated by |. With options, only one correct. Similar level to these: " . $example_exam['GAMMAR_QUESTIONS']
+            "Generates 4 grammar questions (grammar test level $level). Separated by |. With options, only one correct. Similar level to these: " . $example_exam['GAMMAR_QUESTIONS']
         );
 
         $response = json_decode($grammar_questions);
@@ -137,7 +138,7 @@ class ExamGenerator extends Model
         //writing
         ($log == true) ? print "Generando texto de writing..." . PHP_EOL : null;
         $writing = $test_api->send(
-            "Generate a writing exercise for an A1 English exam. I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this: " . $example_exam['WRITING'] . ". ANSWER ONLY WITH THE EXERCICE"
+            "Generate a writing exercise for an $level English exam. I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this: " . $example_exam['WRITING'] . ". ANSWER ONLY WITH THE EXERCICE"
         );
 
         $response = json_decode($writing);
@@ -151,7 +152,7 @@ class ExamGenerator extends Model
 
         //generar 5 frases de vocabulario
         ($log == true) ? print "Generando frases de vocabulario..." . PHP_EOL : null;
-        //Generate 5 vocabulary sentences for an A1 English exam separated by | . Based on this examples: I ___ my bike at the weekend. | This is a bad film. Turn ___ the TV! | Can you ___ that noise? | I can’t ___ my keys. SEPARATED BY |
+        //Generate 5 vocabulary sentences for an $level English exam separated by | . Based on this examples: I ___ my bike at the weekend. | This is a bad film. Turn ___ the TV! | Can you ___ that noise? | I can’t ___ my keys. SEPARATED BY |
 
         $vocabulary = $test_api->send(
             "Create 5 vocabulary exercises for an English examl IMPORTANT separated by | . Sentences with two options, only one option  correct. Structure like this: ' Mike ride a _[option1/option2] | ' EXAMPLES : " . $example_exam['VOCABULARY'] . ". YOU HAVE TO PUT | IN THE END OF EACH SENTENCE. "

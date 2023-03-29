@@ -161,6 +161,7 @@ class TestController extends Controller
             return redirect()->back()->with('error', 'El nivel de examen no es valido');
         }
 
+
         //generar examen
         GenerateExam::dispatch($exam_type, auth()->user()->id);
 

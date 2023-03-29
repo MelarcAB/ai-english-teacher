@@ -58,6 +58,78 @@ class ExamExamples extends Model
             "VOCABULARY" => "According to ___________ [weather/the climate] forecast, it will clear up tomorrow. | An _____________ [architect/builder] is a person who designs buildings| A synonym of gift is ___________ [gadget/present/] | I enjoyed the concert .It was ___________ [amused/amusing]"
         ],
 
+
+        "A2" => [
+            "EXAMPLE_READING" => "WELCOME TO CYBERSPACE!
+            Travel around the magnificent world of the Internet with COMEWITHUS.COM.
+            The Internet: a world of information, entertainment and communication. Are you on-line? If not, think
+            about what you’re missing. You could get the latest news it even appears TV: you could take part in
+            discussions about things that interest you with people from around the world; you could make new
+            friends who share your ideas and hobbies; you could send messages to your friends abroad – they
+            will reach them immediately, and at a minimum cost; you could go shopping for anything, anywhere
+            in the world, and pay much less than you would in a shop.
+            All you need to do is call us FREE on 0800-600-600, and we will take care of everything!
+            Everything you need will come to your house in 24 hours, and you will be ready to start surfing the
+            net! And, with COMEWITHUS.COM, going on the Internet will cost you very little. For £25 a month,
+            you can have your own Internet connection, and your own e-mail address. So call us now, on
+            0800-600-600, and start exploring the wonderful world of the Internet!",
+            "EXAMPLE_READING_QUESTIONS" => " COMEWITHUS.COM sell
+            a) TVs b) telephones c) Internet connections |
+            2. According to the advertisement, with “COMEWITHUS.COM” you can
+            a) make new friends b) travel abroad c) appear on TV |
+            3. If you want to connect to the Internet with “COMEWITHUS.COM” you have to
+             a) send them a message b) call them c) take part in a discussion |
+            4. Calling “COMEWITHUS.COM” on the phone will cost you
+            a) a fortune b) very little c) nothing |",
+            "GAMMAR_QUESTIONS" => "George is ................ than Nick.
+            a) tall b) taller c) tallest |
+           2. What time ..... Calais tomorrow afternoon?
+           a) do the ferry reach b) is the ferry reaching c) does the ferry reach|
+           3. My friend ..................... lives in Australia is a nurse.
+           a) who b) which c) whose|
+           4. I like walking in the park ............. hot days.
+           a) at b) on c) in|
+           5. Centuries ago, people ………. animals for food.
+           a) transported b) played c) hunted |",
+            "WRITING" => "You want to buy some clothes in an English city. Write an email to your English friend, George.
+            In your email,
+            - Ask George where to buy cheap clothes
+            - Ask George how to get there
+            - Ask what time the stores stay open",
+            "VOCABULARY" => "People used to cook by using wood a hundred yuears ___ a) before  b) past c) ago | It ___ one hour and half to get to the museum but the journey was quite funny. a)passed b)spent c)took| I'm the same ___ as my oldest brother's son. a)age b)birthday c)year"
+        ],
+
+
+
+        "B1" => [
+            "EXAMPLE_READING" => "",
+            "EXAMPLE_READING_QUESTIONS" => "",
+            "GAMMAR_QUESTIONS" => "",
+            "WRITING" => "",
+            "VOCABULARY" => ""
+        ],
+        "B2" => [
+            "EXAMPLE_READING" => "",
+            "EXAMPLE_READING_QUESTIONS" => "",
+            "GAMMAR_QUESTIONS" => "",
+            "WRITING" => "",
+            "VOCABULARY" => ""
+        ],
+        "C1" => [
+            "EXAMPLE_READING" => "",
+            "EXAMPLE_READING_QUESTIONS" => "",
+            "GAMMAR_QUESTIONS" => "",
+            "WRITING" => "",
+            "VOCABULARY" => ""
+        ],
+        "C2" => [
+            "EXAMPLE_READING" => "",
+            "EXAMPLE_READING_QUESTIONS" => "",
+            "GAMMAR_QUESTIONS" => "",
+            "WRITING" => "",
+            "VOCABULARY" => ""
+        ],
+
     ];
 
 

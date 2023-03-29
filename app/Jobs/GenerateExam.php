@@ -17,7 +17,7 @@ class GenerateExam implements ShouldQueue
 
     private $tipo_exam;
     private $user_id;
-    public function __construct($tipo_exam = "A1", $user_id)
+    public function __construct($tipo_exam, $user_id)
     {
         $this->tipo_exam = $tipo_exam;
         $this->user_id = $user_id;
