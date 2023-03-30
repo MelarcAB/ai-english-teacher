@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             //message
-            $table->text('prompt')->nullable()->default("-");
-            $table->text('text')->nullable()->default("-");
+            $table->text('prompt')->nullable();
+            $table->text('text')->nullable();
             //model
-            $table->string('model')->nullable()->default("-");
+            $table->string('model')->nullable();
             //usage
-            $table->string('prompt_tokens')->nullable()->default("0");
-            $table->string('completion_tokens')->nullable()->default("0");
-            $table->string('total_tokens')->nullable()->default("0");
+            $table->string('prompt_tokens')->default("0");
+            $table->string('completion_tokens')->default("0");
+            $table->string('total_tokens')->default("0");
             //user
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
 
