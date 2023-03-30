@@ -16,36 +16,36 @@ return new class extends Migration
 
             //user
             //$table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->text('reading_answer_1')->nullable()->default('');
-            $table->text('reading_answer_2')->nullable()->default('');
-            $table->text('reading_answer_3')->nullable()->default('');
+            $table->text('reading_answer_1')->nullable();
+            $table->text('reading_answer_2')->nullable();
+            $table->text('reading_answer_3')->nullable();
 
 
             //respuesta reading true false
-            $table->text('reading_true_false_answer_1')->nullable()->default('');
-            $table->text('reading_true_false_answer_2')->nullable()->default('');
-            $table->text('reading_true_false_answer_3')->nullable()->default('');
-            $table->text('reading_true_false_answer_4')->nullable()->default('');
-            $table->text('reading_true_false_answer_5')->nullable()->default('');
+            $table->text('reading_true_false_answer_1')->nullable();
+            $table->text('reading_true_false_answer_2')->nullable();
+            $table->text('reading_true_false_answer_3')->nullable();
+            $table->text('reading_true_false_answer_4')->nullable();
+            $table->text('reading_true_false_answer_5')->nullable();
 
 
 
             //respuesta gramatica
-            $table->text('grammar_answer_1')->nullable()->default('');
-            $table->text('grammar_answer_2')->nullable()->default('');
-            $table->text('grammar_answer_3')->nullable()->default('');
-            $table->text('grammar_answer_4')->nullable()->default('');
-            $table->text('grammar_answer_5')->nullable()->default('');
+            $table->text('grammar_answer_1')->nullable();
+            $table->text('grammar_answer_2')->nullable();
+            $table->text('grammar_answer_3')->nullable();
+            $table->text('grammar_answer_4')->nullable();
+            $table->text('grammar_answer_5')->nullable();
 
             //respuesta vocabulary
-            $table->text('vocabulary_answer_1')->nullable()->default('');
-            $table->text('vocabulary_answer_2')->nullable()->default('');
-            $table->text('vocabulary_answer_3')->nullable()->default('');
-            $table->text('vocabulary_answer_4')->nullable()->default('');
-            $table->text('vocabulary_answer_5')->nullable()->default('');
+            $table->text('vocabulary_answer_1')->nullable();
+            $table->text('vocabulary_answer_2')->nullable();
+            $table->text('vocabulary_answer_3')->nullable();
+            $table->text('vocabulary_answer_4')->nullable();
+            $table->text('vocabulary_answer_5')->nullable();
 
             //respuesta writing
-            $table->text('writing_answer')->nullable()->default('');
+            $table->text('writing_answer')->nullable();
 
 
             //is_correction
