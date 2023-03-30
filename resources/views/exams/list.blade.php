@@ -21,8 +21,15 @@
                 <tbody class="text-gray-700 divide-y divide-gray-200">
                     @foreach ($exams as $key => $exam)
                         <tr class="hover:bg-gray-100 transition-colors duration-200">
-                            <td class="px-6 py-4 whitespace-nowrap"><a href="{{ route('exam.show', $exam) }}"><i
-                                        class="fa-solid fa-eye"></i></a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if ($exam->status > 0)
+                                    <a href="{{ route('exam.show', $exam) }}"><i class="fa-solid fa-eye"></i></a>
+                                @endif
+                                @if ($exam->status == 0)
+                                    <i class="fas fa-circle-notch fa-spin fa-lg text-gray-800"></i>
+                                    <span class="ml-2 text-gray-800">Generando</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->level }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->reading, 0, 30) }}...</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $exam->listening }}</td>

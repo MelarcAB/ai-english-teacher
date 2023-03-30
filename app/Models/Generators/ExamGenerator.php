@@ -43,6 +43,9 @@ class ExamGenerator extends Model
             $exam->user_id = $user_id;
         }
 
+        //save exam
+        $exam->save();
+
         $test_api = new TestApi();
         //Primero generamos el reading
         //generar texto a leer + 3 preguntas
@@ -171,6 +174,9 @@ class ExamGenerator extends Model
 
         // print "Guardando examen..." . PHP_EOL;
         ($log == true) ? print "Guardando examen..." . PHP_EOL : null;
+
+        //status 1
+        $exam->status = 1;
         $exam->save();
 
         //

@@ -65,6 +65,13 @@ return new class extends Migration
             //writing
             $table->text('writing')->nullable()->default("");
 
+            //status
+            // 0 - creating
+            // 1 - created
+            // 2 - completed
+            // 3 - corrected
+            $table->integer('status')->nullable()->default(0);
+
 
             //user_id
             $table->unsignedBigInteger('user_id')->constraint()->onDelete('cascade');

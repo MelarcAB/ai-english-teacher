@@ -34,6 +34,7 @@ class Exam extends Model
         'writing',
         'speaking',
         'level',
+        'status',
         'user_id',
     ];
 
