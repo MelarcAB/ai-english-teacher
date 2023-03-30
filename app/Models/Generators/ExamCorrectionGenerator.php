@@ -6,6 +6,8 @@ use App\Models\Exam;
 use App\Models\ExamAnswers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+//TestApi
+use App\Models\TestApi;
 
 class ExamCorrectionGenerator extends Model
 {
@@ -28,11 +30,38 @@ class ExamCorrectionGenerator extends Model
     //status 3
     $exam->status = 3;
     $exam->save();
+    $test_api = new TestApi();
 
     $user = $examAnswers->user;
     //empezar a corregir
+    print "Corrigiendo examen " . $exam->level . "..." . PHP_EOL;
 
     //reading 1.1 (texto + preguntas)
+    //You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text. 
+    //obtener texto reading 1.1
+    $reading = $exam->reading;
+    $reading_question_1 = $exam->question_1;
+    $reading_question_2 = $exam->question_2;
+    $reading_question_3 = $exam->question_3;
+    //obtener respuestas reading 1.1
+    $reading_answer_1 = $examAnswers->reading_answer_1;
+    $reading_answer_2 = $examAnswers->reading_answer_2;
+    $reading_answer_3 = $examAnswers->reading_answer_3;
+
+    //obtener correcciones reading 
+    $correction_petition = "";
+    //Primero generamos el reading
+    //generar texto a leer + 3 preguntas
+    $reading = $test_api->send(
+      "You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text." .
+        "" . $reading . " " . $reading_question_1 . " " . $reading_answer_1 . " - " . $reading_question_2 . " " . $reading_answer_2 . " - " . $reading_question_3 . " " . $reading_answer_3
+    );
+
+    $reading = json_decode($reading);
+    $response_text = $reading->choices[0]->message->content;
+
+    print("Reading 1.1: " . $response_text . PHP_EOL);
+
     //reading 1.2 (texto + true/false)
 
     //grammar 2.1 (opcion correcta)
