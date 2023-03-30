@@ -69,7 +69,8 @@ return new class extends Migration
             // 0 - creating
             // 1 - created
             // 2 - completed
-            // 3 - corrected
+            // 3 - in correction
+            // 4 - corrected
             $table->integer('status')->nullable()->default(0);
 
 

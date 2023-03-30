@@ -30,4 +30,16 @@ class ExamAnswers extends Model
         'exam_id',
         'user_id',
     ];
+
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

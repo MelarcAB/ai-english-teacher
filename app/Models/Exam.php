@@ -105,4 +105,10 @@ class Exam extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    //exam_answers
+    public function exam_answers()
+    {
+        return $this->hasMany(ExamAnswers::class);
+    }
 }
