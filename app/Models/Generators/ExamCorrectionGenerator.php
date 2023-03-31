@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 //TestApi
 use App\Models\TestApi;
+//ExamCorrection
+use App\Models\ExamCorrection;
 
 class ExamCorrectionGenerator extends Model
 {
@@ -36,6 +38,11 @@ class ExamCorrectionGenerator extends Model
     //empezar a corregir
     print "Corrigiendo examen " . $exam->level . "..." . PHP_EOL;
 
+    //instancia de examen correction  
+    $examCorrection = new ExamCorrection();
+    $examCorrection->exam_id = $exam->id;
+
+
     //reading 1.1 (texto + preguntas)
     //You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text. 
     //obtener texto reading 1.1
@@ -52,15 +59,29 @@ class ExamCorrectionGenerator extends Model
     $correction_petition = "";
     //Primero generamos el reading
     //generar texto a leer + 3 preguntas
-    $reading = $test_api->send(
-      "You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text." .
-        "" . $reading . " " . $reading_question_1 . " " . $reading_answer_1 . " - " . $reading_question_2 . " " . $reading_answer_2 . " - " . $reading_question_3 . " " . $reading_answer_3
-    );
+    $PROMPT = "FROM NOW You'll answer ONLY in JSON FORMAT. You're going to correct an exercice for an exam.";
+    $PROMPT .= "You're answer format will have 'response' array with is_correct(bool) and valoration (string with the valoration of the answer) for each exercice.";
+    $PROMPT .= "The user answer has to be related to the text.";
+    $PROMPT .= "Exercice:  Read the text and answer the answers according to the text.";
+    $PROMPT .= " TEXT: " . $reading;
+    $PROMPT .= "-  QUESTIONS: " . $reading_question_1 . " " . $reading_answer_1 . " - " . $reading_question_2 . " " . $reading_answer_2 . " - " . $reading_question_3 . " " . $reading_answer_3;
+    $reading = $test_api->send($PROMPT);
 
     $reading = json_decode($reading);
     $response_text = $reading->choices[0]->message->content;
+    //copnvertir string a json
+    $response_text = json_decode($response_text);
+    var_dump($response_text);
+    $examCorrection->reading_correction_1 = $response_text->response[0]->is_correct;
+    $examCorrection->reading_correction_1_text = $response_text->response[0]->valoration;
 
-    print("Reading 1.1: " . $response_text . PHP_EOL);
+    $examCorrection->reading_correction_2 = $response_text->response[1]->is_correct;
+    $examCorrection->reading_correction_2_text = $response_text->response[1]->valoration;
+
+    $examCorrection->reading_correction_3 = $response_text->response[2]->is_correct;
+    $examCorrection->reading_correction_3_text = $response_text->response[2]->valoration;
+
+    //guardar correcciones reading
 
     //reading 1.2 (texto + true/false)
 
@@ -70,5 +91,8 @@ class ExamCorrectionGenerator extends Model
 
     //writing 3.1 (texto a corregir)
 
+
+    //save
+    $examCorrection->save();
   }
 }

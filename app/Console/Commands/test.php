@@ -49,9 +49,9 @@ class test extends Command
         //test exam correction generator
         $exam_correction_generator = new ExamCorrectionGenerator();
         //examen 3 y correccion 3
-        $exam = Exam::find(3);
+        $exam = Exam::find(1);
         //exam answers find 3
-        $exam_answers = ExamAnswers::find(3);
+        $exam_answers = ExamAnswers::find(1);
         $exam_correction_generator->correctExam($exam, $exam_answers);
     }
 }
