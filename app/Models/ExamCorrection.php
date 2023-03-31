@@ -49,6 +49,8 @@ class ExamCorrection extends Model
         'vocabulary_correction_4_text',
         'vocabulary_correction_5_text',
         'exam_id',
+        //user_id
+        'user_id',
 
         //scores
         'reading_score',

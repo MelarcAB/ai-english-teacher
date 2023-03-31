@@ -15,6 +15,8 @@ use App\Models\ExamAnswers;
 //exception
 use Exception;
 use App\Jobs\GenerateExam;
+//ExamCorrection
+use App\Models\Generators\ExamCorrectionGenerator;
 
 class TestController extends Controller
 {
@@ -91,7 +93,15 @@ class TestController extends Controller
             $exam_answers->exam_id = $exam->id;
             $exam_answers->save();
         }
-        return view('exams.show', compact('exam', 'exam_answers'));
+
+        //mirar si tiene correcciones y obtener la ultima
+        $exam_correction_generator = $exam->exam_corrections()->orderBy('created_at', 'desc')->first();
+        //si no tiene correcciones, generar objeto vacio
+        if (!$exam_correction_generator) {
+            $exam_correction_generator = new ExamCorrectionGenerator();
+        }
+
+        return view('exams.show', compact('exam', 'exam_answers', 'exam_correction_generator'));
     }
 
     //create exam

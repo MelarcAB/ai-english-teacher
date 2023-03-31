@@ -75,6 +75,8 @@ return new class extends Migration
             $table->text('writing_correction_text')->nullable();
             //puntuacion
             $table->decimal('writing_score', 8, 2)->nullable();
+            //user_id
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             //final score
             $table->decimal('final_score', 8, 2)->nullable();

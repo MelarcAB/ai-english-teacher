@@ -111,4 +111,10 @@ class Exam extends Model
     {
         return $this->hasMany(ExamAnswers::class);
     }
+
+    //exam_correction
+    public function exam_corrections()
+    {
+        return $this->hasMany(ExamCorrection::class);
+    }
 }

@@ -41,6 +41,8 @@ class ExamCorrectionGenerator extends Model
     //instancia de examen correction  
     $examCorrection = new ExamCorrection();
     $examCorrection->exam_id = $exam->id;
+    //user
+    $examCorrection->user_id = $user->id;
 
 
     //reading 1.1 (texto + preguntas)
@@ -61,7 +63,7 @@ class ExamCorrectionGenerator extends Model
     //generar texto a leer + 3 preguntas
     $PROMPT = "FROM NOW You'll answer ONLY in JSON FORMAT. You're going to correct an exercice for an exam.";
     $PROMPT .= "You're answer format will have 'response' array with is_correct(bool) and valoration (string with the valoration of the answer) for each exercice.";
-    $PROMPT .= "The user answer has to be related to the text.";
+    $PROMPT .= "The user answer has to be related to the text. To give an answer as correct, the answer has to be minimally extensive and explanatory. An answer that is too short will be incorrect.";
     $PROMPT .= "Exercice:  Read the text and answer the answers according to the text.";
     $PROMPT .= " TEXT: " . $reading;
     $PROMPT .= "-  QUESTIONS: " . $reading_question_1 . " " . $reading_answer_1 . " - " . $reading_question_2 . " " . $reading_answer_2 . " - " . $reading_question_3 . " " . $reading_answer_3;

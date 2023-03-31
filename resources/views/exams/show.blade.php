@@ -32,6 +32,25 @@
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
                             value="{{ $exam_answers->reading_answer_1 }}">
                     </div>
+
+                    @if (!empty($exam_correction_generator->reading_correction_1_text))
+                        <div class="mt-3 p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded mb-5 mx-5">
+                            <div class="flex items-center">
+                                <div class="text-xl mr-2">
+                                    @if ($exam_correction_generator->reading_correction_1)
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    @else
+                                        <i class="fas fa-times-circle text-red-500"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-700">Corrección:</p>
+                                    <p>{{ $exam_correction_generator->reading_correction_1_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="mb-3">
                         <label class="block text-gray-700 font-semibold"
                             for="reading_answer_2">{{ $exam['reading_question_2'] }}</label>
@@ -39,6 +58,27 @@
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
                             value="{{ $exam_answers->reading_answer_2 }}">
                     </div>
+
+
+                    @if (!empty($exam_correction_generator->reading_correction_2_text))
+                        <div class="mt-3 p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded mb-5 mx-5">
+                            <div class="flex items-center">
+                                <div class="text-xl mr-2">
+                                    @if ($exam_correction_generator->reading_correction_2)
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    @else
+                                        <i class="fas fa-times-circle text-red-500"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-700">Corrección:</p>
+                                    <p>{{ $exam_correction_generator->reading_correction_2_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+
                     <div class="mb-3">
                         <label class="block text-gray-700 font-semibold"
                             for="reading_answer_3">{{ $exam['reading_question_3'] }}</label>
@@ -46,6 +86,29 @@
                             class="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500"
                             value="{{ $exam_answers->reading_answer_3 }}">
                     </div>
+
+
+                    @if (!empty($exam_correction_generator->reading_correction_3_text))
+                        <div class="mt-3 p-3 bg-yellow-100 border-l-4 border-yellow-500 rounded mb-5 mx-5">
+                            <div class="flex items-center">
+                                <div class="text-xl mr-2">
+                                    @if ($exam_correction_generator->reading_correction_3)
+                                        <i class="fas fa-check-circle text-green-500"></i>
+                                    @else
+                                        <i class="fas fa-times-circle text-red-500"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-700">Corrección:</p>
+                                    <p>{{ $exam_correction_generator->reading_correction_3_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+
+
+
                     <h3 class="text-xl font-semibold mb-5 mt-5">1.2. Lee el texto y responde si las frases son verdaderas o
                         falsas.</h3>
                     <div class="mb-5">
