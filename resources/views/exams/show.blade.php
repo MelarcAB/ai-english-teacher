@@ -105,8 +105,19 @@
                             </div>
                         </div>
                     @endif
-
-
+                    @if (!is_null($exam_correction_generator->reading_score))
+                        <div class="mt-3 p-3 bg-green-100 border-l-4 border-green-500 rounded">
+                            <div class="flex items-center">
+                                <div class="text-xl mr-2">
+                                    <i class="fas fa-star text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-700">Puntaje obtenido:</p>
+                                    <p>{{ $exam_correction_generator->reading_score }} / 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
 
                     <h3 class="text-xl font-semibold mb-5 mt-5">1.2. Lee el texto y responde si las frases son verdaderas o
