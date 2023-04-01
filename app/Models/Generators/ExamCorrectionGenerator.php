@@ -48,7 +48,7 @@ class ExamCorrectionGenerator extends Model
     //reading 1.1 (texto + preguntas)
     //You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text. 
     //obtener texto reading 1.1
-    $reading = $exam->reading;
+    $reading_text = $exam->reading;
     $reading_question_1 = $exam->question_1;
     $reading_question_2 = $exam->question_2;
     $reading_question_3 = $exam->question_3;
@@ -56,22 +56,22 @@ class ExamCorrectionGenerator extends Model
     $reading_answer_1 = $examAnswers->reading_answer_1;
     $reading_answer_2 = $examAnswers->reading_answer_2;
     $reading_answer_3 = $examAnswers->reading_answer_3;
-    /*
+
     //Primero generamos el reading
     //generar texto a leer + 3 preguntas
     $PROMPT = "FROM NOW You'll answer ONLY in JSON FORMAT. You're going to correct an exercice for an exam.";
     $PROMPT .= "You're answer format will have 'response' array with is_correct(bool) and valoration (string with the valoration of the answer) for each exercice.";
     $PROMPT .= "The user answer has to be related to the text. To give an answer as correct, the answer has to be minimally extensive and explanatory. An answer that is too short will be incorrect.";
     $PROMPT .= "Exercice:  Read the text and answer the answers according to the text.";
-    $PROMPT .= " TEXT: " . $reading;
-    $PROMPT .= "-  QUESTIONS: " . $reading_question_1 . " " . $reading_answer_1 . " - " . $reading_question_2 . " " . $reading_answer_2 . " - " . $reading_question_3 . " " . $reading_answer_3;
+    $PROMPT .= " TEXT: " . $reading_text;
+    $PROMPT .= "-  QUESTIONS: 1" . $reading_question_1 . " " . $reading_answer_1 . " -- 2" . $reading_question_2 . " " . $reading_answer_2 . " --3 " . $reading_question_3 . " " . $reading_answer_3;
     $reading = $test_api->send($PROMPT);
 
     $reading = json_decode($reading);
     $response_text = $reading->choices[0]->message->content;
     //copnvertir string a json
     $response_text = json_decode($response_text);
-    var_dump($response_text);
+    var_dump($response_text) . PHP_EOL;
     $score = 0;
     $examCorrection->reading_correction_1 = $response_text->response[0]->is_correct;
     $examCorrection->reading_correction_1_text = $response_text->response[0]->valoration;
@@ -79,6 +79,9 @@ class ExamCorrectionGenerator extends Model
     if ($examCorrection->reading_correction_1) {
       $score++;
     }
+
+    print "Score: " . $score . PHP_EOL;
+    print "Reading 1.1 corrected" . PHP_EOL;
 
     $examCorrection->reading_correction_2 = $response_text->response[1]->is_correct;
     $examCorrection->reading_correction_2_text = $response_text->response[1]->valoration;
@@ -95,7 +98,7 @@ class ExamCorrectionGenerator extends Model
     }
 
     $examCorrection->reading_score = $score;
-*/
+
 
     //reading 1.2 (texto + true/false)
     $reading_true_false_1 = $exam->reading_true_false_1;
@@ -139,12 +142,12 @@ class ExamCorrectionGenerator extends Model
 
     //Primero generamos el reading
     //generar texto a leer + 3 preguntas
-    $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user answers.";
-    $PROMPT .= "You're answer format will have 'response' array with 'is_correct'(bool with the valoration of the user answer) and 'valoration'(string: explication of your correction and say explicit the correct answer) for each exercice.";
-    $PROMPT .= "It will be a true/false exercice. You must evaluate the user's response to the phrase based on the text.";
-    $PROMPT .= "Exercice:  Read the text and answer true or false according to the text.";
-    $PROMPT .= " TEXT: " . $reading;
-    $PROMPT .= "- QUESTIONS: " . $reading_true_false_1 . " USER:" . $reading_true_false_answer_1 . " - " . $reading_true_false_2 . " USER:" . $reading_true_false_answer_2 . " - " . $reading_true_false_3 . " USER:" . $reading_true_false_answer_3 . " - " . $reading_true_false_4 . " USER:" . $reading_true_false_answer_4 . " - " . $reading_true_false_5 . " USER:" . $reading_true_false_answer_5;
+    $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user choices.Minimal reasoning.";
+    $PROMPT .= "You're answer format will have 'response' array with 'user_failed'(Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [TRUE/FALSE/NULL], the correct answer is [TRUE/FALSE], because ...') for each exercice.";
+    $PROMPT .= "The user will will choose true or false. You will correct their choices. if a user leaves a null answer, it will count as a fault.";
+    $PROMPT .= "Before correcting, you will review the text and the user's response to give a correct verdict.";
+    $PROMPT .= " TEXT: " . $reading_text;
+    $PROMPT .= "-- USER ACTIVITY :  1 ." . $reading_true_false_1 . "  USER SAYS '" . $reading_true_false_answer_1 . "'. -- 2." . $reading_true_false_2 . "  USER SAYS '" . $reading_true_false_answer_2 . "' -- 3. " . $reading_true_false_3 . "  USER SAYS'" . $reading_true_false_answer_3 . "' -- 4. " . $reading_true_false_4 . "  USER  SAYS '" . $reading_true_false_answer_4 . "' -- 5. " . $reading_true_false_5 . "  USER SAYS'" . $reading_true_false_answer_5 . "'";
     $reading = $test_api->send($PROMPT);
 
     var_dump($PROMPT);
@@ -152,7 +155,46 @@ class ExamCorrectionGenerator extends Model
     $response_text = $reading->choices[0]->message->content;
     //copnvertir string a json
     $response_text = json_decode($response_text);
-    var_dump($response_text);
+
+
+    //recorrer el json y guardar en la base de datos en reading_true_false_correction_1
+    $score = 0;
+    $examCorrection->reading_true_false_correction_1 = ($response_text->response[0]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->reading_true_false_correction_1_text = $response_text->response[0]->valoration;
+    //$examCorrection->reading_true_false_correction_1 es true -> sumar 1 al score
+    if ($examCorrection->reading_true_false_correction_1 == 'OK') {
+      $score++;
+    }
+
+    $examCorrection->reading_true_false_correction_2 = ($response_text->response[1]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->reading_true_false_correction_2_text = $response_text->response[1]->valoration;
+    //$examCorrection->reading_true_false_correction_2 es true -> sumar 1 al score
+    if ($examCorrection->reading_true_false_correction_2 == 'OK') {
+      $score++;
+    }
+
+    $examCorrection->reading_true_false_correction_3 = ($response_text->response[2]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->reading_true_false_correction_3_text = $response_text->response[2]->valoration;
+    //$examCorrection->reading_true_false_correction_3 es true -> sumar 1 al score
+    if ($examCorrection->reading_true_false_correction_3 == 'OK') {
+      $score++;
+    }
+
+    $examCorrection->reading_true_false_correction_4 = ($response_text->response[3]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->reading_true_false_correction_4_text = $response_text->response[3]->valoration;
+    //$examCorrection->reading_true_false_correction_4 es true -> sumar 1 al score
+    if ($examCorrection->reading_true_false_correction_4 == 'OK') {
+      $score++;
+    }
+
+    $examCorrection->reading_true_false_correction_5 = ($response_text->response[4]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->reading_true_false_correction_5_text = $response_text->response[4]->valoration;
+    //$examCorrection->reading_true_false_correction_5 es true -> sumar 1 al score
+    if ($examCorrection->reading_true_false_correction_5 == 'OK') {
+      $score++;
+    }
+
+
 
 
 
@@ -166,6 +208,6 @@ class ExamCorrectionGenerator extends Model
 
 
     //save
-    // $examCorrection->save();
+    $examCorrection->save();
   }
 }
