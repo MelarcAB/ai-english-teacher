@@ -458,8 +458,10 @@
                     <button type="submit"
                         class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Guardar
                         respuestas</button>
-                    <button type="button"
-                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corrección</button>
+                    @if ($exam->can_be_corrected())
+                        <button type="submit"
+                            class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corregir</button>
+                    @endif
                 </div>
             </form>
         </div>

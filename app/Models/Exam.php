@@ -117,4 +117,46 @@ class Exam extends Model
     {
         return $this->hasMany(ExamCorrection::class);
     }
+
+    /**
+     * funcion para detectar si el examen puede ser corregido (si ya se han contestado todas las preguntas)
+     */
+    public function can_be_corrected()
+    {
+        //get last
+        $exam_answers = $this->exam_answers()->latest()->first();
+        //si no hay examenes contestados no se puede corregir
+        if ($exam_answers == null) {
+            return false;
+        }
+        $required_fields = [
+            'reading_answer_1',
+            'reading_answer_2',
+            'reading_answer_3',
+            'reading_true_false_answer_1',
+            'reading_true_false_answer_2',
+            'reading_true_false_answer_3',
+            'reading_true_false_answer_4',
+            'reading_true_false_answer_5',
+            'grammar_answer_1',
+            'grammar_answer_2',
+            'grammar_answer_3',
+            'grammar_answer_4',
+            //  'grammar_answer_5',
+            'vocabulary_answer_1',
+            'vocabulary_answer_2',
+            'vocabulary_answer_3',
+            'vocabulary_answer_4',
+            'vocabulary_answer_5',
+            'writing_answer',
+        ];
+
+        foreach ($required_fields as $field) {
+            if ($exam_answers->$field == null || $exam_answers->$field == "") {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

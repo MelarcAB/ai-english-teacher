@@ -27,7 +27,7 @@
                 <div class="mb-4">
                     <label for="openai_token" class="block text-teal-700">Token de OpenAI:</label>
                     <input type="text" name="openai_token" id="openai_token" value="{{ auth()->user()->openai_token }}"
-                        class="border rounded px-3 py-2 w-full" required>
+                        class="border rounded px-3 py-2 w-full">
                 </div>
 
                 <div class="flex justify-end">
