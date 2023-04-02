@@ -175,6 +175,6 @@ class TestController extends Controller
         //generar examen
         GenerateExam::dispatch($exam_type, auth()->user()->id);
 
-        return  redirect()->route('exam.list');
+        return  redirect()->route('exam.list')->with('message', 'El exámen se ha añadido a la cola. Cuando empiece su generación será visible en el listado');
     }
 }

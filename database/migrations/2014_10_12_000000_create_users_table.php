@@ -26,6 +26,8 @@ return new class extends Migration
             //user type -> num
             //1-web,2-admin
             $table->integer('user_type')->default(1);
+            //openai_token
+            $table->string('openai_token')->nullable();
         });
     }
 

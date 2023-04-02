@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>IA Examinador Inglés</title>
+    <title>ExaminAI - Tu profesor de inglés inteligente</title>
     <!-- img -->
     <link rel="icon" href="{{ asset('img/examinai_logo_teal.png') }}" type="image/png" sizes="16x16">
     <!-- Fonts -->
@@ -27,8 +27,8 @@
         <section class="py-12">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row items-center md:space-x-8">
-                    <img src="{{ asset('img/examinai_logo_teal.png') }}" alt="Imagen descriptiva"
-                        class="w-full md:w-1/3 rounded-lg mb-3">
+                    <img src="{{ asset('img/examinai_logo_teal.png') }}" alt="Logo ExaminAI"
+                        class="w-full md:w-1/3 rounded-lg mb-3 hover:shadow-glow">
                     <div class="text-center md:text-left md:w-1/2">
                         <h2 class="text-3xl font-bold mb-4 text-teal-800">Exámenes personalizados de inglés</h2>
                         <p class="mb-4 text-teal-700">Nuestra aplicación web utiliza inteligencia artificial para

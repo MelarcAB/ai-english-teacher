@@ -19,13 +19,13 @@
 
 <body class="bg-gradient-to-b from-teal-50 to-teal-200 font-poppins min-h-screen flex flex-col">
     <header class="bg-teal-600 shadow-sm">
-        <div class="container mx-auto px-4 py-5 flex items-center justify-between">
-            <a href="/" class="text-3xl font-black text-teal-100 font-extralight flex-shrink-0">
-                <i class="fa-solid fa-robot"></i> IA Examinador Inglés
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+            <a href="/" class="text-3xl font-black text-teal-50 font-extralight flex-shrink-0 italic">
+                <i class="fa-solid fa-robot "></i> ExaminAI
             </a>
             @auth
                 <div class="hidden md:flex md:items-center md:space-x-4">
-                    <a href="/configuracion"
+                    <a href="{{ route('configuration') }}"
                         class="text-teal-100  uppercase rounded-lg transition-colors hover:bg-teal-700 px-5 py-2 text-lg">
                         <i class="fa-solid fa-user "></i> {{ Auth::user()->username }}</a>
                     <form method="POST" action="{{ route('auth.logout') }}">
@@ -38,12 +38,12 @@
                 </div>
             @endauth
             <button id="menu-toggle" class="md:hidden text-teal-100 focus:outline-none">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars mr-2"></i>
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden w-full bg-teal-200 shadow-md p-4 transition-all duration-200">
             @auth
-                <a href="/configuracion" class="block mb-4 text-teal-800 hover:text-teal-600 uppercase">
+                <a href="{{ route('configuration') }}" class="block mb-4 text-teal-800 hover:text-teal-600 uppercase">
                     <i class="fa-solid fa-user"></i> {{ Auth::user()->username }}</a>
                 </a>
             @endauth
@@ -60,6 +60,16 @@
 
     <main class="container mx-auto mt-3">
         <h2 class="font-black text-center text-3xl mb-3">@yield('title')</h2>
+        <div>
+
+            @if (session('message'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 text-center"
+                    role="alert">
+                    <strong class="font-bold">¡Acción realizada correctamente! </strong>
+                    <span class="block sm:inline">{{ session('message') }}</span>
+                </div>
+            @endif
+        </div>
         @yield('content')
     </main>
 

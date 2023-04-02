@@ -26,6 +26,10 @@ Route::controller(App\Http\Controllers\AuthController::class)->group(function ()
 //home controller (only for auth)
 Route::controller(App\Http\Controllers\HomeController::class)->middleware('auth')->group(function () {
     Route::get('/home', 'index')->name('home');
+    //profile
+    Route::get('/configuracion', 'configuration')->name('configuration');
+    //save openai token
+    Route::post('/configuracion', 'store')->name('configuration.store');
 });
 
 //test controller (only for auth)

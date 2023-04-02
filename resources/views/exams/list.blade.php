@@ -3,6 +3,13 @@
 @endsection
 @section('content')
     <div class="container mx-auto p-6">
+
+
+
+
+
+
+
         <h1 class="text-3xl font-bold  text-teal-700">Tus exámenes</h1>
         <div class="container mx-auto p-2">
             <a href="{{ route('home') }}"

@@ -4,6 +4,11 @@ module.exports = {
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'],
   theme: {
     extend: {
+      dropShadow: {
+        glow: [
+          "0 0px 20px rgba(255,255, 255, 0.35)",
+        ],
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
       },

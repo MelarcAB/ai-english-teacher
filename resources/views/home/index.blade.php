@@ -33,24 +33,39 @@
                             class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Ver exámenes</a>
                     </div>
                 </div>
+                <div class="bg-gradient-to-b from-teal-50 to-teal-200 p-6 rounded-md">
+                    <div class="flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-person-chalkboard text-4xl text-teal-800"></i>
+                        <h2 class="text-xl font-bold ml-4 text-teal-800">Profesor virtual</h2>
+                    </div>
+                    <p class="mb-4 text-teal-700">El Profesor Virtual es un asistente basado en IA que resolverá tus dudas
+                        sobre exámenes de inglés y aspectos del idioma.</p>
+                    <div class="flex justify-center">
+                        <a href="{{ route('test') }}"
+                            class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Acceder al Profesor
+                            Virtual</a>
+                    </div>
+                </div>
 
                 <div class="bg-gradient-to-b from-teal-50 to-teal-200 p-6 rounded-md">
                     <div class="flex items-center justify-center mb-4">
                         <i class="fa-solid fa-gear text-4xl text-teal-800"></i>
-                        <h2 class="text-xl font-bold ml-4 text-teal-800">Test</h2>
+                        <h2 class="text-xl font-bold ml-4 text-teal-800">Configuración</h2>
                     </div>
-                    <p class="mb-4 text-teal-700">Testos</p>
+                    <p class="mb-4 text-teal-700">En Configuración, encontrarás las opciones principales del usuario. Aquí
+                        podrás añadir el token de ChatGPT para poder utilizar el servicio.</p>
                     <div class="flex justify-center">
-                        <a href="{{ route('test') }}"
+                        <a href="{{ route('configuration') }}"
                             class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Acceder a
-                            testos</a>
+                            Configuración</a>
                     </div>
                 </div>
+
 
                 @if (auth()->user()->isAdmin())
                     <div class="bg-gradient-to-b from-teal-50 to-teal-200 p-6 rounded-md">
                         <div class="flex items-center justify-center mb-4">
-                            <i class="fa-solid fa-gear text-4xl text-teal-800"></i>
+                            <i class="fa-solid fa-list text-4xl text-teal-800"></i>
                             <h2 class="text-xl font-bold ml-4 text-teal-800">Logs</h2>
                         </div>
                         <p class="mb-4 text-teal-700">Logs de las peticiones con sus consumos de tokens de las generaciones.
