@@ -18,15 +18,15 @@
 <body class="bg-gradient-to-br from-teal-200 to-teal-400 min-h-screen font-poppins">
     <header class="bg-teal-500 text-white py-4 shadow-md">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold">Generador de Exámenes de Inglés con IA</h1>
+            <h1 class="text-3xl font-bold italic">ExaminAI</h1>
         </div>
     </header>
     <main>
         <section class="py-12">
             <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row items-center md:space-x-6">
-                    <img src="https://api.time.com/wp-content/uploads/2022/11/GettyImages-1358149692.jpg"
-                        alt="Imagen descriptiva" class="w-full md:w-1/2 rounded-lg shadow-lg">
+                <div class="flex flex-col md:flex-row items-center md:space-x-8">
+                    <img src="{{ asset('img/examinai_logo_teal.png') }}" alt="Imagen descriptiva"
+                        class="w-full md:w-1/3 rounded-lg mb-3">
                     <div class="text-center md:text-left md:w-1/2">
                         <h2 class="text-3xl font-bold mb-4 text-teal-800">Exámenes personalizados de inglés</h2>
                         <p class="mb-4 text-teal-700">Nuestra aplicación web utiliza inteligencia artificial para
@@ -63,7 +63,7 @@
                             experiencia de aprendizaje única.</p>
                     </div>
                     <div class="text-center bg-white p-6 rounded-lg shadow-lg hover:shadow-xl  transition-all">
-                        <i class="i class="fas fa-mobile-alt text-5xl mb-4 text-teal-800"></i>
+                        <i class="fas fa-mobile-alt text-5xl mb-4 text-teal-800"></i>
                         <h3 class="text-xl font-bold mb-2 text-teal-800">Responsive</h3>
                         <p class="text-teal-700">Utiliza nuestra aplicación desde cualquier dispositivo, ya sea móvil,
                             tablet o computadora,
