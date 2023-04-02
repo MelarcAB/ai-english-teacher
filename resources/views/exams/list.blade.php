@@ -7,7 +7,7 @@
         <div class="container mx-auto p-2">
             <a href="{{ route('home') }}"
                 class="
-        bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded inline-flex items-center mb-4">
+        bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center mb-4">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Volver
             </a>
@@ -15,7 +15,7 @@
 
 
         <div class="w-full overflow-x-auto shadow-md">
-            <table class="min-w-full bg-white divide-y divide-gray-200  rounded-lg">
+            <table class="min-w-full bg-white divide-y divide-gray-200  ">
                 <thead class="bg-teal-500 text-white">
                     <tr>
                         <th class="px-6 py-3 text-left font-semibold uppercase">#</th>
