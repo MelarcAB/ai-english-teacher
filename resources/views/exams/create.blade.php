@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-5">
-
         @if (session('status'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-5" role="alert">
                 <strong class="font-bold">¡Éxito!</strong>
@@ -10,14 +9,13 @@
             </div>
         @endif
         @if (session('error'))
-            <strong class="font-bold">ERROR!</strong>
-            <span class="block sm:inline">{{ session('error') }}</span>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5" role="alert">
+                <strong class="font-bold">ERROR!</strong>
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
         @endif
-
-
         <div class="bg-white p-5 rounded shadow-lg w-full lg:w-3/4 mx-auto">
-            <h1 class="text-2xl font-bold mb-5">Generar Examen</h1>
-
+            <h1 class="text-3xl font-bold mb-5 text-teal-600">Generar Examen</h1>
             <form action="{{ route('exam.generate') }}" method="POST">
                 @csrf
                 <div class="mb-5">
@@ -39,11 +37,9 @@
                     <span class="block sm:inline mt-2">Una vez generado, podrás ver el examen en la lista de
                         exámenes.</span>
                 </div>
-
-
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Generar
+                        class="bg-teal-500 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-teal-600 transition duration-200">Generar
                         Examen</button>
                 </div>
             </form>

@@ -4,6 +4,9 @@ module.exports = {
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+      },
       '@layer utilities': {
         '.custom-class': {
           'background-color': 'bg-blue-100',

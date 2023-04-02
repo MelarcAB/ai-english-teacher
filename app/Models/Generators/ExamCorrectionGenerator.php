@@ -143,7 +143,7 @@ class ExamCorrectionGenerator extends Model
     //Primero generamos el reading
     //generar texto a leer + 3 preguntas
     $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user choices.Minimal reasoning.";
-    $PROMPT .= "You're answer format will have 'response' array with 'user_failed'(Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [TRUE/FALSE/NULL], the correct answer is [TRUE/FALSE], because ...') for each exercice.";
+    $PROMPT .= "You're answer format will have 'response' (array) with 'user_failed' (Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [TRUE/FALSE/NULL], the correct answer is [TRUE/FALSE], because ...') for each exercice.";
     $PROMPT .= "The user will will choose true or false. You will correct their choices. if a user leaves a null answer, it will count as a fault.";
     $PROMPT .= "Before correcting, you will review the text and the user's response to give a correct verdict.";
     $PROMPT .= " TEXT: " . $reading_text;
@@ -155,6 +155,7 @@ class ExamCorrectionGenerator extends Model
     $response_text = $reading->choices[0]->message->content;
     //copnvertir string a json
     $response_text = json_decode($response_text);
+    var_dump($response_text);
 
 
     //recorrer el json y guardar en la base de datos en reading_true_false_correction_1

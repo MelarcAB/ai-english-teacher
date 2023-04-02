@@ -12,32 +12,42 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
     @stack('styles')
 </head>
 
-<body class="bg-teal-50">
-    <header class="bg-teal-300 shadow-sm">
+<body class="bg-gradient-to-b from-teal-50 to-teal-200 font-poppins min-h-screen flex flex-col">
+    <header class="bg-teal-600 shadow-sm">
         <div class="container mx-auto px-4 py-5 flex items-center justify-between">
-            <a href="/" class="text-3xl font-black text-teal-800 font-extralight flex-shrink-0">
+            <a href="/" class="text-3xl font-black text-teal-100 font-extralight flex-shrink-0">
                 <i class="fa-solid fa-robot"></i> IA Examinador Inglés
             </a>
             <div class="hidden md:flex md:items-center md:space-x-4">
-                <a href="/configuracion" class="text-teal-800 hover:text-teal-600">Configuración</a>
+                <a href="/configuracion"
+                    class="text-teal-100  uppercase rounded-lg transition-colors hover:bg-teal-700 px-5 py-2 text">
+                    <i class="fa-solid fa-user "></i> {{ Auth::user()->username }}</a>
                 <form method="POST" action="{{ route('auth.logout') }}">
                     @csrf
-                    <button type="submit" class="text-teal-800 hover:text-teal-600">Cerrar sesión</button>
+                    <button type="submit"
+                        class="text-white hover:bg-red-500 px-5 py-2 transition-colors bg-red-400 rounded-lg">
+                        Salir <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </button>
                 </form>
             </div>
-            <button id="menu-toggle" class="md:hidden text-teal-800 focus:outline-none">
+            <button id="menu-toggle" class="md:hidden text-teal-100 focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden w-full bg-teal-200 shadow-md p-4 transition-all duration-200">
-            <a href="/configuracion" class="block mb-4 text-teal-800 hover:text-teal-600">Configuración</a>
+            <a href="/configuracion" class="block mb-4 text-teal-800 hover:text-teal-600 uppercase">
+                <i class="fa-solid fa-user"></i> {{ Auth::user()->username }}</a>
+            </a>
             <form method="POST" action="{{ route('auth.logout') }}">
                 @csrf
-                <button type="submit" class="block text-teal-800 hover:text-teal-600">Cerrar sesión</button>
+                <button type="submit" class="block text-teal-800 hover:text-teal-600">
+                    Salir <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </button>
             </form>
         </div>
     </header>
