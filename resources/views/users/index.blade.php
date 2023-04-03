@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto p-6">
+    <div class="container mx-auto p-6 ">
 
         <h1 class="text-3xl font-bold mb-6 text-teal-600">Configuración</h1>
 
-        <div class=" bg-white p-6 rounded-md sha">
+        <div class=" bg-white p-6 rounded-md shadow-lg">
             <div class="mb-4">
                 <h2 class="text-xl font-bold text-teal-800">Información del usuario</h2>
             </div>

@@ -39,8 +39,9 @@
                         <tr class="hover:bg-gray-100 transition-colors duration-200">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if ($exam->status > 0)
-                                    <a href="{{ route('exam.show', $exam) }}" class="text-teal-600 hover:text-teal-800"><i
-                                            class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ route('exam.show', $exam) }}"
+                                        class="        bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center">
+                                        <i class="fa-solid fa-eye mr-2"></i> Ver</a>
                                 @endif
                                 @if ($exam->status == 0)
                                     <i class="fas fa-circle-notch fa-spin fa-lg text-gray-800"></i>
