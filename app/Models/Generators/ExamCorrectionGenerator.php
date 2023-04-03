@@ -210,5 +210,7 @@ class ExamCorrectionGenerator extends Model
 
     //save
     $examCorrection->save();
+    $exam->status = 4;
+    $exam->save();
   }
 }

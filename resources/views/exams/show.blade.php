@@ -459,8 +459,11 @@
                     respuestas</button>
             </form>
             @if ($exam->can_be_corrected())
-                <button type="submit"
-                    class="bg-indigo-500 mt-2 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corregir</button>
+                <form method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="bg-indigo-500 mt-2 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corregir</button>
+                </form>
             @endif
         </div>
         </form>
