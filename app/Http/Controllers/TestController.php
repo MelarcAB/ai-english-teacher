@@ -15,6 +15,7 @@ use App\Models\ExamAnswers;
 //exception
 use Exception;
 use App\Jobs\GenerateExam;
+use App\Jobs\ExamCorrection;
 //ExamCorrection
 use App\Models\Generators\ExamCorrectionGenerator;
 
@@ -112,11 +113,31 @@ class TestController extends Controller
 
     function store(Request $request)
     {
+        //validar si el submit es para guardar o para corregir
+        $submit = $request->input('submit');
+
         //el examen no se modifica, se guardan solo las respuestas
         //verificar si hay registro de respuestas para el examen y usuario
         //obtener el usuario logueado
         $user_id = auth()->user()->id;
         $exam_id = $request->input('exam_id');
+
+
+        //VALIDACIONES
+        $exam = Exam::find($exam_id);
+        //si no hay examen, redirigir al listado con mensaje de error
+        if (!$exam) {
+            return redirect()->route('exam.list')->with('error', 'No se encontró el examen');
+        }
+        //validar que pertenece al usuario logueado 
+        if ($exam->user_id != $user_id) {
+            return redirect()->route('exam.list')->with('error', 'No se encontró el examen');
+        }
+
+
+
+
+
         $exam_answers = ExamAnswers::where('user_id', $user_id)->where('exam_id', $exam_id)->first();
 
         //si no hay registro de respuestas, crearlo
@@ -155,6 +176,26 @@ class TestController extends Controller
 
         $exam_answers->save();
 
+
+
+        //si el submit es para corregir -> se corrige despues de guardar
+        if ($submit == "correct") {
+            //validar que el examen tiene todas las respuestas
+            if ($exam->can_be_corrected()) {
+                ExamCorrection::dispatch($exam, $exam_answers);
+                //redirigir a la pagina del examen con mensaje de exito
+                return redirect()->route('exam.show', $exam_id)->with('message', 'El exámen se está corrigiendo, podrás ver el resultado en unos minutos.');
+            } else {
+                return redirect()->route('exam.show', $exam_id)->with('error', 'El exámen no se puede corregir, comprueba que has contestado todas las preguntas');
+            }
+        }
+
+
+
+
+
+
+
         return redirect()->route('exam.show', $exam_id);
     }
 
@@ -174,5 +215,9 @@ class TestController extends Controller
         GenerateExam::dispatch($exam_type, auth()->user()->id);
 
         return  redirect()->route('exam.list')->with('message', 'El exámen se ha añadido a la cola. Cuando empiece su generación será visible en el listado');
+    }
+
+    function correct(Exam $exam)
+    {
     }
 }

@@ -454,17 +454,15 @@
                     </div>
                 </div>
 
-                <button type="submit"
+                <button type="submit" value="save" name="submit"
                     class="bg-indigo-500  text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Guardar
                     respuestas</button>
-            </form>
-            @if ($exam->can_be_corrected())
-                <form method="POST">
-                    @csrf
-                    <button type="submit"
+                @if ($exam->can_be_corrected())
+                    <button type="submit" value="correct" name="submit"
                         class="bg-indigo-500 mt-2 text-white font-bold py-2 px-4 rounded-lg focus:outline-none hover:bg-indigo-600">Corregir</button>
-                </form>
-            @endif
+                @endif
+            </form>
+
         </div>
         </form>
     </div>

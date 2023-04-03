@@ -50,6 +50,9 @@ class ExamCorrection implements ShouldQueue
             $exam_correction_generator->correctExam($exam, $exam_answers);
         } catch (\Exception $e) {
             print "Error correcting exam" . PHP_EOL;
+            //volver a poner la corrección en la cola
+            ExamCorrection::dispatch($this->exam, $this->exam_answers);
+            print "Se ha vuelto a poner la corrección en la cola" . PHP_EOL;
         }
     }
 }

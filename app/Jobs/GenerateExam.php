@@ -26,10 +26,17 @@ class GenerateExam implements ShouldQueue
 
     public function handle(): void
     {
-        print "Start queue Generating exam";
-        $generator = new ExamGenerator();
-        $generator->generateExam($this->tipo_exam, true, $this->user_id);
+        try {
+            print "Start queue Generating exam";
+            $generator = new ExamGenerator();
+            $generator->generateExam($this->tipo_exam, true, $this->user_id);
 
-        print "End queue Generating exam";
+            print "End queue Generating exam";
+        } catch (\Exception $e) {
+            print "Error generating exam" . PHP_EOL;
+            //volver a poner el examen en la cola
+            GenerateExam::dispatch($this->tipo_exam, $this->user_id);
+            print "Se ha vuelto a poner el examen en la cola";
+        }
     }
 }

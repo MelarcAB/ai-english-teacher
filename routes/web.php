@@ -46,6 +46,8 @@ Route::controller(App\Http\Controllers\TestController::class)->middleware('auth'
     Route::post('/new-exam', 'store')->name('exam.store');
     //generate exam
     Route::post('/generate-exam', 'generate')->name('exam.generate');
+    //correct exam
+    Route::post('/correct-exam', 'correct')->name('exam.correct');
 });
 
 

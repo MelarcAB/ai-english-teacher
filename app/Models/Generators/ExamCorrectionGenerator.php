@@ -57,6 +57,7 @@ class ExamCorrectionGenerator extends Model
     $reading_answer_2 = $examAnswers->reading_answer_2;
     $reading_answer_3 = $examAnswers->reading_answer_3;
 
+    print "Corrigiendo reading 1.1..." . PHP_EOL;
     //Primero generamos el reading
     //generar texto a leer + 3 preguntas
     $PROMPT = "FROM NOW You'll answer ONLY in JSON FORMAT. You're going to correct an exercice for an exam.";
@@ -65,8 +66,10 @@ class ExamCorrectionGenerator extends Model
     $PROMPT .= "Exercice:  Read the text and answer the answers according to the text.";
     $PROMPT .= " TEXT: " . $reading_text;
     $PROMPT .= "-  QUESTIONS: 1" . $reading_question_1 . " " . $reading_answer_1 . " -- 2" . $reading_question_2 . " " . $reading_answer_2 . " --3 " . $reading_question_3 . " " . $reading_answer_3;
-    $reading = $test_api->send($PROMPT);
+    print "Enviando prompt: " . PHP_EOL;
 
+    $reading = $test_api->send($PROMPT);
+    print "Respuesta obtenida " . PHP_EOL;
     $reading = json_decode($reading);
     $response_text = $reading->choices[0]->message->content;
     //copnvertir string a json
