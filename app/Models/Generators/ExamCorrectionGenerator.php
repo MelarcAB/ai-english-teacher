@@ -198,13 +198,57 @@ class ExamCorrectionGenerator extends Model
       $score++;
     }
 
-
-
-
-
-
-
     //grammar 2.1 (opcion correcta)
+    //formato array para ejecutar el prompt para cada pregunta
+
+    $gammar_questions1 = [
+      ['question' => $exam->grammar_question_1, 'answer' => $examAnswers->grammar_answer_1],
+      ['question' => $exam->grammar_question_2, 'answer' => $examAnswers->grammar_answer_2],
+      ['question' => $exam->grammar_question_3, 'answer' => $examAnswers->grammar_answer_3],
+      [
+        'question' => $exam->grammar_question_4, 'answer' => $examAnswers->grammar_answer_4
+      ]
+    ];
+
+    print "Correcting grammar 2.1 (opcion correcta)";
+    $score_grammar1 = 0;
+    $idx = 1;
+    foreach ($gammar_questions1 as $grammar) {
+      $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user choices in an exam, you will correct it. Minimal reasoning.";
+      $PROMPT .= "You're answer (JSON) format will have 'response' (array) with 'user_failed' (Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because ...')";
+      $PROMPT .= "The user will will choose one of the options. You will correct their choices. if a user leaves a null answer, it will count as a fault.";
+      $PROMPT .= "Before correcting, you will review the text and the user's response to give a correct verdict.";
+      $PROMPT .= " EXERCICE: " . $grammar['question'] . " \n";
+      $PROMPT .= " USER ANSWER: " . $grammar['answer'];
+      $correction_response = json_decode($test_api->send($PROMPT));
+      $response_text = $correction_response->choices[0]->message->content;
+      //copnvertir string a json
+      $response_text = json_decode($response_text);
+
+      //guardar correccion en la base de datos
+      $number_activity = 'grammar_correction_' . $idx;
+      $number_activity_text = 'grammar_correction_' . $idx . '_text';
+      $examCorrection->$number_activity = ($response_text->response[0]->user_failed ? 'WRONG' : 'OK');
+      $examCorrection->$number_activity_text = $response_text->response[0]->valoration;
+
+      //sumar 1 al score si la respuesta es correcta
+      if ($examCorrection->$number_activity == 'OK') {
+        $score_grammar1++;
+      }
+      $idx++;
+    }
+    //guardar correccion en la base de datos
+    $examCorrection->grammar_score = $score_grammar1;
+
+
+
+
+
+
+
+
+
+
 
     //grammar 2.2 (vocabulary)
 
