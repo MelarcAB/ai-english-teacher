@@ -28,9 +28,6 @@
                         @include('exams.partials.reading_1')
                         @include('exams.partials.reading_2')
                     </div>
-
-
-
                     <div class="mb-5 mt-10">
                         <h2 class="text-2xl font-semibold mb-3">2. Gramática</h2>
                         @include('exams.partials.grammar_1')
