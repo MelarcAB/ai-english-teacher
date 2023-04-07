@@ -34,7 +34,7 @@ Route::controller(App\Http\Controllers\HomeController::class)->middleware('auth'
 
 //test controller (only for auth)
 Route::controller(App\Http\Controllers\TestController::class)->middleware('auth')->group(function () {
-    Route::get('/test', 'index')->name('test');
+    Route::get('/profesor', 'index')->name('test');
     Route::post('/test', 'generateResponse')->name('test.generateResponse');
     //exam list
     Route::get('/exam/list', 'list')->name('exam.list');

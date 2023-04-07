@@ -25,6 +25,11 @@ class TestController extends Controller
 
     function index()
     {
+        //si el usuario no tiene token de openai
+        //redirigir a la pagina de configuracion
+        if (auth()->user()->openai_token == null) {
+            return redirect()->route('configuration')->with('error', 'Configura el token de OpenAI para poder usar la aplicación');
+        }
         return view('tests.index');
     }
 
@@ -108,6 +113,10 @@ class TestController extends Controller
     //create exam
     function create()
     {
+        //verificar si el usuario tiene configurado el token de openai
+        if (!auth()->user()->openai_token) {
+            return redirect()->route('home')->with('error', 'No se ha configurado el token de OpenAI');
+        }
         return view('exams.create');
     }
 
@@ -182,6 +191,10 @@ class TestController extends Controller
         if ($submit == "correct") {
             //validar que el examen tiene todas las respuestas
             if ($exam->can_be_corrected()) {
+                //verificar si el usuario tiene configurado el token de openai
+                if (!auth()->user()->openai_token) {
+                    return redirect()->route('exam.show', $exam_id)->with('error', 'No se ha configurado el token de OpenAI');
+                }
                 ExamCorrection::dispatch($exam, $exam_answers);
                 //redirigir a la pagina del examen con mensaje de exito
                 return redirect()->route('exam.show', $exam_id)->with('message', 'El exámen se está corrigiendo, podrás ver el resultado en unos minutos.');
@@ -189,12 +202,6 @@ class TestController extends Controller
                 return redirect()->route('exam.show', $exam_id)->with('error', 'El exámen no se puede corregir, comprueba que has contestado todas las preguntas');
             }
         }
-
-
-
-
-
-
 
         return redirect()->route('exam.show', $exam_id);
     }
