@@ -69,7 +69,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             //por ahora dejar como admin para habilitar todos los modulos
-            'user_type' => 2
+            'user_type' => 1
         ]);
 
         //login

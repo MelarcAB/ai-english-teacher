@@ -6,17 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>IA Examinador Inglés</title>
+    <title>ExaminAI | Generador y Corrector de Exámenes con Inteligencia Artificial</title>
+    <meta name="description"
+        content="ExaminAI es una aplicación web que utiliza la inteligencia artificial de OpenAI para generar y corregir exámenes de manera eficiente. Gestiona tus exámenes y realiza pruebas en línea con nuestra IA.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ExaminAI | Generador y Corrector de Exámenes con Inteligencia Artificial">
+    <meta property="og:description"
+        content="ExaminAI es una aplicación web que utiliza la inteligencia artificial de OpenAI para generar y corregir exámenes de manera eficiente. Gestiona tus exámenes y realiza pruebas en línea con nuestra IA.">
+    <meta property="og:image" content="{{ asset('img/examinai_og_image.jpg') }}">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ExaminAI | Generador y Corrector de Exámenes con Inteligencia Artificial">
+    <meta name="twitter:description"
+        content="ExaminAI es una aplicación web que utiliza la inteligencia artificial de OpenAI para generar y corregir exámenes de manera eficiente. Gestiona tus exámenes y realiza pruebas en línea con nuestra IA.">
+    <meta name="twitter:image" content="{{ asset('img/examinai_twitter_card.jpg') }}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+    <!-- Favicon -->
     <link rel="icon" href="{{ asset('img/examinai_logo_teal.png') }}" type="image/png">
 
     @stack('styles')
 </head>
+
 
 <body class="bg-gradient-to-b from-teal-50 to-teal-200 font-poppins
         min-h-screen flex flex-col">
