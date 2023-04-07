@@ -47,7 +47,7 @@ class ExamGenerator extends Model
         //save exam
         $exam->save();
         try {
-            $test_api = new TestApi($user->openai_token);
+            $test_api = new TestApi($user->openai_token, $user->openai_model);
             //Primero generamos el reading
             //generar texto a leer + 3 preguntas
             ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;

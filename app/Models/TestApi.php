@@ -24,9 +24,10 @@ class TestApi extends Model
     //private $MODEL = "gpt-4-0314";
 
     //constructor
-    public function __construct($api_key)
+    public function __construct($api_key, $model = "gpt-3.5-turbo-0301")
     {
         $this->open_ai = new OpenAi($api_key);
+        $this->MODEL = $model;
     }
 
     public function send($prompt = "", $instructions = "", $instructions2 = "")

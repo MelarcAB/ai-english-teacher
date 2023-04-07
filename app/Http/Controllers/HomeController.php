@@ -35,6 +35,7 @@ class HomeController extends Controller
 
         $user = auth()->user();
         $user->openai_token = $request->input('openai_token');
+        $user->openai_model = $request->input('openai_model');
         $user->save();
         return redirect()->route('configuration')->with('message', 'Información guardada con éxito.');
     }

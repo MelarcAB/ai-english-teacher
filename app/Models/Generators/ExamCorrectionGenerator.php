@@ -24,7 +24,7 @@ class ExamCorrectionGenerator extends Model
     $exam->save();
 
     $user = $examAnswers->user;
-    $test_api = new TestApi($user->openai_token);
+    $test_api = new TestApi($user->openai_token, $user->openai_model);
     //empezar a corregir
     print "Corrigiendo examen " . $exam->level . "..." . PHP_EOL;
 
@@ -225,16 +225,27 @@ class ExamCorrectionGenerator extends Model
     //guardar correccion en la base de datos
     $examCorrection->vocabulary_score = $score_vocabulary;
 
-
-
-
-
-
-
-
     //writing 3.1 (texto a corregir)
+    $writing_question = $exam->writing;
+    $writing_answer = $examAnswers->writing;
+    print "Correcting writing 3.1 (texto a corregir)" . PHP_EOL;
+    $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user choices in an exam, you have to correct it. Minimal reasoning.";
+    $PROMPT .= " The format of your answer (JSON) will have 'response[]' (array) with 'user_failed' (Bool. Value if the user's result is incorrect.), answer_puntuation(Float, with your score of the user's answer. Minimum 0 max 5 points) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because...')";
+    $PROMPT .= "You have to value the user's written expression, penalize it when you think it is convenient. Correct the mistakes he/she may make and explain the errors. The text must have a minimum of 150 words!! IMPORTANT.";
+    $PROMPT .= " Remember that if the user's answer is not related to the exercise statement, the user will be highly penalized. \n";
+    $PROMPT .= "Each major failure will be penalized. If the text has nothing to do with the context of the exercise, it will be penalized heaviy.\n";
+    $PROMPT .= " EXERCICE: [" . $writing_question . "] \n";
+    $PROMPT .= " USER ANSWER: [ " . $writing_answer . " ]";
+    $correction_response = json_decode($test_api->send($PROMPT));
+    $response_text = $correction_response->choices[0]->message->content;
+    //copnvertir string a json
+    $response_text = json_decode($response_text);
+    //guardar correccion en la base de datos
+    $examCorrection->writing_correction = ($response_text->response[0]->user_failed ? 'WRONG' : 'OK');
+    $examCorrection->writing_correction_text = $response_text->response[0]->valoration;
+    $examCorrection->writing_score = $response_text->response[0]->answer_puntuation;
 
-
+    print "Examen corregido" . PHP_EOL;
     //save
     $examCorrection->save();
     $exam->status = 4;

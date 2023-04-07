@@ -33,18 +33,8 @@
                         @include('exams.partials.grammar_1')
                         @include('exams.partials.grammar_2')
                     </div>
-
                     <div class="mb-5 mt-10">
-                        <h2 class="text-2xl font-semibold mb-3">3. Writing</h2>
-
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">3.1. A partir de la siguiente información, redacta un texto
-                        de unas 150 palabras.</h3>
-                    <div class="mb-3">
-                        <label class="block text-gray-700 font-semibold" for="writing_answer">{{ $exam['writing'] }}</label>
-                        <textarea name="writing_answer" cols="30" rows="10"
-                            class="w-full border-2 border-gray-300 p-4 rounded-lg focus:outline-none focus:border-indigo-500"
-                            placeholder="Escribe aquí tu respuesta">{{ $exam_answers->writing_answer }}</textarea>
+                        @include('exams.partials.writing')
                     </div>
 
                     <button type="submit" value="save" name="submit"

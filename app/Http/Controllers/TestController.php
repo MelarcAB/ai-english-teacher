@@ -46,7 +46,7 @@ class TestController extends Controller
                     $response['message'] = $ex->generateExamHtml();
                     break;
                 default:
-                    $test = new TestApi($request->user()->openai_token);
+                    $test = new TestApi($request->user()->openai_token, $request->user()->openai_model);
                     $message = $test->send($prompt);
                     $message = json_decode($message);
                     $message = $message->choices[0]->message->content;
