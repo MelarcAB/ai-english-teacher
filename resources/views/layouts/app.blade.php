@@ -13,11 +13,13 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="icon" href="{{ asset('img/examinai_logo_teal.png') }}" type="image/png">
 
     @stack('styles')
 </head>
 
-<body class="bg-gradient-to-b from-teal-50 to-teal-200 font-poppins min-h-screen flex flex-col">
+<body class="bg-gradient-to-b from-teal-50 to-teal-200 font-poppins
+        min-h-screen flex flex-col">
     <header class="bg-teal-600 shadow-sm">
         <div class="container mx-auto px-4 py-2 flex items-center justify-between">
             <a href="/" class="text-3xl font-black text-teal-50 font-extralight flex-shrink-0 italic">

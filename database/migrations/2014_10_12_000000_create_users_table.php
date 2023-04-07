@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('user_type')->default(1);
             //openai_token
             $table->string('openai_token')->nullable();
+            //openai_model
+            $table->string('openai_model')->default('gpt-3.5-turbo-0301');
         });
     }
 

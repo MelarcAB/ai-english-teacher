@@ -28,7 +28,9 @@ class User extends Authenticatable
         'provider_id',
         //1 usuario web, 2 admin
         'user_type',
-        'openai_token'
+        'openai_token',
+        //openai_model
+        'openai_model'
     ];
 
     /**

@@ -28,6 +28,21 @@
                     <label for="openai_token" class="block text-teal-700">Token de OpenAI:</label>
                     <input type="text" name="openai_token" id="openai_token" value="{{ auth()->user()->openai_token }}"
                         class="border rounded px-3 py-2 w-full">
+                    @error('openai_token')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="openai_model" class="block text-teal-700">Modelo de OpenAI:</label>
+                    <select name="openai_model" id="openai_model" class="border rounded px-3 py-2 w-full">
+                        <option value="gpt-3.5-turbo-0301" @if (auth()->user()->openai_model == 'gpt-3.5-turbo-0301') selected @endif>GPT 3.5 Turbo
+                            (-precisión, +velocidad, +barato)</option>
+                        <option value="gpt-4-0314" @if (auth()->user()->openai_model == 'gpt-4-0314') selected @endif>GPT 4 (+precisión,
+                            -velocidad, +caro)</option>
+                    </select>
+                    @error('openai_model')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex justify-end">
