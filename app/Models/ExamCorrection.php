@@ -66,4 +66,13 @@ class ExamCorrection extends Model
     {
         return $this->belongsTo(Exam::class);
     }
+
+    public function getFinalScore10()
+    {
+        //obtener el final score del examen sobre 10
+        $final_score = $this->final_score;
+        $total_puntos = 22;
+        $final_score_10 = ($final_score * 10) / $total_puntos;
+        return number_format($final_score_10, 2, '.', '');
+    }
 }

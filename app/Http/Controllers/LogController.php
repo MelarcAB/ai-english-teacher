@@ -13,7 +13,7 @@ class LogController extends Controller
 
     function index()
     {
-        $logs = Log::all();
+        $logs = Log::all()->sortByDesc('id');
 
         return view('logs.index', ['logs' => $logs]);
     }

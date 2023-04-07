@@ -72,7 +72,7 @@ class ExamCorrectionGenerator extends Model
       $number_activity_text = 'reading_correction_' . $idx . '_text';
       $examCorrection->$number_activity = ($response_text->response[0]->user_failed ? 'WRONG' : 'OK');
       $examCorrection->$number_activity_text = $response_text->response[0]->valoration;
-      if ($examCorrection->number_activity != "WRONG") {
+      if ($examCorrection->$number_activity != "WRONG") {
         $reading_1_score++;
       }
       $idx++;
@@ -227,7 +227,7 @@ class ExamCorrectionGenerator extends Model
 
     //writing 3.1 (texto a corregir)
     $writing_question = $exam->writing;
-    $writing_answer = $examAnswers->writing;
+    $writing_answer = $examAnswers->writing_answer;
     print "Correcting writing 3.1 (texto a corregir)" . PHP_EOL;
     $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user choices in an exam, you have to correct it. Minimal reasoning.";
     $PROMPT .= " The format of your answer (JSON) will have 'response[]' (array) with 'user_failed' (Bool. Value if the user's result is incorrect.), answer_puntuation(Float, with your score of the user's answer. Minimum 0 max 5 points) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because...')";
@@ -235,7 +235,8 @@ class ExamCorrectionGenerator extends Model
     $PROMPT .= " Remember that if the user's answer is not related to the exercise statement, the user will be highly penalized. \n";
     $PROMPT .= "Each major failure will be penalized. If the text has nothing to do with the context of the exercise, it will be penalized heaviy.\n";
     $PROMPT .= " EXERCICE: [" . $writing_question . "] \n";
-    $PROMPT .= " USER ANSWER: [ " . $writing_answer . " ]";
+    $PROMPT .= " USER ANSWER: [ " . $writing_answer . " ]\n";
+    print $PROMPT . PHP_EOL;
     $correction_response = json_decode($test_api->send($PROMPT));
     $response_text = $correction_response->choices[0]->message->content;
     //copnvertir string a json
@@ -246,6 +247,8 @@ class ExamCorrectionGenerator extends Model
     $examCorrection->writing_score = $response_text->response[0]->answer_puntuation;
 
     print "Examen corregido" . PHP_EOL;
+    //sumar los scores
+    $examCorrection->final_score = $score_grammar1 + $score_vocabulary + $examCorrection->writing_score;
     //save
     $examCorrection->save();
     $exam->status = 4;

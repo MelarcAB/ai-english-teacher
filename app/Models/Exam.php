@@ -118,6 +118,12 @@ class Exam extends Model
         return $this->hasMany(ExamCorrection::class);
     }
 
+    //get last correction
+    public function last_correction()
+    {
+        return $this->exam_corrections()->latest()->first();
+    }
+
     /**
      * funcion para detectar si el examen puede ser corregido (si ya se han contestado todas las preguntas)
      */

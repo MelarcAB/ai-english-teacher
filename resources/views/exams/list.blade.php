@@ -27,10 +27,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left font-semibold uppercase">#</th>
                         <th class="px-6 py-3 text-left font-semibold uppercase">Nivel</th>
-                        <th class="px-6 py-3 text-left font-semibold uppercase">Reading</th>
-                        <th class="px-6 py-3 text-left font-semibold uppercase">Listening</th>
-                        <th class="px-6 py-3 text-left font-semibold uppercase">Writing</th>
-                        <th class="px-6 py-3 text-left font-semibold uppercase">Speaking</th>
+                        <th class="px-6 py-3 text-left font-semibold uppercase">Nota</th>
                         <th class="px-6 py-3 text-left font-semibold uppercase">Fecha</th>
                     </tr>
                 </thead>
@@ -47,12 +44,24 @@
                                     <i class="fas fa-circle-notch fa-spin fa-lg text-gray-800"></i>
                                     <span class="ml-2 text-gray-800">Generando</span>
                                 @endif
+
+
+                                @if ($exam->status == 3)
+                                    <i class="fas fa-circle-notch fa-spin fa-lg text-gray-800 ml-3"></i>
+                                    <span class="ml-1 text-gray-800">Corrigiendo...</span>
+                                @endif
+
+                                @if ($exam->status == 4)
+                                    <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                @endif
                             </td>
+
                             <td class="px-6 py-4 whitespace-nowrap font-medium">{{ $exam->level }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->reading, 0, 30) }}...</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $exam->listening }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ substr($exam->writing, 0, 25) }}... </td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ $exam->speaking }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap font-medium">
+                                @if (isset($exam->last_correction()->final_score) && !empty($exam->last_correction()->final_score))
+                                    {{ $exam->last_correction()->getFinalScore10() }}
+                                @endif
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-teal-600">{{ $exam->created_at->diffForHumans() }}
                             </td>
                         </tr>

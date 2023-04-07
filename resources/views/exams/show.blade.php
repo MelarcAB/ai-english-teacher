@@ -16,6 +16,11 @@
     <div class="container mx-auto px-4 py-5">
         <div class="bg-white p-5 rounded shadow-lg w-full lg:w-3/4 mx-auto">
             <h1 class="text-3xl font-bold mb-5">Examen - Nivel {{ $exam->level }}</h1>
+            @if ($exam_correction_generator->id)
+                <div>
+                    NOTA: {{ $exam_correction_generator->getFinalScore10() }} / 10
+                </div>
+            @endif
 
             <form action="{{ route('exam.store') }}" method="POST">
                 @csrf
