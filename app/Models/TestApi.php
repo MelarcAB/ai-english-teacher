@@ -10,7 +10,10 @@ use Orhanerday\OpenAi\OpenAi;
 //log
 use App\Models\Log;
 //exception
+
 use Exception;
+//auth
+use Auth;
 
 class TestApi extends Model
 {
@@ -21,9 +24,9 @@ class TestApi extends Model
     //private $MODEL = "gpt-4-0314";
 
     //constructor
-    public function __construct()
+    public function __construct($api_key)
     {
-        $this->open_ai = new OpenAi(env('OPENAI_API_KEY'));
+        $this->open_ai = new OpenAi($api_key);
     }
 
     public function send($prompt = "", $instructions = "", $instructions2 = "")
@@ -32,13 +35,9 @@ class TestApi extends Model
             if ($prompt == "") {
                 return [];
             }
-
             if ($instructions == "") {
                 $instructions = 'Eres un profesor de inglés, un asistente virtual. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita.';
             }
-            /*  if ($instructions2 == "") {
-                $instructions2 = 'Eres un profesor virtual de inglés llamado Sigales. Tu nombre es Sigales y hablas español, aunque dominas el inglés. Tu objetivo es ayudar a los usuarios a aprender inglés y practicar sus habilidades. Puedes generar ejercicios de examen para distintos niveles (A1, A2, B1, etc.), corregir esos exámenes y responder preguntas sobre el idioma inglés. Asegúrate de formatear tus respuestas usando etiquetas HTML como <br> para saltos de línea y <b> para texto en negrita.';
-            }*/
             $complete = $this->open_ai->chat([
                 'model' => $this->MODEL,
                 'messages' => [
@@ -46,10 +45,6 @@ class TestApi extends Model
                         'role' => 'system',
                         'content' => 'You are an english exam generator'
                     ],
-                    /* [
-                        'role' => 'user',
-                        'content' => $instructions2
-                    ],*/
                     [
                         'role' => 'user',
                         'content' => $prompt

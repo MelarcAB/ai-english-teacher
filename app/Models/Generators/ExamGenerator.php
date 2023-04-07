@@ -14,6 +14,9 @@ use App\Models\Helpers\ExamExamples;
 use App\Models\TestApi;
 //auth
 use Auth;
+//User
+use App\Models\User;
+
 
 class ExamGenerator extends Model
 {
@@ -38,11 +41,13 @@ class ExamGenerator extends Model
         if ($user_id != 0) {
             $exam->user_id = $user_id;
         }
+        //obtener usuario
+        $user = User::find($exam->user_id);
 
         //save exam
         $exam->save();
         try {
-            $test_api = new TestApi();
+            $test_api = new TestApi($user->openai_token);
             //Primero generamos el reading
             //generar texto a leer + 3 preguntas
             ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;

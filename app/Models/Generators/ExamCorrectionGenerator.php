@@ -32,9 +32,9 @@ class ExamCorrectionGenerator extends Model
     //status 3
     $exam->status = 3;
     $exam->save();
-    $test_api = new TestApi();
 
     $user = $examAnswers->user;
+    $test_api = new TestApi($user->openai_token);
     //empezar a corregir
     print "Corrigiendo examen " . $exam->level . "..." . PHP_EOL;
 
@@ -49,58 +49,49 @@ class ExamCorrectionGenerator extends Model
     //You're an english teacher. You're going to correct an exercice for an exam. You'll respond ONLY WITH a json with answer_1,2,3 array with correct(bool) and valoration (string). Exercice:  Read the text and answer the answers according to the text. 
     //obtener texto reading 1.1
     $reading_text = $exam->reading;
-    $reading_question_1 = $exam->question_1;
-    $reading_question_2 = $exam->question_2;
-    $reading_question_3 = $exam->question_3;
-    //obtener respuestas reading 1.1
-    $reading_answer_1 = $examAnswers->reading_answer_1;
-    $reading_answer_2 = $examAnswers->reading_answer_2;
-    $reading_answer_3 = $examAnswers->reading_answer_3;
+    print "Corrigiendo reading 1.1.(Preguntas de la lectura)" . PHP_EOL;
+    $arr_reading_1 = [
+      [
+        "question" => $exam->question_1,
+        "answer" => $examAnswers->reading_answer_1
+      ],
+      [
+        "question" => $exam->question_2,
+        "answer" => $examAnswers->reading_answer_2
+      ],
+      [
+        "question" => $exam->question_3,
+        "answer" => $examAnswers->reading_answer_3
+      ]
+    ];
 
-    print "Corrigiendo reading 1.1..." . PHP_EOL;
-    //Primero generamos el reading
-    //generar texto a leer + 3 preguntas
-    $PROMPT = "FROM NOW You'll answer ONLY in JSON FORMAT. You're going to correct an exercice for an exam.";
-    $PROMPT .= "You're answer format will have 'response' array with is_correct(bool) and valoration (string with the valoration of the answer) for each exercice.";
-    $PROMPT .= "The user answer has to be related to the text. To give an answer as correct, the answer has to be minimally extensive and explanatory. An answer that is too short will be incorrect.";
-    $PROMPT .= "Exercice:  Read the text and answer the answers according to the text.";
-    $PROMPT .= " TEXT: " . $reading_text;
-    $PROMPT .= "-  QUESTIONS: 1" . $reading_question_1 . " " . $reading_answer_1 . " -- 2" . $reading_question_2 . " " . $reading_answer_2 . " --3 " . $reading_question_3 . " " . $reading_answer_3;
-    print "Enviando prompt: " . PHP_EOL;
-
-    $reading = $test_api->send($PROMPT);
-    print "Respuesta obtenida " . PHP_EOL;
-    $reading = json_decode($reading);
-    $response_text = $reading->choices[0]->message->content;
-    //copnvertir string a json
-    $response_text = json_decode($response_text);
-    var_dump($response_text) . PHP_EOL;
-    $score = 0;
-    $examCorrection->reading_correction_1 = $response_text->response[0]->is_correct;
-    $examCorrection->reading_correction_1_text = $response_text->response[0]->valoration;
-    //$examCorrection->reading_correction_1 es true -> sumar 1 al score
-    if ($examCorrection->reading_correction_1) {
-      $score++;
+    $idx = 1;
+    $reading_1_score = 0;
+    foreach ($arr_reading_1 as $read) {
+      print "Corrigiendo pregunta " . $idx . "..." . PHP_EOL;
+      $PROMPT = "FROM NOW You MUST answer ONLY in JSON FORMAT. You're going to valorate the user answers in an exam, you will correct it. Minimal reasoning.";
+      $PROMPT .= "You're answer (JSON) format will have 'response' (array) with 'user_failed' (Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because ...')";
+      $PROMPT .= "The user will answer a question in relation to a previous text. His/her answer must be minimally elaborated and correct (in relation to the text). If the answer is empty, incorrect or too short, it will be counted as wrong.";
+      $PROMPT .= "Before correcting, you will review the text and the user's response to give a correct verdict.";
+      $PROMPT .= "\n TEXT: " . $reading_text . " \n";
+      $PROMPT .= " EXERCICE: " . $read['question'] . " \n";
+      $PROMPT .= " USER ANSWER: " . $read['answer'];
+      $reading = $test_api->send($PROMPT);
+      var_dump($reading);
+      $reading = json_decode($reading);
+      $response_text = json_decode($reading->choices[0]->message->content);
+      $number_activity = 'reading_correction_' . $idx;
+      $number_activity_text = 'reading_correction_' . $idx . '_text';
+      $examCorrection->number_activity = ($response_text->response[0]->user_failed ? 'WRONG' : 'OK');
+      $examCorrection->$number_activity_text = $response_text->response[0]->valoration;
+      if ($examCorrection->number_activity != "WRONG") {
+        $reading_1_score++;
+      }
+      $idx++;
     }
-
-    print "Score: " . $score . PHP_EOL;
-    print "Reading 1.1 corrected" . PHP_EOL;
-
-    $examCorrection->reading_correction_2 = $response_text->response[1]->is_correct;
-    $examCorrection->reading_correction_2_text = $response_text->response[1]->valoration;
-    //$examCorrection->reading_correction_2 es true -> sumar 1 al score
-    if ($examCorrection->reading_correction_2) {
-      $score++;
-    }
-
-    $examCorrection->reading_correction_3 = $response_text->response[2]->is_correct;
-    $examCorrection->reading_correction_3_text = $response_text->response[2]->valoration;
-    //$examCorrection->reading_correction_3 es true -> sumar 1 al score
-    if ($examCorrection->reading_correction_3) {
-      $score++;
-    }
-
-    $examCorrection->reading_score = $score;
+    //guardar score reading 1.1
+    $examCorrection->reading_score = $reading_1_score;
+    //save exam correction
 
 
     //reading 1.2 (texto + true/false)
