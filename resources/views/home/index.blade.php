@@ -3,6 +3,19 @@
 @endsection
 @section('content')
     <div class="container mx-auto px-4 font-poppins">
+
+        @if (empty(Auth::user()->openai_token))
+            <div class="w-9/12 shadow rounded text-center m-auto bg-yellow-100 p-5">
+
+                <p><i class="fas fa-exclamation-circle mr-3"></i>Debes configurar un token de OpenAi para usar el servicio de
+                    generación de exámenes.
+                    <a href="{{ route('configuration') }}" class="text-blue-500">Puedes configurarlo aquí</a>
+                </p>
+
+            </div>
+        @endif
+
+
         <div class="bg-white shadow-md rounded-md p-6 mt-8">
             <h1 class="text-2xl font-bold mb-6 text-teal-700">¡Bienvenido, {{ auth()->user()->name }}!</h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
