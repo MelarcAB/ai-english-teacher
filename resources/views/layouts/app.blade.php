@@ -5,10 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>ExaminAI | Generador y Corrector de Exámenes con Inteligencia Artificial</title>
     <meta name="description"
-        content="ExaminAI es una aplicación web que utiliza la inteligencia artificial de OpenAI para generar y corregir exámenes de manera eficiente. Gestiona tus exámenes y realiza pruebas en línea con nuestra IA.">
+        content="ExaminAI es una aplicación web desarrollada por MelarcAB que utiliza la inteligencia artificial de OpenAI para generar y corregir exámenes de manera eficiente. Gestiona tus exámenes y realiza pruebas en línea con nuestra IA.">
 
     <!-- Open Graph -->
     <meta property="og:title" content="ExaminAI | Generador y Corrector de Exámenes con Inteligencia Artificial">

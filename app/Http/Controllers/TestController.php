@@ -52,7 +52,8 @@ class TestController extends Controller
                     break;
                 default:
                     $test = new TestApi($request->user()->openai_token, $request->user()->openai_model);
-                    $message = $test->send($prompt);
+                    $init_prompt = "Eres un PROFESOR DE INGLÉS experto en responder todas las dudas lingüísticas entre el español y el inglés, solucionar errores gramaticales y responder preguntas relacionadas con la asignatura de inglés. Está totalmente prohibido responder algo que no tenga que ver con este contexto. Usuario: ";
+                    $message = $test->send($init_prompt . " " . $prompt);
                     $message = json_decode($message);
                     $message = $message->choices[0]->message->content;
                     $response['message'] = $message;
