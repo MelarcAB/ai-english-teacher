@@ -51,10 +51,14 @@ class ExamGenerator extends Model
             //Primero generamos el reading
             //generar texto a leer + 3 preguntas
             ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;
-            $reading = $test_api->send(
-                "Generate a text for an english exam. Only the text, with an original plot, example food, technology, streamers, clothes, holidays, hobbies, email, new on newspaper... Example text: " . $example_exam['EXAMPLE_READING']
-            );
-
+            $READING_PROMTP = "You have to answer in JSON format. ";
+            $READING_PROMTP .= '{"text": YOUR_TEXT, "question_1":"QUESTION_1","question_2":"QUESTION_2","question_3":"QUESTION_3"} .';
+            $READING_PROMTP .= 'Now you have to generate a text for an english exam and 3 questions related to it. For the reading part of the exam. Long and original text , can be a narration, letter, magazine post, new, etc. Text minimum 400 words. EXAM LEVEL : ' . $level;
+            $reading = json_decode($test_api->send($READING_PROMTP));
+            $response_text = $reading->choices[0]->message->content;
+            $response_text = json_decode($response_text);
+            var_dump($response_text);
+            exit;
             $reading = json_decode($reading);
             $response_text = $reading->choices[0]->message->content;
             $exam->reading = $response_text;
@@ -165,7 +169,7 @@ class ExamGenerator extends Model
             $response = json_decode($vocabulary);
             $response_text = $response->choices[0]->message->content;
             ($log == true) ? print "Frases de vocabulario generadas: " . $response_text . PHP_EOL : null;
-            //separar por | 
+            //separar por |
             $questions = explode("|", $response_text);
             $exam->vocabulary_question_1 = $questions[0];
             $exam->vocabulary_question_2 = $questions[1];

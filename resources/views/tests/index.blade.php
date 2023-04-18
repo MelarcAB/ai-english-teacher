@@ -34,18 +34,7 @@
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
-                <div class="mr-2 mb-0 mt-10 md:mt-0">
-                    <button id="b_generate_exam"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Generar exámen
-                    </button>
-                </div>
-                <div class="mr-2 mb-0  mt-10 md:mt-0">
-                    <button id="b_correct_exam"
-                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Corregir examen
-                    </button>
-                </div>
+             
             </div>
         </div>
     </nav>
