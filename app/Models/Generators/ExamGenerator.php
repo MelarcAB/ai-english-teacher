@@ -50,45 +50,21 @@ class ExamGenerator extends Model
             $test_api = new TestApi($user->openai_token, $user->openai_model);
             //Primero generamos el reading
             //generar texto a leer + 3 preguntas
-            ($log == true) ? print "Generando texto de reading..." . PHP_EOL : null;
+            ($log == true) ? print "Generando texto + preguntas de reading..." . PHP_EOL : null;
             $READING_PROMTP = "You have to answer in JSON format. ";
             $READING_PROMTP .= '{"text": YOUR_TEXT, "question_1":"QUESTION_1","question_2":"QUESTION_2","question_3":"QUESTION_3"} .';
             $READING_PROMTP .= 'Now you have to generate a text for an english exam and 3 questions related to it. For the reading part of the exam. Long and original text , can be a narration, letter, magazine post, new, etc. Text minimum 400 words. EXAM LEVEL : ' . $level;
             $reading = json_decode($test_api->send($READING_PROMTP));
-            $response_text = $reading->choices[0]->message->content;
-            $response_text = json_decode($response_text);
-            var_dump($response_text);
-            exit;
-            $reading = json_decode($reading);
-            $response_text = $reading->choices[0]->message->content;
-            $exam->reading = $response_text;
-            //descansar 1 segundo
-            sleep(2);
-            //generar preguntas de reading
-            ($log == true) ? print "Generando preguntas de reading..." . PHP_EOL : null;
-            $reading_questions = $test_api->send(
-                "Generate 5 questions (exam reading), IMPORTANT separated by |, for students to develop the question further. About this text: " . $exam->reading . ". ANSWER ALWAYS SEPARATED BY |"
-            );
+            $response_text = json_decode($reading->choices[0]->message->content);
+            $exam->reading =  $response_text->text;
+            $exam->reading_question_1 = $response_text->question_1;
+            $exam->reading_question_2 = $response_text->question_2;
+            $exam->reading_question_3 = $response_text->question_3;
 
-            $response = json_decode($reading_questions);
-            //   var_dump($response);
-            $response_text = $response->choices[0]->message->content;
-            ($log == true) ? print "Preguntas de reading generadas: " . $response_text . PHP_EOL : null;
-            //separar por || y guardar en array
-            $questions = explode("|", $response_text);
-            //split por salto de linea
-            //$questions = explode("\r\n", $response_text);
-
-            //      print("Se han generado " . count($questions) . " preguntas de reading");
-            //
-            $exam->reading_question_1 = $questions[0];
-            $exam->reading_question_2 = $questions[1];
-            $exam->reading_question_3 = $questions[2];
             $exam->save();
+            ($log == true) ? print "Texto + preguntas de reading generadas: " . $exam->reading . PHP_EOL : null;
 
-
-            //descansar 2 segundo
-            sleep(2);
+            exit;
 
             //reading TRUE OR FALSE sobre el texto
             ($log == true) ? print "Generando preguntas de reading TRUE OR FALSE..." . PHP_EOL : null;
