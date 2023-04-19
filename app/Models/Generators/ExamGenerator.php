@@ -50,9 +50,11 @@ class ExamGenerator extends Model
             $test_api = new TestApi($user->openai_token, $user->openai_model);
             //Primero generamos el reading
             //generar texto a leer + 3 preguntas
-            ($log == true) ? print "Generando texto + preguntas de reading..." . PHP_EOL : null;
-            $READING_PROMTP = "You have to answer in JSON format. ";
-            $READING_PROMTP .= '{"text": YOUR_TEXT, "question_1":"QUESTION_1","question_2":"QUESTION_2","question_3":"QUESTION_3"} .';
+            ($log
+                == true) ? print "Generando texto + preguntas de reading..." . PHP_EOL : null;
+            $READING_PROMTP = "You have to answer in JSON format following this structure: ";
+            $READING_PROMTP .= '{"text": YOUR_TEXT, "question_1":"QUESTION_1","question_2":"QUESTION_2","question_3":"QUESTION_3"} \n';
+            $READING_PROMTP .= "Where A1 exam = easy, A2 = normal, B1 = hard \n";
             $READING_PROMTP .= 'Now you have to generate a text for an english exam and 3 questions related to it. For the reading part of the exam. Long and original text , can be a narration, letter, magazine post, new, etc. Text minimum 400 words. EXAM LEVEL : ' . $level;
             $reading = json_decode($test_api->send($READING_PROMTP));
             $response_text = json_decode($reading->choices[0]->message->content);
@@ -64,29 +66,26 @@ class ExamGenerator extends Model
             $exam->save();
             ($log == true) ? print "Texto + preguntas de reading generadas: " . $exam->reading . PHP_EOL : null;
 
-            exit;
 
             //reading TRUE OR FALSE sobre el texto
             ($log == true) ? print "Generando preguntas de reading TRUE OR FALSE..." . PHP_EOL : null;
-            $reading_questions = $test_api->send(
-                "Generate 5 sentences true or false (exam reading $level), split by |. Without answers.  " . $exam->reading . "     EXAMPLE STRUCTURE OF QUESTIONS:" . $example_exam['EXAMPLE_READING_QUESTIONS']
-            );
+            $READING_TRUE_FALSE_PROMTP = "You have to answer in JSON format following this structure: ";
+            $READING_TRUE_FALSE_PROMTP .= '{"sentence_1": YOUR_SENTENCE1,"sentence_2": YOUR_SENTENCE2,"sentence_3": YOUR_SENTENCE3,"sentence_4": YOUR_SENTENCE4,"sentence_5": YOUR_SENTENCE5, } \n';
+            $READING_TRUE_FALSE_PROMTP .= "Where A1 exam = easy, A2 = normal, B1 = hard \n";
+            $READING_TRUE_FALSE_PROMTP .= "You have to generate 5 sentences for a true or false english exam. EXAM LEVEL : " . $level . " \n";
+            $READING_TRUE_FALSE_PROMTP .= "The sentences can be true or false, but they have to be related to the reading text. TEXT:\n";
+            $READING_TRUE_FALSE_PROMTP .= $exam->reading;
+            $reading_questions = json_decode($test_api->send($READING_TRUE_FALSE_PROMTP));
+            $response_text = json_decode($reading_questions->choices[0]->message->content);
 
-            $response = json_decode($reading_questions);
-            $response_text = $response->choices[0]->message->content;
-            ($log == true) ? print "Preguntas de reading TRUE OR FALSE generadas: " . $response_text . PHP_EOL : null;
-            //separar por | y guardar en array
-            $questions = explode("|", $response_text);
+            $exam->reading_true_false_1 = $response_text->sentence_1;
+            $exam->reading_true_false_2 = $response_text->sentence_2;
+            $exam->reading_true_false_3 = $response_text->sentence_3;
+            $exam->reading_true_false_4 = $response_text->sentence_4;
+            $exam->reading_true_false_5 = $response_text->sentence_5;
 
-            $exam->reading_true_false_1 = $questions[0];
-            $exam->reading_true_false_2 = $questions[1];
-            $exam->reading_true_false_3 = $questions[2];
-            $exam->reading_true_false_4 = $questions[3];
-            $exam->reading_true_false_5 = $questions[4];
-            //descansar 1 segundo
             $exam->save();
-
-            sleep(2);
+            ($log == true) ? print "Preguntas de reading TRUE OR FALSE generadas: " . $exam->reading_true_false_1 . PHP_EOL : null;
 
             //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
             ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
