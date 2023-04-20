@@ -89,46 +89,43 @@ class ExamGenerator extends Model
 
             //Parte GRAMMAR / GRAMATICA -> generar 5 preguntas de gramatica
             ($log == true) ? print "Generando preguntas de gramática..." . PHP_EOL : null;
-            $grammar_questions = $test_api->send(
-                "Generates 4 grammar questions (grammar test level $level). Separated by |. With options, only one correct. Similar level to these: " . $example_exam['GAMMAR_QUESTIONS']
-            );
+            $GAMMAR_QUESTIONS_PROMPT = "You have to answer in JSON format following this structure: ";
+            $GAMMAR_QUESTIONS_PROMPT .= '{"question_1": YOUR_QUESTION1,"question_2": YOUR_QUESTION2,"question_3": YOUR_QUESTION3,"question_4": YOUR_QUESTION4,"question_5": YOUR_QUESTION5, } \n';
+            $GAMMAR_QUESTIONS_PROMPT .= "Where A1 exam = easy, A2 = normal, B1 = hard \n";
+            $GAMMAR_QUESTIONS_PROMPT .= "You have to generate 5 questions for a grammar english exam. EXAM LEVEL : " . $level . " \n";
+            $GAMMAR_QUESTIONS_PROMPT .= "The questions have to be about english grammar. Here you have an example: \n";
+            $GAMMAR_QUESTIONS_PROMPT .= $example_exam['GAMMAR_QUESTIONS'];
+            $grammar_questions = json_decode($test_api->send($GAMMAR_QUESTIONS_PROMPT));
+            $response_text = json_decode($grammar_questions->choices[0]->message->content);
 
-            $response = json_decode($grammar_questions);
-            $response_text = $response->choices[0]->message->content;
-            ($log == true) ? print "Preguntas de gramática generadas: " . $response_text . PHP_EOL : null;
 
-            //verificar que las preguntas esten separadas por | y tienen 5 preguntas
-            //count de preguntas, split por | y guardar en array
-            $split = explode("|", $response_text);
-            if (count($split) < 2) {
-                // print "Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5" . PHP_EOL;
-                ($log == true) ? print "Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5" . PHP_EOL : null;
-                throw new \Exception("Error al generar las preguntas de gramática, se generaron " . count($split) . " preguntas, se esperaban 5");
-            }
-
-            $questions = explode("|", $response_text);
-            $exam->grammar_question_1 = $questions[0];
-            $exam->grammar_question_2 = $questions[1];
-            $exam->grammar_question_3 = $questions[2];
-            $exam->grammar_question_4 = $questions[3];
+            $exam->grammar_question_1 = $response_text->question_1;
+            $exam->grammar_question_2 = $response_text->question_2;
+            $exam->grammar_question_3 = $response_text->question_3;
+            $exam->grammar_question_4 = $response_text->question_4;
 
             $exam->save();
+            ($log == true) ? print "Preguntas de gramática generadas: " . $exam->grammar_question_1 . PHP_EOL : null;
 
-
-            //descansar 1 segundo
-            sleep(1);
 
             //writing
             ($log == true) ? print "Generando texto de writing..." . PHP_EOL : null;
-            $writing = $test_api->send(
-                "Generate a writing exercise for an $level English exam. I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this: " . $example_exam['WRITING'] . ". ANSWER ONLY WITH THE EXERCICE"
-            );
+            $WRITING_PROMPT = "You have to answer in JSON format following this structure: ";
+            $WRITING_PROMPT .= '{"text": YOUR_TEXT} \n';
+            $WRITING_PROMPT .= "Where A1 exam = easy, A2 = normal, B1 = hard \n";
+            $WRITING_PROMPT .= "You have to generate a writing exercise for an $level English exam. \n";
+            $WRITING_PROMPT .= "I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this, with different plot: \n";
+            $WRITING_PROMPT .= $example_exam['WRITING'];
+
+            $writing = $test_api->send($WRITING_PROMPT);
 
             $response = json_decode($writing);
-            $response_text = $response->choices[0]->message->content;
+            $response_text = json_decode($response->choices[0]->message->content);
 
-            ($log == true) ? print "Texto de writing generado: " . $response_text . PHP_EOL : null;
-            $exam->writing = $response_text;
+            $exam->writing = $response_text->text;
+            $exam->save();
+
+            ($log == true) ? print "Texto de writing generado: " . $exam->writing . PHP_EOL : null;
 
 
 
