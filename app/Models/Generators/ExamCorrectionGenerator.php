@@ -59,7 +59,7 @@ class ExamCorrectionGenerator extends Model
         foreach ($arr_reading_1 as $read) {
             print "Corrigiendo pregunta " . $idx . "..." . PHP_EOL;
             $PROMPT = "You have to answer JSON FORMAT. You're going to valorate the user answers in an exam, you will correct it. Minimal reasoning.";
-            $PROMPT .= "You're answer in format format will follow this structure 'response' (array) with 'user_failed' (Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because ...')";
+            $PROMPT .= "You're JSON answer follow this structure: 'response' (array) with 'user_failed' (Bool. Value of whether the user's result is incorrect.) and 'valoration'(string: explanation in this format: 'Your choice was [USER CHOICE], the correct answer is [CORRECT CHOICE], because ...')";
             $PROMPT .= "The user will answer a question in relation to a previous text. His/her answer must be minimally elaborated and correct (in relation to the text). If the answer is empty, incorrect or too short, it will be counted as wrong.";
             $PROMPT .= "Before correcting, you will review the text and the user's response to give a correct verdict.";
             $PROMPT .= "\n TEXT: " . $reading_text . " \n";
