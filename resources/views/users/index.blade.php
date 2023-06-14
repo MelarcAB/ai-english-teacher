@@ -27,9 +27,11 @@
                 <div class="mb-4">
                     <label for="openai_model" class="block text-teal-700">Modelo de OpenAI:</label>
                     <select name="openai_model" id="openai_model" class="border rounded px-3 py-2 w-full">
-                        <option value="gpt-3.5-turbo-0301" @if (auth()->user()->openai_model == 'gpt-3.5-turbo-0301') selected @endif>GPT 3.5 Turbo
+                        <option value="gpt-3.5-turbo-16k-0613" @if (auth()->user()->openai_model == 'gpt-3.5-turbo-16k-0613') selected @endif>GPT 3.5
+                            Turbo
                             (-precisión, +velocidad, +barato)</option>
-                        <option value="gpt-4-0314" @if (auth()->user()->openai_model == 'gpt-4-0314') selected @endif>GPT 4 (+precisión,
+
+                        <option value="gpt-4-32k" @if (auth()->user()->openai_model == 'gpt-4-32k') selected @endif>GPT 4 (+precisión,
                             -velocidad, +caro)</option>
                     </select>
                     @error('openai_model')
