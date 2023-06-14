@@ -113,7 +113,7 @@ class ExamGenerator extends Model
             $WRITING_PROMPT = "You have to answer in JSON format following this structure: ";
             $WRITING_PROMPT .= '{"text": YOUR_TEXT} \n';
             $WRITING_PROMPT .= "Where A1 exam = easy, A2 = normal, B1 = hard \n";
-            $WRITING_PROMPT .= "You have to generate a writing exercise for an $level English exam. \n";
+            $WRITING_PROMPT .= "You have to generate a writing exercise (the question) for an $level English exam. \n";
             $WRITING_PROMPT .= "I will show you an example but MAKE A TOTALLY DIFFERENT TEXT based on this, with different plot: \n";
             $WRITING_PROMPT .= $example_exam['WRITING'];
 
