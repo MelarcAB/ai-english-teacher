@@ -30,7 +30,7 @@ class HomeController extends Controller
         $request->validate([
             //nullable
             'openai_token' => 'nullable|min:10|max:100',
-            'openai_model' => 'required|in:gpt-3.5-turbo-0301,gpt-4-0314,gpt-3.5-turbo-16k-0613,gpt-4-32k',
+            'openai_model' => 'required|in:gpt-3.5-turbo-0301,gpt-4-0314,gpt-3.5-turbo-16k-0613,gpt-4-32k,gpt-4-0613',
         ], $validation_msg);
 
         $user = auth()->user();

@@ -31,7 +31,7 @@
                             Turbo
                             (-precisión, +velocidad, +barato)</option>
 
-                        <option value="gpt-4-32k" @if (auth()->user()->openai_model == 'gpt-4-32k') selected @endif>GPT 4 (+precisión,
+                        <option value="gpt-4-0613" @if (auth()->user()->openai_model == 'gpt-4-0613') selected @endif>GPT 4 (+precisión,
                             -velocidad, +caro)</option>
                     </select>
                     @error('openai_model')
