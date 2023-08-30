@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamExamples extends Model
 {
+    private $exam_types = ["A1", "A2", "B1", "B2", "C1", "C2"];
 
     private $exam_examples = [
         "A1" => [
@@ -247,5 +248,33 @@ class ExamExamples extends Model
         }
         //devolver el ejemplo
         return $exam_examples->exam_examples[$level];
+    }
+
+
+    public function getRequisitesExam($level = "A1")
+    {
+        //buscar el level en el array requisites
+        //verificar que el nivel existe
+        if (!array_key_exists($level, $this->exam_requisites)) {
+            return [];
+        }
+        //devolver el ejemplo
+        return $this->exam_requisites[$level];
+    }
+
+    /**
+     * Get the value of exam_requisites
+     */
+    public function getExam_requisites()
+    {
+        return $this->exam_requisites;
+    }
+
+    /**
+     * Get the value of exam_types
+     */
+    public function getExam_types()
+    {
+        return $this->exam_types;
     }
 }

@@ -16,13 +16,103 @@ use App\Models\TestApi;
 use Auth;
 //User
 use App\Models\User;
+//logs
+use Illuminate\Support\Facades\Log;
 
 
 class ExamGenerator extends Model
 {
 
+    private $exam_types = [
+        "A1",
+    ];
 
+
+    /**devolvera un texto de lectura con preguntas
+     *
+     * @param string $level
+     */
+    private function generateReadingText($exam_requisites, TestApi $testApi)
+    {
+        try {
+            $response = "";
+            $READING_PROMTP = "You have to answer in JSON format following this structure:";
+            $READING_PROMTP .= '{"text": YOUR_TEXT}';
+            $READING_PROMTP .= "Now you will generate this JSON with an invented text for an english exam. About 350 words.";
+            $reading = json_decode($testApi->send($READING_PROMTP));
+            $response_text = json_decode($reading->choices[0]->message->content);
+            return $response;
+        } catch (\Exception $e) {
+            print "Error generating reading text: " . $e->getMessage() . PHP_EOL;
+        }
+    }
+
+    /**
+     * Por defecto esta funcion se llamara desde el proceso de generacion de examenes (job en queue)
+     */
     public function generateExam($level, $log = false, $user_id = 0)
+    {
+
+        try {
+
+            Log::info("Generating exam with level: " . $level . " and user_id: " . $user_id);
+            $exam_examples_obj = new ExamExamples();
+            $exam_types = $exam_examples_obj->getExam_types();
+            Log::info("Exam types: " . json_encode($exam_types));
+            //validar el level del examen con el tipo de examen,si no es correcto se generará un examen de A1 para evitar errores
+            if (!in_array($level, $exam_types)) {
+                $level = "A1";
+                Log::info("Level not found, generating exam of level A1");
+            } else {
+                Log::info("Level found, generating exam of level: " . $level);
+            }
+            $exam_requisites = $exam_examples_obj->getRequisitesExam($level);
+
+            //crear el examen
+            Log::info("Creating exam");
+            $exam = new Exam();
+            $exam->level = $level;
+
+            //asignar a un usuario
+            if ($user_id != 0 && User::find($user_id)) {
+                $exam->user_id = $user_id;
+                $user = User::find($exam->user_id);
+                Log::info("User found, assigning exam to user");
+            } else {
+                $user = new User();
+                Log::info("User not found, assigning exam to user 0");
+            }
+
+            //save exam
+            $exam->save();
+            Log::info("Exam saved with id: " . $exam->id . " for user: " . $user->id);
+
+            //iniciar proceso de generacion de examen
+            Log::info("Starting exam generation process");
+            $test_api = new TestApi('');
+            try {
+                //validar si el usuario tiene token y modelo de openai
+                if ($user->openai_token == "" || $user->openai_model == "") {
+                    throw new \Exception("User does not have openai token or model");
+                }
+                $test_api = new TestApi($user->openai_token, $user->openai_model);
+            } catch (\Exception $e) {
+                Log::info("Error creating test_api object: " . $e->getMessage());
+                return false;
+            }
+
+            //READING
+            //Generar texto
+            Log::info("Generating reading text");
+            $reading_text = $this->generateReadingText($exam_requisites, $test_api);
+            $exam->reading = $reading_text;
+            Log::info("Reading text generated: " . $reading_text);
+        } catch (\Exception $e) {
+            print "Error generating exam" . PHP_EOL;
+        }
+    }
+
+    public function generateExamLegacy($level, $log = false, $user_id = 0)
     {
         //si el examen es de nivel A1, B1, C1, etc, se genera un examen de A1
         if ($level == "A1" || $level == "B1" || $level == "C1" || $level == "A2" || $level == "B2" || $level == "C2") {
