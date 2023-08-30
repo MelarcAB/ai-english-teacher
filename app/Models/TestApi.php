@@ -20,11 +20,11 @@ class TestApi extends Model
     private OpenAi $open_ai;
 
     //private $MODEL = "gpt-3.5-turbo";
-    private $MODEL = "gpt-3.5-turbo-0301";
+    private $MODEL = "gpt-3.5-turbo-0613";
     //private $MODEL = "gpt-4-0314";
 
     //constructor
-    public function __construct($api_key, $model = "gpt-3.5-turbo-0301")
+    public function __construct($api_key, $model = "gpt-3.5-turbo-0613")
     {
         $this->open_ai = new OpenAi($api_key);
         $this->MODEL = $model;
@@ -51,7 +51,7 @@ class TestApi extends Model
                         'content' => $prompt
                     ],
                 ],
-                'temperature' => 0.5,
+                'temperature' => 0.8,
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ]);

@@ -20,7 +20,7 @@ class HomeController extends Controller
     //store
     function store(Request $request)
     {
-        //openai_model solo podrá tener dos valores gpt-3.5-turbo-0301 /gpt-4-0314
+        //openai_model solo podrá tener dos valores gpt-3.5-turbo-0613 /gpt-4-0314
         $validation_msg = [
             'openai_token.min' => 'El token de OpenAI debe tener al menos 10 caracteres.',
             'openai_token.max' => 'El token de OpenAI debe tener máximo 100 caracteres.',
@@ -30,7 +30,7 @@ class HomeController extends Controller
         $request->validate([
             //nullable
             'openai_token' => 'nullable|min:10|max:100',
-            'openai_model' => 'required|in:gpt-3.5-turbo-0301,gpt-4-0314,gpt-3.5-turbo-16k-0613,gpt-4-32k,gpt-4-0613',
+            'openai_model' => 'required|in:gpt-3.5-turbo-0613,gpt-4-0314,gpt-3.5-turbo-16k-0613,gpt-4-32k,gpt-4-0613,gpt-4-32k-0613',
         ], $validation_msg);
 
         $user = auth()->user();

@@ -29,7 +29,7 @@ return new class extends Migration
             //openai_token
             $table->string('openai_token')->nullable();
             //openai_model
-            $table->string('openai_model')->default('gpt-3.5-turbo-0301');
+            $table->string('openai_model')->default('gpt-3.5-turbo-0613');
         });
     }
 
