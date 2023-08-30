@@ -15,12 +15,17 @@ class GenerateExam implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * indicar el nombre del trabajo (job) para poder lanzar el siguiente trabajo especifico
+     */
+
     private $tipo_exam;
     private $user_id;
     public function __construct($tipo_exam, $user_id)
     {
         $this->tipo_exam = $tipo_exam;
         $this->user_id = $user_id;
+        $this->queue = 'generate-exams';
     }
 
 

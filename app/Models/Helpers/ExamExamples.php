@@ -167,7 +167,7 @@ class ExamExamples extends Model
             "GAMMAR_QUESTIONS" => "
             The relationship _______________ the two boys has changed significantly over the past few years a) between b) among c) among |
             We’ve been waiting for over half an hour. She’s never _______________ time. a) on b) in c) at |
-            The maths test was a great challenge. It took me _______________ an hour to finish it. a) over b) less than c) a lot 
+            The maths test was a great challenge. It took me _______________ an hour to finish it. a) over b) less than c) a lot
             ",
             "WRITING" => "Your friend Robin from Ireland has sent you this email after her visit to Salamanca.
             • Write a reply to this email.Answer the questions your friend asks you. Email: Hello ,
@@ -208,6 +208,32 @@ class ExamExamples extends Model
             "WRITING" => "",
             "VOCABULARY" => ""
         ],
+
+    ];
+
+
+    private $exam_requisites = [
+        "A1" => "A1 - Principiante.
+        Vocabulario: Básico (números, colores, partes del cuerpo, etc)
+        Gramática: Presente simple
+        Habilidades: Presentarse, preguntas básicas (dónde vives, cuántos años tienes, etc)",
+        "A2" => "A2 - Elemental.
+        Vocabulario: A1 + Familia, trabajo, escuela
+        Gramática: A1 + Pasado simple, Futuro con 'going to'
+        Habilidades: A1 + Expresiones de tiempo y lugar",
+        "B1" => "B1 - Intermedio bajo. Vocabulario: A2 + Viajes, ocio, medios de comunicación
+        Gramática: A2 + Presente continuo, Presente perfecto
+        Habilidades: A2 + Describir experiencias y eventos, planes y aspiraciones",
+        "B2" => "B2 - Intermedio alto:
+        Vocabulario: B1 + Economía, política, medio ambiente, etc.
+        Gramática: B1 + Pasado continuo, Pasado perfecto, Condicional simple y compuesto
+        Habilidades: B1 + Argumentar y discutir en inglés",
+        "C1" => "C1 - Avanzado. Vocabulario: B2 + Avanzado (técnico, académico, etc.)
+        Gramática: B2 + Condicional perfecto, tiempos verbales compuestos más avanzados
+        Habilidades: B2 + Comprensión y producción de textos complejos, significados implícitos",
+        "C2" => "C2 - Dominio. Vocabulario: C1 + Nivel casi nativo
+        Gramática: C1 + Avanzado
+        Habilidades: C1 + Resumir información de diversas fuentes, expresarse espontáneamente, con fluidez y precisión"
 
     ];
 
