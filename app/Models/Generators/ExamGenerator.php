@@ -27,6 +27,54 @@ class ExamGenerator extends Model
         "A1",
     ];
 
+    private function getReadingTrueFalseQuestions($exam_requisites, TestApi $testApi, $reading_text)
+    {
+        try {
+            $READING_TRUE_FALSE_PROMPT = "Vas a generar afirmaciones para la sección de reading de un examen de inglés diseñado para españoles. ";
+            $READING_TRUE_FALSE_PROMPT .= "El examen tiene una dificultad de nivel: $exam_requisites. ";
+            $READING_TRUE_FALSE_PROMPT .= "Por favor, crea 5 afirmaciones que sean verdaderas o falsas y que en relación al texto de reading proporcionado. ";
+            $READING_TRUE_FALSE_PROMPT .= 'Responde en formato JSON con esta estructura: {"sentence_1": YOUR_SENTENCE1, "sentence_2": YOUR_SENTENCE2, "sentence_3": YOUR_SENTENCE3, "sentence_4": YOUR_SENTENCE4, "sentence_5": YOUR_SENTENCE5}. ';
+            $READING_TRUE_FALSE_PROMPT .= "Asegúrate de que las afirmaciones se alineen con el nivel de dificultad del examen. ";
+            $READING_TRUE_FALSE_PROMPT .= "TEXTO: \"$reading_text\".";
+
+            $sentences = json_decode($testApi->send($READING_TRUE_FALSE_PROMPT));
+
+
+            $response = $sentences->choices[0]->message->content;
+            Log::info("Reading true false questions generated: " . $response);
+
+            $start = strpos($response, "{");
+            $end = strrpos($response, "}");
+
+            if ($start !== false && $end !== false) {
+                $response = substr($response, $start, $end - $start + 1);
+            }
+
+            $responseJson = json_decode($response);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                Log::error("JSON decode error: " . json_last_error_msg());
+                return;
+            }
+
+            Log::info("Reading true false questions JSON generated: " . json_encode($responseJson));
+
+            //convertir en array y devolver
+            $sentences = [
+                $responseJson->sentence_1,
+                $responseJson->sentence_2,
+                $responseJson->sentence_3,
+                $responseJson->sentence_4,
+                $responseJson->sentence_5,
+            ];
+
+            return ($sentences);
+        } catch (\Exception $e) {
+            Log::info("Error getting reading true false questions: " . $e->getMessage());
+            print "Error getting reading true false questions: " . $e->getMessage() . PHP_EOL;
+        }
+    }
+
     private function getReadingTextQuestions($exam_requisites, TestApi $testApi, $reading_text)
     {
         try {
@@ -83,12 +131,12 @@ class ExamGenerator extends Model
                     $response = substr($response, $start, $end - $start + 1);
                 }
 
-                Log::info("Reading text generated: " . $response);
+                //  Log::info("Reading text generated: " . $response);
 
                 $responseJson = json_decode($response);
 
                 if (json_last_error() == JSON_ERROR_NONE) {
-                    Log::info("Reading text JSON generated: ", ['response' => $responseJson]);
+                    // Log::info("Reading text JSON generated: ", ['response' => $responseJson]);
                     print_r($responseJson); // Utiliza print_r para imprimir objetos
                     print PHP_EOL;
                     print gettype($responseJson) . PHP_EOL;
@@ -106,7 +154,8 @@ class ExamGenerator extends Model
                 return $responseText;
             } else {
                 Log::info("Failed to generate a valid reading text after multiple attempts.");
-                throw new \Exception("Failed to generate a valid reading text");
+                $jsonIsValid = false;
+                //throw new \Exception("Failed to generate a valid reading text");
             }
         } catch (\Exception $e) {
             Log::info("Error generating reading text: " . $e->getMessage());
@@ -173,8 +222,18 @@ class ExamGenerator extends Model
             $exam->reading_question_3 = $reading_text_questions[2];
             // $exam->reading_question_4 = $reading_text_questions[3];
             // $exam->reading_question_5 = $reading_text_questions[4];
-
             $exam->save();
+
+            Log::info("Generating reading true false questions");
+            $reading_true_false_questions = $this->getReadingTrueFalseQuestions($exam_requisites, $test_api, $reading_text);
+            $exam->reading_true_false_1 = $reading_true_false_questions[0];
+            $exam->reading_true_false_2 = $reading_true_false_questions[1];
+            $exam->reading_true_false_3 = $reading_true_false_questions[2];
+            $exam->reading_true_false_4 = $reading_true_false_questions[3];
+            $exam->reading_true_false_5 = $reading_true_false_questions[4];
+            $exam->save();
+
+
             Log::info("------------- END READING --------------");
         } catch (\Exception $e) {
             Log::info("Error generating exam: " . $e->getMessage());
