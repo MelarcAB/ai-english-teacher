@@ -31,12 +31,25 @@ class ExamGenerator extends Model
     {
         try {
             $response = "";
-            $READING_PROMTP = "Vas a generar un texto para el reading de un examen de inglés para españoles. Responde en formato JSON con la siguiente estructura:";
-            $READING_PROMTP .= '{"text": YOUR_TEXT}';
-            $READING_PROMTP .= " donde YOUR_TEXT es el texto que vas a generar (en ingles). SIN LAS PREGUNTAS, SOLO TEXTO. Caracteristicas de dificultad:  ";
-            $READING_PROMTP .= $exam_requisites;
-            $reading = json_decode($testApi->send($READING_PROMTP));
-            $response = ($reading->choices[0]->message->content);
+            $READING_PROMPT_QUESTIONS = "Vas a generar preguntas para la sección de reading de un examen de inglés diseñado para españoles. ";
+            $READING_PROMPT_QUESTIONS .= "El examen tiene una dificultad de nivel: $exam_requisites. ";
+            $READING_PROMPT_QUESTIONS .= "Por favor, genera 5 preguntas que se alineen con la dificultad del examen y que estén basadas en el siguiente texto de reading y en ingles: \"$reading_text\". ";
+            $READING_PROMPT_QUESTIONS .= 'Responde en formato JSON con la estructura: {"sentence_1": YOUR_QUESTION_IN_ENGLISH1, "sentence_2": YOUR_QUESTION_IN_ENGLISH2, "sentence_3": YOUR_QUESTION_IN_ENGLISH3}.';
+            //  $reading = json_decode($testApi->send($READING_PROMPT_QUESTIONS));
+            // $response = ($reading->choices[0]->message->content);
+
+            $reading = json_decode($testApi->send($READING_PROMPT_QUESTIONS));
+            $response = json_decode($reading->choices[0]->message->content);
+
+            $sentences = [
+                $response->sentence_1,
+                $response->sentence_2,
+                $response->sentence_3,
+                //  $response->sentence_4,
+                //  $response->sentence_5,
+            ];
+            Log::info("Reading text questions generated: " . json_encode($sentences));
+            return ($sentences);
         } catch (\Exception $e) {
             Log::info("Error getting reading text questions: " . $e->getMessage());
             print "Error getting reading text questions: " . $e->getMessage() . PHP_EOL;
@@ -50,52 +63,56 @@ class ExamGenerator extends Model
     private function generateReadingText($exam_requisites, TestApi $testApi)
     {
         try {
-            $response = "";
-            $READING_PROMTP = "Vas a generar un texto para el reading de un examen de inglés para españoles. Responde en formato JSON con la siguiente estructura:";
-            $READING_PROMTP .= '{"text": YOUR_TEXT}';
-            $READING_PROMTP .= " donde YOUR_TEXT es el texto que vas a generar (en ingles). SIN LAS PREGUNTAS, SOLO TEXTO. Caracteristicas de dificultad:  ";
-            $READING_PROMTP .= $exam_requisites;
-            $reading = json_decode($testApi->send($READING_PROMTP));
-            $response = ($reading->choices[0]->message->content);
+            $READING_PROMPT = "Vas a generar un texto para la sección de reading de un examen de inglés diseñado para españoles. ";
+            $READING_PROMPT .= "El examen está dirigido a estudiantes con nivel $exam_requisites. ";
+            $READING_PROMPT .= "Por favor, crea un texto narrativo de 350 palabras en INGLÉS que cumpla con los siguientes requisitos: ";
+            $READING_PROMPT .= $exam_requisites;
+            $READING_PROMPT .= "No incluyas preguntas en el texto en inglés. ";
+            $READING_PROMPT .= "El texto deberá ser devuelto en formato JSON con la estructura: {'text': YOUR_TEXT_IN_ENGLISH}. Asegúrate de escapar correctamente todos los caracteres especiales, ya que este JSON será procesado como string.";
+            $attemptCount = 0;
+            $jsonIsValid = false;
+            $responseText = "";
 
-            Log::info("Reading text generated: " . $response);
+            while (!$jsonIsValid && $attemptCount < 5) {
+                $reading = json_decode($testApi->send($READING_PROMPT), true);
+                $response = $reading['choices'][0]['message']['content'];
+                $start = strpos($response, "{");
+                $end = strrpos($response, "}");
 
-            //validar si es un json, si no lo es, remover el texto hasta encontrar el primer {.
-            //Despues de eso, remover todo lo que este despues del ultimo }
-            //despues se vuelve a validar, si falla, se regenera
+                if ($start !== false && $end !== false) {
+                    $response = substr($response, $start, $end - $start + 1);
+                }
 
-            $response = json_decode($response);
-            if ($response == null) {
-                Log::info("Reading text generated is not a json, trying to clean it");
-                //remover texto hasta encontrar el primer {
-                $response = substr($response, strpos($response, "{"));
-                //remover todo lo que este despues del ultimo }
-                $response = substr($response, 0, strrpos($response, "}") + 1);
-                //validar si es un json
-                $response = json_decode($response);
-                if ($response == null) {
-                    Log::info("Reading text generated and cleaned is not a json, trying to clean it again");
-                    while ($response == null) {
-                        $reading = json_decode($testApi->send($READING_PROMTP));
-                        $response_aux = ($reading->choices[0]->message->content);
-                        //remover texto hasta encontrar el primer {
-                        $response_aux = substr($response, strpos($response, "{"));
-                        //remover todo lo que este despues del ultimo }
-                        $response_aux = substr($response, 0, strrpos($response, "}") + 1);
-                        //validar si es un json
-                        $response = json_decode($response);
-                    }
+                Log::info("Reading text generated: " . $response);
+
+                $responseJson = json_decode($response);
+
+                if (json_last_error() == JSON_ERROR_NONE) {
+                    Log::info("Reading text JSON generated: ", ['response' => $responseJson]);
+                    print_r($responseJson); // Utiliza print_r para imprimir objetos
+                    print PHP_EOL;
+                    print gettype($responseJson) . PHP_EOL;
+                    $jsonIsValid = true;
+                    $responseText = $responseJson->text; // Suponiendo que quieres el campo 'text'
+                } else {
+                    Log::info("JSON decode error: " . json_last_error_msg());
+                    $attemptCount++;
                 }
             }
 
-            Log::info("Reading text generated: " . $response->text);
-            return $response->text;
+
+            if ($jsonIsValid) {
+                Log::info("Valid reading text generated.");
+                return $responseText;
+            } else {
+                Log::info("Failed to generate a valid reading text after multiple attempts.");
+                throw new \Exception("Failed to generate a valid reading text");
+            }
         } catch (\Exception $e) {
             Log::info("Error generating reading text: " . $e->getMessage());
             print "Error generating reading text: " . $e->getMessage() . PHP_EOL;
         }
     }
-
     /**
      * Por defecto esta funcion se llamara desde el proceso de generacion de examenes (job en queue)
      */
@@ -103,22 +120,21 @@ class ExamGenerator extends Model
     {
 
         try {
-
             Log::info("Generating exam with level: " . $level . " and user_id: " . $user_id);
             $exam_examples_obj = new ExamExamples();
             $exam_types = $exam_examples_obj->getExam_types();
-            Log::info("Exam types: " . json_encode($exam_types));
+            //   Log::info("Exam types: " . json_encode($exam_types));
             //validar el level del examen con el tipo de examen,si no es correcto se generará un examen de A1 para evitar errores
             if (!in_array($level, $exam_types)) {
                 $level = "A1";
-                Log::info("Level not found, generating exam of level A1");
+                //   Log::info("Level not found, generating exam of level A1");
             } else {
-                Log::info("Level found, generating exam of level: " . $level);
+                // Log::info("Level found, generating exam of level: " . $level);
             }
             $exam_requisites = $exam_examples_obj->getRequisitesExam($level);
 
             //crear el examen
-            Log::info("Creating exam");
+            //   Log::info("Creating exam");
             $exam = new Exam();
             $exam->level = $level;
 
@@ -126,10 +142,10 @@ class ExamGenerator extends Model
             if ($user_id != 0 && User::find($user_id)) {
                 $exam->user_id = $user_id;
                 $user = User::find($exam->user_id);
-                Log::info("User found, assigning exam to user");
+                //       Log::info("User found, assigning exam to user");
             } else {
                 $user = new User();
-                Log::info("User not found, assigning exam to user 0");
+                //     Log::info("User not found, assigning exam to user 0");
             }
 
             //save exam
@@ -137,7 +153,7 @@ class ExamGenerator extends Model
             Log::info("Exam saved with id: " . $exam->id . " for user: " . $user->id);
 
             //iniciar proceso de generacion de examen
-            Log::info("Starting exam generation process");
+            //    Log::info("Starting exam generation process");
             $test_api = new TestApi($user->openai_token, $user->openai_model);
 
             //READING
@@ -145,12 +161,21 @@ class ExamGenerator extends Model
             Log::info("Generating reading text");
             $reading_text = $this->generateReadingText($exam_requisites, $test_api);
             $exam->reading = $reading_text;
-
-            $reading_text_questions = $this->getReadingTextQuestions($exam_requisites, $test_api, $reading_text);
-            //guardar
             $exam->save();
 
-            Log::info("Reading text generated: " . $reading_text);
+            //   Log::info("Reading text generated: " . $reading_text);
+            Log::info("Generating reading text questions");
+            $reading_text_questions = $this->getReadingTextQuestions($exam_requisites, $test_api, $reading_text);
+            Log::info("Reading text questions generated: " . json_encode($reading_text_questions));
+            //guardar
+            $exam->reading_question_1 = $reading_text_questions[0];
+            $exam->reading_question_2 = $reading_text_questions[1];
+            $exam->reading_question_3 = $reading_text_questions[2];
+            // $exam->reading_question_4 = $reading_text_questions[3];
+            // $exam->reading_question_5 = $reading_text_questions[4];
+
+            $exam->save();
+            Log::info("------------- END READING --------------");
         } catch (\Exception $e) {
             Log::info("Error generating exam: " . $e->getMessage());
             print "Error generating exam" . PHP_EOL;
